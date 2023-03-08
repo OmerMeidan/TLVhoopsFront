@@ -1,7 +1,7 @@
-import React from "react";
+import React,{useEffect,useContext} from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import axios from "axios";
 import ViewProfile from "../assets/screens/ViewProfile";
 import PostAGame from "../assets/screens/PostAGame";
 import About from "../assets/screens/About";
@@ -10,10 +10,38 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "../assets/components/CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import TabNavigator from "./TabNavigator";
-
+import { AuthContext } from '../context/AuthContext';
 const Drawer = createDrawerNavigator();
 
+
 const AppStack = () => {
+  const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,setCommunityGamesArr  } = useContext(AuthContext);
+  useEffect(() => {
+    //final result - 2 arrays that have all of the community and premium games inside.
+    const GetAllGames = async () =>{
+      try{
+        const response = await axios.post('https://tlv-hoops-server.onrender.com/gameList',{})
+        if(response.data){
+          console.log(response.data)
+          for(let i =0;i<response.data.length;i++){
+            if(response.data[i].tlvpremium){
+              setPremiumGamesArr([...PremiumGamesArr,response.data[i]])
+            }
+            else{
+              setCommunityGamesArr([...CommunityGamesArr,response.data[i]])
+            }
+          }
+        }
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+    GetAllGames()
+  }, [])
+
+  console.log(PremiumGamesArr&&PremiumGamesArr);
+  console.log(CommunityGamesArr&&CommunityGamesArr);
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} drawer screenOptions={{
       drawerLabelStyle: { marginLeft: -25, fontSize: 15, },

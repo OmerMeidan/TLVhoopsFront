@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Text, View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Carousel from "react-native-snap-carousel";
@@ -10,7 +10,11 @@ import GamesList from "../components/GamesList";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from '../../context/AuthContext';
+
+import axios from 'axios'
 const HomeScreen = () => {
+  const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,setCommunityGamesArr  } = useContext(AuthContext);
   const navigation = useNavigation()
   const [gamesTab, setGamesTab] = useState(1);
 
@@ -21,10 +25,25 @@ const HomeScreen = () => {
   const onSelectSwitch = (value) => {
     setGamesTab(value);
   };
+// [{"__v": 2,
+// "_id": "64071627f97c9af6908db333",
+//  "ageMax": 25,
+//   "ageMin": 16,
+//    "approved": false,
+//     "createdByUser": "0532211390omar",
+//      "date": 31122023,
+//       "endTime": 2359,
+//       "gameID": "31122023/300/HaHilazon3/1",
+//        "level": "Intermediate",
+//         "locationID": "HaHilazon3/1",
+//          "maximumPlayers": 10,
+//           "participants": [[Object], [Object]],
+//            "price": 0, 
+//            "startTime": 300,
+//             "tlvpremium": false}]
+useEffect(()=>{
 
-  useEffect(() => {
-
-  }, [])
+},[CommunityGamesArr,PremiumGamesArr])
   return (
     <SafeAreaView style={styles.SafeAreaViewStyle} >
       <ScrollView style={styles.ScrollViewStyle}>
@@ -58,10 +77,10 @@ const HomeScreen = () => {
           />
         </View>
         {gamesTab == 1 &&
-          CommunityGames.map((game) => (
+          CommunityGamesArr.map((game,i) => (
             <GamesList
-              key={game.id}
-              location={game.location}
+              key={i}
+              location={game.locationID}
               date={game.date}
               startTime={game.startTime}
               endTime={game.endTime}
@@ -69,10 +88,10 @@ const HomeScreen = () => {
             />
           ))}
         {gamesTab == 2 &&
-          PremiumGames.map((game) => (
+          PremiumGamesArr.map((game,i) => (
             <GamesList
-              key={game.id}
-              location={game.location}
+              key={i}
+              location={game.locationId}
               date={game.date}
               startTime={game.startTime}
               endTime={game.endTime}
