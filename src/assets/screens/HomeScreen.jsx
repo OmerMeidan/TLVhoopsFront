@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Carousel from "react-native-snap-carousel";
@@ -8,8 +8,10 @@ import { windowWidth } from "../utilis/Dimensions";
 import TypeOfGamesSwitch from "../components/TypeOfGamesSwitch";
 import GamesList from "../components/GamesList";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
-const HomeScreen = ({ navigation }) => {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+const HomeScreen = () => {
+  const navigation = useNavigation()
   const [gamesTab, setGamesTab] = useState(1);
 
   const renderBanner = ({ item, index }) => {
@@ -19,8 +21,12 @@ const HomeScreen = ({ navigation }) => {
   const onSelectSwitch = (value) => {
     setGamesTab(value);
   };
+
+  useEffect(() => {
+
+  }, [])
   return (
-    <SafeAreaView style={styles.SafeAreaViewStyle}>
+    <SafeAreaView style={styles.SafeAreaViewStyle} >
       <ScrollView style={styles.ScrollViewStyle}>
         <View style={styles.TopView}>
           <Text style={styles.HelloUserStyle}>Hello User.FirstName</Text>
@@ -59,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
               date={game.date}
               startTime={game.startTime}
               endTime={game.endTime}
-              onPress={() => navigation.navigate('GamesDetails', { location: game.location, date: game.date, startTime: game.startTime, endTime: game.endTime })}
+              onPress={() => navigation.navigate('CommunityGameDetails', { location: game.location, date: game.date, startTime: game.startTime, endTime: game.endTime })}
             />
           ))}
         {gamesTab == 2 &&
@@ -70,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
               date={game.date}
               startTime={game.startTime}
               endTime={game.endTime}
-              onPress={() => navigation.navigate('GamesDetails', { location: game.location, date: game.date, startTime: game.startTime, endTime: game.endTime })}
+              onPress={() => navigation.navigate('PremiumGameDetails', { location: game.location, date: game.date, startTime: game.startTime, endTime: game.endTime })}
             />
           ))}
       </ScrollView>

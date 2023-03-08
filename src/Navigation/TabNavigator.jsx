@@ -8,14 +8,14 @@ import Feather from 'react-native-vector-icons/Feather';
 import HomeScreen from "../assets/screens/HomeScreen";
 import PostAGame from "../assets/screens/PostAGame";
 import MyGames from "../assets/screens/MyGames";
-import GamesDetails from "../assets/screens/GameDetails";
+import GamesDetails from "../assets/screens/PremiumGameDetails";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false }}>
             <Stack.Screen component={HomeScreen} name="HomeScreen" />
             <Stack.Screen component={GamesDetails} name="GamesDetails" />
         </Stack.Navigator>

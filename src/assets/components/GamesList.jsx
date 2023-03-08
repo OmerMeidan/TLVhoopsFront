@@ -2,8 +2,12 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { windowWidth } from "../utilis/Dimensions";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
+import PremiumGameDetails from "../screens/PremiumGameDetails";
 
 const GamesList = ({ location, date, startTime, endTime, onPress }) => {
+
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -38,7 +42,7 @@ const GamesList = ({ location, date, startTime, endTime, onPress }) => {
       </View>
 
       <TouchableOpacity
-      onPress={onPress}
+        onPress={onPress}
         style={{
           backgroundColor: "#3A98B9",
           padding: 10,
@@ -46,7 +50,8 @@ const GamesList = ({ location, date, startTime, endTime, onPress }) => {
           borderRadius: 10,
         }}
       >
-        <Text
+        <Text 
+        
           style={{
             color: "#fff",
             textAlign: "center",

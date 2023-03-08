@@ -1,13 +1,26 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { View, Text, Image } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AuthContext } from '../../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 const CustomDrawer = (props) => {
-    const { handleLogout } = useContext(AuthContext)
+    const navigation = useNavigation();
+
+
+    const handleLogOut = () => {
+        console.log('log out')
+        AsyncStorage.removeItem('token')
+        navigation.navigate('OnBoarding');
+    }
+
+
+
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
@@ -18,7 +31,7 @@ const CustomDrawer = (props) => {
                 </View>
             </DrawerContentScrollView>
             <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-                <TouchableOpacity onPress={() => { handleLogout() }} style={{ paddingVertical: 15 }}>
+                <TouchableOpacity onPress={() => { handleLogOut() }} style={{ paddingVertical: 15 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Ionicons name="log-out-outline" size={22} />
                         <Text

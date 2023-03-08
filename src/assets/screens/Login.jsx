@@ -16,9 +16,10 @@ import { Tab, Text, TabView, } from '@rneui/themed';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../context/AuthContext';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import colors from './colors'
-function Login({ navigation }) {
-  const { handleLogIn } = useContext(AuthContext);
+function Login() {
+  const { setToken, token } = useContext(AuthContext);
 
   //login inputs
   const [email, setEmail] = useState(null)
@@ -41,7 +42,34 @@ function Login({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
   const [def, setDefault] = useState('')
   const [index, setIndex] = useState(0)
-  // const navigation = useNavigation()
+
+  const navigation = useNavigation()
+
+
+  const handleLogIn = async () => {
+    try {
+      const lowerEmail = email.toLowerCase()
+      const res = await axios.post('https://tlv-hoops-server.onrender.com/login', {
+        lowerLoginEmail: lowerEmail,
+        loginPass: password
+      })
+      if (res.data) {
+        setToken(res.data.token)
+        await AsyncStorage.setItem('token', token);
+        if(AsyncStorage.getItem('token')){
+          Alert.alert("Welcome!", "You just loged in!", [{ text: 'ok', onPress: () => console.log("ok") }])
+          navigation.navigate('AppStack')
+          
+        }
+        console.log(res.data.token)
+      }
+    }
+    catch (error) {
+      Alert.alert("User doesn't exist!")
+      console.log(error)
+    }
+  }
+
 
 
   useEffect(() => {
@@ -139,7 +167,7 @@ function Login({ navigation }) {
             </SafeAreaView>
             <SafeAreaView style={styles.LoginPage}>
               <TextInput placeholder='email' onChangeText={(value) => setEmail(value)} style={styles.textInput} />
-              <TextInput placeholder='password' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
+              <TextInput placeholder='password' autoCapitalize='none' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
               <Button title='Log in' onPress={() => { handleLogIn() }} />
               <Button title="To NavBar" onPress={() => navigation.navigate("NavBar")} />
             </SafeAreaView>

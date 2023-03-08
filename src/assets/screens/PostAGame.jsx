@@ -1,114 +1,264 @@
-import React, { useState } from "react";
-import { Text, View, SafeAreaView, TextInput, Button, StyleSheet } from "react-native";
-import { } from 'react-native-dropdown-picker'
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  ImageBackground,
+  Image,
+  Animated,
+  SafeAreaView,
+  Button,
+  Alert,
+  Platform,
+  TouchableOpacity,
+  ScrollView
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Tab, TabView, Text } from '@rneui/themed';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import LottieView from 'lottie-react-native';
-
-const PostAGame = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [def, setDefault] = useState('')
-
-  const [gameLocation, setGameLocation] = useState('')
-  const [gameAddress, setGameAddress] = useState('')
-  const [gameDate, setGameDate] = useState('')
-  const [gameStartTime, setGameStartTime] = useState('')
-  const [gamesEndTime, setGamesEndTime] = useState('')
-  const [playersAmount, setPlayersAmount] = useState('')
-  const [gameLevel, setGameLevel] = useState('')
-  const [gameAge, setGameAge] = useState('')
-  const [hostPhone, setHostPhone] = useState('')
+import DropDownPicker from 'react-native-dropdown-picker';
+import axios from 'axios'
+import colors from '../../colors';
+function PostAGame() {
+  const [open, setOpen] = useState(false);
+  const [items, setItems] = useState([
+    { label: 'Beginner', value: 'Beginner' },
+    { label: 'Mid-Level', value: 'Mid-Level' },
+    { label: 'Pro', value: 'Pro' }
+  ]);
+  const [openLocation, setOpenLocations] = useState(false)
+  const [LocationsArr, setLocationsArr] = useState([
+    { label: 'Tlv1', value: 'Tlv1' },
+    { label: 'Tlv2', value: 'Tlv2' },
+    { label: 'Tlv3', value: 'Tlv3' },
+  ])
+  const navigation = useNavigation()
+  const [Date, setDate] = useState('')
+  const [StartTime, setStartTime] = useState('')
+  const [EndTime, setEndTime] = useState('')
+  //input default values
+  const [DateValue, setDateValue] = useState('')
+  const [StartValue, setStartValue] = useState('')
+  const [EndValue, setEndValue] = useState('')
+  //
+  const [MinimumAge, setMinimumAge] = useState('')
+  const [MaximumAge, setMaximumAge] = useState('')
+  const [Level, setLevel] = useState('')
+  const [MaximumPlayers, setMaximumPlayers] = useState('')
+  const [Price, setPrice] = useState('')
+  const [Location, setLocation] = useState('')
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(false);
+  const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
+  //Creating new game
+  const handleCreateGame = async () => {
+    try {
+      const res = await axios.post('', {
+        date: Date,
+        startTime: StartTime,
+        endTime: EndTime,
+        //createdByUser:token,
+        ageMin: MinimumAge,
+        ageMax: MaximumAge,
+        level: Level, //select
+        //tlvPremium:true/false,
+        price: Price, //price per person or per the rent
+        locationID: Location, //select 
+        //maximum players
+
+      })
+      if (res.status === 200) {
+        Alert.alert("Game Created Successfully")
+      }
+    }
+    catch (error) {
+      if (error.response.status === 403) {
+        Alert.alert("Cannot Create This Game", "please try again!", [
+          {
+            text: 'try again',
+            onPress: () => console.log('user wants to try again')
+          },
+          {
+            text: 'return to home page',
+            onPress: () => console.log('user wants to return to home page')
+          }])
+      }
+      console.log(error)
+
+    }
+  }
+
+
+  //handle date input
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
 
   const handleConfirm = (date) => {
     // Convert the date to a string
     const dateString = date.toISOString();
     console.log(dateString);
-  }
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
+
+    // Extract the year, month, and day values from the date string
+    const [year, month, day] = dateString.split('T')[0].split('-');
+    console.log(year);
+    console.log(month);
+    console.log(day);
+
+    // Set the state variables for year, month, and day
+    setDate(day + month + year)
+    setDateValue(day + "/" + month + "/" + year)
+    hideDatePicker();
   };
 
-  const handlePostAGame = async () => {
-    try {
-      const res = await axios.post('https://tlv-hoops-server.onrender.com/postagame', {
-        gameLocation: gameLocation,
-        gameAddress: gameAddress,
-        gameDate: gameDate,
-        gameStartTime: gameStartTime,
-        gamesEndTime: gamesEndTime,
-        playersAmount: playersAmount,
-        gameLevel: gameLevel,
-        gameAge: gameAge,
-        hostPhone: hostPhone
-      });
-      if (res.status === 200) {
-        console.log(res.data);
-        setDefault("");
-        Alert.alert("Congrats!", "You Just Posted A Game!", [{ text: 'OK', onPress: () => setDefault("") }]);
-      }
-
-    } catch (error) {
-      if (error.response) {
-        switch (error.response.status) {
-          default:
-            Alert.alert("An error occurred while trying to post a game. Please try again later.");
-        }
-      }
+  //handle start time input
+  const showStartTimePicker = () => {
+    setStartTimePickerVisibility(true)
+  };
+  const hideStartTimePicker = () => {
+    console.log(StartTime)
+    setStartTimePickerVisibility(false);
+  };
+  const handleConfirmStartTime = (time) => {
+    setStartValue(time.toISOString().substr(11, 5))
+    const timeString = time.toISOString().substr(11, 5).replace(':', '')
+    const UpdateHour = parseInt(timeString.slice(0, 2)) + 2
+    const StringUpdateHour = '' + UpdateHour
+    const FinalTime = StringUpdateHour + timeString.slice(2, 4)
+    setStartTime(FinalTime);
+    if (FinalTime.length === 4) {
+      const val = FinalTime.slice(0, 2) + ":" + FinalTime.slice(2);
+      setStartValue(val)
     }
+    else if (FinalTime.length === 3) {
+      const val = FinalTime.slice(0, 1) + ":" + FinalTime.slice(1, 3);
+      setStartValue(val)
+    }
+    hideStartTimePicker();
   }
-
-
+  //handle end time input
+  const showEndTimePicker = () => {
+    setEndTimePickerVisibility(true)
+  };
+  const hideEndTimePicker = () => {
+    console.log(EndTime)
+    setEndTimePickerVisibility(false);
+  };
+  const handleConfirmEndTime = (time) => {
+    setEndValue(time.toISOString().substr(11, 5))
+    const timeString = time.toISOString().substr(11, 5).replace(':', '')
+    const UpdateHour = parseInt(timeString.slice(0, 2)) + 2
+    const StringUpdateHour = '' + UpdateHour
+    const FinalTime = StringUpdateHour + timeString.slice(2, 4)
+    setEndTime(FinalTime);
+    if (FinalTime.length === 4) {
+      const val = FinalTime.slice(0, 2) + ":" + FinalTime.slice(2);
+      setEndValue(val)
+    }
+    else if (FinalTime.length === 3) {
+      const val = FinalTime.slice(0, 1) + ":" + FinalTime.slice(1, 3);
+      setEndValue(val)
+    }
+    hideEndTimePicker();
+  }
+  console.log(Level)
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <SafeAreaView style={{ height: '100%', width: '100%', backgroundColor: 'white' }}>
+      <ScrollView>
+        <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '8%', flex: 1 }}>
+          <Text h2 >Create a New Game</Text>
+          <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '15%' }}>
+            <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput} />
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="date"
+              onConfirm={handleConfirm}
+              onCancel={hideDatePicker}
+            />
+            <TextInput defaultValue={`${StartValue}`} onPressIn={() => showStartTimePicker()} placeholder='Start Time' style={styles.textInput} />
+            <DateTimePickerModal
+              is24Hour={true}
+              isVisible={isStartTimePickerVisible}
+              mode="time"
+              onConfirm={handleConfirmStartTime}
+              onCancel={hideStartTimePicker}
+            />
+            <TextInput defaultValue={`${EndValue}`} onPressIn={() => showEndTimePicker()} placeholder='End Time' style={styles.textInput} />
+            <DateTimePickerModal
+              is24Hour={true}
+              isVisible={isEndTimePickerVisible}
+              mode="time"
+              onConfirm={handleConfirmEndTime}
+              onCancel={hideEndTimePicker}
+            />
+            <TextInput placeholder='Minimum Age' style={styles.textInput} />
+            <TextInput placeholder='Maximum Age' style={styles.textInput} />
+            <DropDownPicker
+              placeholder='select level'
+              open={open}
+              value={Level}
+              items={items}
+              setOpen={setOpen}
+              setValue={setLevel}
+              setItems={setItems}
+              style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, width: '50%', marginBottom: '5%', marginLeft: '25%' }}
+            />
 
-      <SafeAreaView style={styles.PostAGamePage}>
-        <SafeAreaView style={{ marginTop: '4%', justifyContent: 'flex-start', marginBottom: '8%' }}>
-          <Text style={{ color: '#3A98B9', fontSize: 40 }}>Post Your Game</Text>
-          <Text>Here you can post your game, and other players from the community can join you!</Text>
-        </SafeAreaView>
-        <TextInput defaultValue={`${def}`} placeholder='location' onChangeText={(value) => setGameLocation(value)} style={styles.textInput} />
-        <TextInput defaultValue={`${def}`} placeholder='address' onChangeText={(value) => setGameAddress(value)} style={styles.textInput} />
-        {/* <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          maximumDate={new Date(2006, 11, 31)}
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-        />
-        <TextInput onPressIn={() => showDatePicker()} defaultValue={`${DateValue}`} placeholder='Date' onChangeText={(value) => setGameDate(value)} style={styles.textInput} /> */}
-        <TextInput defaultValue={`${def}`} placeholder='start time' onChangeText={(value) => setGameStartTime(value)} style={styles.textInput} />
-        <TextInput defaultValue={`${def}`} placeholder='end time' onChangeText={(value) => setGamesEndTime(value)} style={styles.textInput} />
 
+            <TextInput placeholder='Maximum Players' style={styles.textInput} />
 
-        <TextInput defaultValue={`${def}`} placeholder='how many players already in?' onChangeText={(value) => setPlayersAmount(value)} style={styles.textInput} />
-        <TextInput defaultValue={`${def}`} placeholder='level' onChangeText={(value) => setGameLevel(value)} style={styles.textInput} />
-        <TextInput defaultValue={`${def}`} placeholder='age' onChangeText={(value) => setGameAge(value)} style={styles.textInput} />
-        <TextInput defaultValue={`${def}`} placeholder='Host Phone Number' onChangeText={(value) => setHostPhone(value)} style={styles.textInput} />
-        <Button title='Post Now!' onPress={() => handlePostAGame()} />
-      </SafeAreaView>
-
-
-    </View>
+            <TextInput placeholder='Price' style={styles.textInput} />
+            <DropDownPicker
+              placeholder='select level'
+              open={openLocation}
+              value={Location}
+              items={LocationsArr}
+              setOpen={setOpenLocations}
+              setValue={setLocation}
+              setItems={setLocationsArr}
+              style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, width: '50%', marginBottom: '5%', marginLeft: '25%' }}
+            />
+          </View>
+        </View>
+        <TouchableOpacity style={styles.CreateButton} onPress={() => handleCreateGame()}>
+          <Text h4 h4Style={{ color: 'white' }}>Create</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
+
   textInput: {
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
     padding: 10,
-    width: '50%'
+    width: '50%',
+    marginBottom: '5%'
   },
-  PostAGamePage: {
-    flex: 1,
+  selector: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    width: '50%',
+    height: '10%',
+    marginBottom: '5%'
+  },
+  CreateButton: {
     width: '100%',
+    height: '1%',
+    backgroundColor: colors.primary,
+    flex: 0.1,
     justifyContent: 'center',
-    alignItems: 'center',
-    gap: Platform.OS === 'android' ? false : '20%'
+    alignItems: 'center'
   }
 })
-
-
 export default PostAGame;
