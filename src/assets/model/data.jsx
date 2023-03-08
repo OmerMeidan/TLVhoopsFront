@@ -1,15 +1,15 @@
 export const sliderData = [
   {
     title: "First Game",
-    image: require("/Users/roygutter/Desktop/Full-Stuck/projects/ReactNativeApp/RoysPart/src/assets/images/sliderData1.jpeg"),
+    image: require("../images/sliderData1.jpeg"),
   },
   {
     title: "Seacond Game",
-    image: require("/Users/roygutter/Desktop/Full-Stuck/projects/ReactNativeApp/RoysPart/src/assets/images/sliderData2.webp"),
+    image: require("../images/sliderData2.webp"),
   },
   {
     title: "Third Game",
-    image: require("/Users/roygutter/Desktop/Full-Stuck/projects/ReactNativeApp/RoysPart/src/assets/images/sliderData3.jpeg"),
+    image: require("../images/sliderData3.jpeg"),
   },
 ];
 
