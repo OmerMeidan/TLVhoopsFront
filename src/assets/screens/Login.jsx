@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet,
@@ -15,12 +15,14 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Tab, Text, TabView, } from '@rneui/themed';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../context/AuthContext';
 // import colors from './colors'
-function Login() {
+function Login({ navigation }) {
+  const { handleLogIn } = useContext(AuthContext);
 
   //login inputs
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState(null)
+  const [password, setPassword] = useState(null)
 
   //sign up inputs
   const [registerEmail, setRegisterEmail] = useState('')
@@ -39,13 +41,16 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [def, setDefault] = useState('')
   const [index, setIndex] = useState(0)
-  const navigation = useNavigation()
-  const [token, setToken] = useState('')
+  // const navigation = useNavigation()
+
 
   useEffect(() => {
     if (index == 1) setTimeout(() => { setIsLoading(true) }, 650)
     else setIsLoading(false)
   }, [index]);
+
+
+
 
   //signup checking
   const handleSignUp = async () => {
@@ -90,25 +95,6 @@ function Login() {
     }
   };
 
-  //login checking
-  const handleLogIn = async () => {
-    try {
-      const lowerEmail = email.toLowerCase()
-      const res = await axios.post('https://tlv-hoops-server.onrender.com/login', {
-        lowerLoginEmail: lowerEmail,
-        loginPass: password
-      })
-      if (res.data) {
-        setToken(res.data.token)
-        console.log(res.data.token)
-        Alert.alert("Welcome!", "You just loged in!", [{ text: 'ok', onPress: () => console.log("ok") }])
-      }
-    }
-    catch (error) {
-      Alert.alert("User doesn't exist!")
-      console.log(error)
-    }
-  }
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -149,11 +135,12 @@ function Login() {
           <SafeAreaView style={styles.homePage}>
             <SafeAreaView style={{ marginTop: '8%', justifyContent: 'flex-start' }}>
               <Text h1 h1Style={{ color: 'black' }}>Login</Text>
+
             </SafeAreaView>
             <SafeAreaView style={styles.LoginPage}>
               <TextInput placeholder='email' onChangeText={(value) => setEmail(value)} style={styles.textInput} />
               <TextInput placeholder='password' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
-              <Button title='Log in' onPress={() => handleLogIn()} />
+              <Button title='Log in' onPress={() => { handleLogIn() }} />
               <Button title="To NavBar" onPress={() => navigation.navigate("NavBar")} />
             </SafeAreaView>
           </SafeAreaView>

@@ -16,7 +16,7 @@ const Drawer = createDrawerNavigator();
 const AppStack = () => {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} drawer screenOptions={{
-      headerShown: false, drawerLabelStyle: { marginLeft: -25, fontSize: 15, }
+      drawerLabelStyle: { marginLeft: -25, fontSize: 15, }
     }}>
       <Drawer.Screen component={TabNavigator} name="Home Screen" options={{
         drawerIcon: ({ color }) => (

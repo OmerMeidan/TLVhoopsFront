@@ -8,7 +8,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import HomeScreen from "../assets/screens/HomeScreen";
 import PostAGame from "../assets/screens/PostAGame";
 import MyGames from "../assets/screens/MyGames";
-import GamesDetails from "../assets/screens/GamesDetails";
+import GamesDetails from "../assets/screens/GameDetails";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,7 +29,7 @@ const TabNavigator = () => {
             <Tab.Screen name="HomeStack" component={HomeStack} options={{
 
                 tabBarIcon: ({ color, size }) => (
-                    <Ionicons name="home-outline" color={color} size={size} />
+                    <Ionicons name="home-outline" color={color} size={size} pass/>
 
                 )
             }} />
@@ -40,7 +40,7 @@ const TabNavigator = () => {
             }} />
             <Tab.Screen name="My Games" component={MyGames} options={{
                 tabBarIcon: ({ color, size }) => (
-                    <Ionicons name="home-outline" color={color} size={size} />
+                    <Ionicons name="list-outline" color={color} size={size} />
                 )
             }} />
         </Tab.Navigator>
