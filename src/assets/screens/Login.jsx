@@ -8,6 +8,7 @@ import {
   Alert,
   Platform,
   View,
+  InputField, TouchableOpacity
 } from 'react-native';
 import axios from 'axios'
 import { useEffect, useState } from 'react';
@@ -17,7 +18,15 @@ import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../context/AuthContext';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import colors from './colors'
+import colors from '../../colors';
+import { Dimensions } from "react-native";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
+
+export const windowWidth = Dimensions.get("window").width;
+export const windowHeight = Dimensions.get("window").height;
+
 function Login() {
   const { setToken, token } = useContext(AuthContext);
 
@@ -56,10 +65,10 @@ function Login() {
       if (res.data) {
         setToken(res.data.token)
         await AsyncStorage.setItem('token', token);
-        if(AsyncStorage.getItem('token')){
+        if (AsyncStorage.getItem('token')) {
           Alert.alert("Welcome!", "You just loged in!", [{ text: 'ok', onPress: () => console.log("ok") }])
           navigation.navigate('AppStack')
-          
+
         }
         console.log(res.data.token)
       }
@@ -162,14 +171,22 @@ function Login() {
         <TabView.Item style={{ backgroundColor: 'white', width: '100%', height: '100%' }}>
           <SafeAreaView style={styles.homePage}>
             <SafeAreaView style={{ marginTop: '8%', justifyContent: 'flex-start' }}>
-              <Text h1 h1Style={{ color: 'black' }}>Login</Text>
+              <Text h1 h1Style={{ color: '#3A98B9' }}>Logo</Text>
 
             </SafeAreaView>
             <SafeAreaView style={styles.LoginPage}>
+
+
               <TextInput placeholder='email' onChangeText={(value) => setEmail(value)} style={styles.textInput} />
+
               <TextInput placeholder='password' autoCapitalize='none' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
-              <Button title='Log in' onPress={() => { handleLogIn() }} />
-              <Button title="To NavBar" onPress={() => navigation.navigate("NavBar")} />
+
+              <TouchableOpacity onPress={() => { handleLogIn() }}>
+                <Text >Log In</Text>
+              </TouchableOpacity>
+
+              {/* <Button title='Log in' onPress={() => { handleLogIn() }} /> */}
+
             </SafeAreaView>
           </SafeAreaView>
         </TabView.Item>

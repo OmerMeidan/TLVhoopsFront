@@ -20,7 +20,7 @@ const App = () => {
     <AuthProvider >
       <NavigationContainer>
         <Stack.Navigator >
-          <Stack.Screen component={OnBoarding} name="OnBoarding" options={{ title: '' }} />
+          <Stack.Screen component={OnBoarding} name="OnBoarding" options={{ headerShown: false }} />
           <Stack.Screen component={Login} name="Login" options={{ title: '' }} />
           <Stack.Screen component={AppStack} name="AppStack" options={{ headerShown: false }} />
           <Stack.Screen component={PremiumGameDetails} name="PremiumGameDetails" options={{ title: '' }} />

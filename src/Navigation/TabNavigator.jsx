@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {
     return (
-        <Stack.Navigator screenOptions={{headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen component={HomeScreen} name="HomeScreen" />
             <Stack.Screen component={GamesDetails} name="GamesDetails" />
         </Stack.Navigator>
@@ -24,26 +24,28 @@ const HomeStack = () => {
 
 const TabNavigator = () => {
     return (
-        <Tab.Navigator screenOptions={{ headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarStyle: { backgroundColor: "#3A98B9" }, tabBarInactiveTintColor: '#fff', tabBarActiveTintColor: '#fff' }}>
+        <Tab.Navigator screenOptions={{
+            headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarStyle: { backgroundColor: "#3A98B9" }, tabBarInactiveTintColor: '#fff', tabBarActiveTintColor: '#155372'
+        }}>
 
-            <Tab.Screen name="HomeStack" component={HomeStack} options={{
+            < Tab.Screen name="HomeStack" component={HomeStack} options={{
 
                 tabBarIcon: ({ color, size }) => (
-                    <Ionicons name="home-outline" color={color} size={size} pass/>
+                    <Ionicons name="home-outline" color={color} size={size} pass />
 
                 )
             }} />
-            <Tab.Screen name="Post A Game" component={PostAGame} options={{
+            < Tab.Screen name="Post A Game" component={PostAGame} options={{
                 tabBarIcon: ({ color, size }) => (
                     <Ionicons name="add" color={color} size={size} />
                 )
             }} />
-            <Tab.Screen name="My Games" component={MyGames} options={{
+            < Tab.Screen name="My Games" component={MyGames} options={{
                 tabBarIcon: ({ color, size }) => (
                     <Ionicons name="list-outline" color={color} size={size} />
                 )
             }} />
-        </Tab.Navigator>
+        </Tab.Navigator >
     )
 };
 
