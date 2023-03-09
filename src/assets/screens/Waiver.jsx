@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 
-const GamesDetails = () => {
+const Waiver = () => {
 
     return (
         <View>
-            <Text style={styles.Header}>TLV-Hoops PARTICIPATION WAIVER <P></P></Text>
+            <Text style={styles.Header}>TLV-Hoops PARTICIPATION WAIVER </Text>
             <Text> TLV-HOOPS PARTICIPATION WAIVER
                 In consideration of the services provided by Indoor Hoops Inc. and being allowed to participate (in any way) in any game or event affiliated with Indoor Hoops, I understand, acknowledge and agree to the following:
 
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default GamesDetails
+export default Waiver

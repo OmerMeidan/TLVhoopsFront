@@ -26,8 +26,8 @@ const HomeScreen = () => {
 const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,setCommunityGamesArr,emailToken,userDetails,setUserDetails  } = useContext(AuthContext);
   useEffect(() => {
     //final result - 2 arrays that have all of the community and premium games inside.
-    const GetAllGames = async () =>{
-      try{
+    const GetAllGames = async () => {
+      try {
         setCommunityGamesArr([]);
         setPremiumGamesArr([]);
         const response = await axios.post('https://tlv-hoops-server.onrender.com/gameList',{})
@@ -45,7 +45,7 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
 
       }
 
-      catch(error){
+      catch (error) {
         console.log(error)
       }
 
@@ -72,7 +72,8 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
 
   
 
-  
+
+
   console.log(PremiumGamesArr);
   // console.log(CommunityGamesArr);
   return (
@@ -82,11 +83,11 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
           <Text style={styles.HelloUserStyle}>Hello {userDetails&&userDetails.firstName}!</Text>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <MaterialIcons name="person" size={50} color="#3A98B9" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
-        {/* <View>
+        <View>
           <Text style={styles.CarouselHeader}>SOMETHING</Text>
-        </View> */}
+        </View>
         <Carousel
           ref={(c) => {
             this._carousel = c;
