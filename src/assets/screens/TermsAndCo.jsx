@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 
-const GamesDetails = () => {
+const TermsAndCo = () => {
 
     return (
         <View>
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default GamesDetails
+export default TermsAndCo;

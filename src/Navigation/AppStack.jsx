@@ -1,4 +1,4 @@
-import React,{useEffect,useContext} from "react";
+import React, { useEffect, useContext } from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from "axios";
@@ -15,9 +15,11 @@ const Drawer = createDrawerNavigator();
 
 
 const AppStack = () => {
-  
+
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} drawer screenOptions={{
+      headerTintColor:'#fff', 
+      headerTitle: '', headerStyle: { backgroundColor: "#3A98B9" },
       drawerLabelStyle: { marginLeft: -25, fontSize: 15, },
     }}>
       <Drawer.Screen component={TabNavigator} name="Home Screen" options={{
