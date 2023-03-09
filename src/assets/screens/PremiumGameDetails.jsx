@@ -19,13 +19,14 @@ import axios from 'axios'
 import colors from '../../colors';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps'
-function PremiumGameDetails() {
-
+function PremiumGameDetails({route}) {
+    const {location,date,startTime,endTime,numOfPlayers} = route.params
     const [GameTitle, setGameTitle] = useState('Premium Game')
-    const [GameLocation, setGameLocation] = useState('Game Location')
-    const [GameDate, setGameDate] = useState('Game Date')
-    const [GameStartTime, setGameStartTime] = useState('10:00')
-    const [GameEndTime, setGameEndTime] = useState('12:00')
+    const [GameLocation, setGameLocation] = useState(location)
+    const [GameDate, setGameDate] = useState(date)
+    const [GameStartTime, setGameStartTime] = useState(startTime)
+    const [GameEndTime, setGameEndTime] = useState(endTime)
+    const [NumOfPlayers,setNumOfPlayers] = useState(numOfPlayers)
     const [GameLevel, setGameLevel] = useState('Pro')
     const [GamePrice, setGamePrice] = useState('10₪')
     return (
@@ -38,6 +39,7 @@ function PremiumGameDetails() {
                         <Text h4 style={styles.Text}>{GameDate}</Text>
                         <Text h4 style={styles.Text}>{GameStartTime}-{GameEndTime}</Text>
                         <Text h4 style={styles.Text}>{GameLevel} Level</Text>
+                        <Text h4 style={styles.Text}>{NumOfPlayers} players already in</Text>
                         <Text h4 style={styles.Text}>{GamePrice}</Text>
                     </View>
 
