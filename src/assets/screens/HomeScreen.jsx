@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Text, View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Carousel from "react-native-snap-carousel";
@@ -85,9 +85,9 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
             <MaterialIcons name="person" size={50} color="#3A98B9" />
           </TouchableOpacity>
         </View>
-        <View>
+        {/* <View>
           <Text style={styles.CarouselHeader}>SOMETHING</Text>
-        </View>
+        </View> */}
         <Carousel
           ref={(c) => {
             this._carousel = c;
@@ -109,7 +109,7 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
           />
         </View>
         {gamesTab == 1 &&
-          CommunityGamesArr.map((game,i) => (
+          CommunityGamesArr.map((game, i) => (
             <GamesList
               key={i}
               location={game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
@@ -127,7 +127,7 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
             />
           ))}
         {gamesTab == 2 &&
-          PremiumGamesArr.map((game,i) => (
+          PremiumGamesArr.map((game, i) => (
             <GamesList
               key={i}
               location={game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2')}

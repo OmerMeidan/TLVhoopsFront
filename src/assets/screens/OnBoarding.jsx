@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -5,16 +6,63 @@ import {
   SafeAreaView,
   TouchableOpacity,
   StatusBar,
-  ImageBackground, Dimensions
+  ImageBackground, Dimensions, Animated, Easing
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import colors from "../../colors";
 import { useWindowDimensions } from 'react-native';
+import {
+  INPUT_RANGE_START,
+  INPUT_RANGE_END,
+  OUTPUT_RANGE_START,
+  OUTPUT_RANGE_END,
+  ANIMATION_TO_VALUE,
+  ANIMATION_DURATION,
+} from '../../Constans';
+
 
 const OnBoarding = ({ navigation }) => {
   const screenDimensions = Dimensions.get('screen');
+
+  const initialValue = 0;
+  const translateValue = useRef(new Animated.Value(initialValue)).current;
+
+  useEffect(() => {
+    const translate = () => {
+      translateValue.setValue(initialValue);
+      Animated.timing(translateValue, {
+        toValue: ANIMATION_TO_VALUE,
+        duration: ANIMATION_DURATION,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }).start(() => translate());
+    };
+
+    translate();
+  }, [translateValue]);
+
+  const translateAnimation = translateValue.interpolate({
+    inputRange: [INPUT_RANGE_START, INPUT_RANGE_END],
+    outputRange: [OUTPUT_RANGE_START, OUTPUT_RANGE_END],
+  });
+
+  const AnimetedImage = Animated.createAnimatedComponent(ImageBackground);
+
   return (
-    <ImageBackground source={require('../images/onBoardingImage.png')} resizeMode='cover' style={{ flex: 1 }} >
+    <View style={styles.container}>
+      <AnimetedImage
+        resizeMode="repeat"
+        style={[styles.background, {
+          transform: [
+            {
+              translateX: translateAnimation,
+            },
+            {
+              translateY: translateAnimation,
+            },
+          ],
+        }]}
+        source={require('../images/onBoardingImage.png')} />
       <View style={styles.container}>
         <View style={styles.mainHeaderButton}>
           <Text style={styles.mainHeader}>TLV-HOOPS</Text>
@@ -37,11 +85,27 @@ const OnBoarding = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </ImageBackground>
+    </View>
+
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    position: 'absolute',
+    width: 1200,
+    height: 1200,
+    top: 0,
+    opacity: 0.8,
+    transform: [
+      {
+        translateX: 0,
+      },
+      {
+        translateY: 0,
+      },
+    ],
+  },
 
   container: {
     flex: 1,
@@ -54,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#3A98B9",
     padding: 10,
     width: "40%",
-    borderRadius: 5,
+    borderRadius: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     marginRight: '50%',
@@ -74,7 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#3A98B9",
     padding: 10,
     width: "90%",
-    borderRadius: 5,
+    borderRadius: 20,
     flexDirection: "row",
     justifyContent: "space-between",
 

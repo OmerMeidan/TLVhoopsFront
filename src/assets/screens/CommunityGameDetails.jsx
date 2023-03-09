@@ -19,6 +19,7 @@ import axios from 'axios'
 import colors from '../../colors';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps'
+import CheckBox from '@react-native-community/checkbox';
 function CommunityGameDetails({route}) {
     const {location,date,startTime,endTime,numOfPlayers} = route.params
     const [GameTitle, setGameTitle] = useState('Community Game')
@@ -60,7 +61,10 @@ function CommunityGameDetails({route}) {
                         />
                     </MapView>
                 </View>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+                <View>
+
+                </View>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
                     <Button
                         title="Join Game"
                         buttonStyle={{ backgroundColor: 'rgba(39, 39, 39, 1)' }}
