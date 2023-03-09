@@ -16,9 +16,6 @@ import axios from 'axios'
 const HomeScreen = () => {
   const navigation = useNavigation()
   const [gamesTab, setGamesTab] = useState(1);
-  let PremiumPlayersSum=0
-  let CommunityPlayersSum=0
-
   const renderBanner = ({ item, index }) => {
     return <BannerSlider data={item} />;
   };
@@ -26,23 +23,7 @@ const HomeScreen = () => {
   const onSelectSwitch = (value) => {
     setGamesTab(value);
   };
-// [{"__v": 2,
-// "_id": "64071627f97c9af6908db333",
-//  "ageMax": 25,
-//   "ageMin": 16,
-//    "approved": false,
-//     "createdByUser": "0532211390omar",
-//      "date": 31122023,
-//       "endTime": 2359,
-//       "gameID": "31122023/300/HaHilazon3/1",
-//        "level": "Intermediate",
-//         "locationID": "HaHilazon3/1",
-//          "maximumPlayers": 10,
-//           "participants": [[Object], [Object]],
-//            "price": 0, 
-//            "startTime": 300,
-//             "tlvpremium": false}]
-const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,setCommunityGamesArr  } = useContext(AuthContext);
+const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,setCommunityGamesArr,emailToken,userDetails,setUserDetails  } = useContext(AuthContext);
   useEffect(() => {
     //final result - 2 arrays that have all of the community and premium games inside.
     const GetAllGames = async () =>{
@@ -51,7 +32,7 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
         setPremiumGamesArr([]);
         const response = await axios.post('https://tlv-hoops-server.onrender.com/gameList',{})
         if(response.data){
-          console.log(response.data)
+          console.log('games',response.data)
           response.data.forEach(game => {
             if (game.tlvpremium) {
               console.log(game);
@@ -61,6 +42,7 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
             }
           })
         }
+
       }
 
       catch(error){
@@ -68,8 +50,25 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
       }
 
     }
+
+   const GetUserDetail = async()=>{
+    try{
+      const response = await axios.post('https://tlv-hoops-server.onrender.com/playerList',{})
+      if(response.data){
+        setUserDetails(response.data.find(user=>user.email===emailToken))
+      }
+
+    }
+    catch(error){
+      console.log(error)
+    }
+    }
+
+    GetUserDetail()
     GetAllGames()
   }, [])
+
+
 
   
 
@@ -80,7 +79,7 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
     <SafeAreaView style={styles.SafeAreaViewStyle} >
       <ScrollView style={styles.ScrollViewStyle}>
         <View style={styles.TopView}>
-          <Text style={styles.HelloUserStyle}>Hello User.FirstName</Text>
+          <Text style={styles.HelloUserStyle}>Hello {userDetails&&userDetails.firstName}!</Text>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <MaterialIcons name="person" size={50} color="#3A98B9" />
           </TouchableOpacity>
@@ -116,13 +115,12 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
               date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
               startTime={game.startTime.toString().length>3?game.startTime.toString().slice(0, 2) + ":" +game.startTime.toString().slice(2):game.startTime.toString().slice(0, 1) + ":" +game.startTime.toString().slice(1)}
               endTime={game.endTime.toString().length>3?game.endTime.toString().slice(0, 2) + ":" +game.endTime.toString().slice(2):game.endTime.toString().slice(0, 1) + ":" +game.endTime.toString().slice(1)}
-              numOfPlayers={game.participants.map((a,i)=>{a.firstName&&CommunityPlayersSum++})}
               onPress={() => navigation.navigate('CommunityGameDetails', { 
                 location: game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
                 date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
                 startTime: game.startTime.toString().length>3?game.startTime.toString().slice(0, 2) + ":" +game.startTime.toString().slice(2):game.startTime.toString().slice(0, 1) + ":" +game.startTime.toString().slice(1),
                 endTime:game.endTime.toString().length>3?game.endTime.toString().slice(0, 2) + ":" +game.endTime.toString().slice(2):game.endTime.toString().slice(0, 1) + ":" +game.endTime.toString().slice(1),
-                numOfPlayers:CommunityPlayersSum
+                numOfPlayers:game.participants.length
               })}
             />
           ))}
@@ -134,13 +132,12 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
               date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
               startTime={game.startTime.toString().length>3?game.startTime.toString().slice(0, 2) + ":" +game.startTime.toString().slice(2):game.startTime.toString().slice(0, 1) + ":" +game.startTime.toString().slice(1)}
               endTime={game.endTime.toString().length>3?game.endTime.toString().slice(0, 2) + ":" +game.endTime.toString().slice(2):game.endTime.toString().slice(0, 1) + ":" +game.endTime.toString().slice(1)}
-              numOfPlayers={game.participants.map((a,i)=>{a.firstName&&PremiumPlayersSum++})}
               onPress={() => navigation.navigate('PremiumGameDetails', { 
                 location: game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
                 date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
                 startTime: game.startTime.toString().length>3?game.startTime.toString().slice(0, 2) + ":" +game.startTime.toString().slice(2):game.startTime.toString().slice(0, 1) + ":" +game.startTime.toString().slice(1),
                 endTime:game.endTime.toString().length>3?game.endTime.toString().slice(0, 2) + ":" +game.endTime.toString().slice(2):game.endTime.toString().slice(0, 1) + ":" +game.endTime.toString().slice(1),
-                numOfPlayers:PremiumPlayersSum
+                numOfPlayers:game.participants.length
               }
               )}
             />

@@ -28,7 +28,7 @@ export const windowWidth = Dimensions.get("window").width;
 export const windowHeight = Dimensions.get("window").height;
 
 function Login() {
-  const { setToken, token } = useContext(AuthContext);
+  const { setToken, token,setEmailToken,emailToken } = useContext(AuthContext);
 
   //login inputs
   const [email, setEmail] = useState(null)
@@ -66,9 +66,9 @@ function Login() {
         setToken(res.data.token)
         await AsyncStorage.setItem('token', token);
         if (AsyncStorage.getItem('token')) {
+          setEmailToken(lowerEmail)
           Alert.alert("Welcome!", "You just loged in!", [{ text: 'ok', onPress: () => console.log("ok") }])
           navigation.navigate('AppStack')
-
         }
         console.log(res.data.token)
       }
