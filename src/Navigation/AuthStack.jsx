@@ -1,4 +1,4 @@
-import React , {useContext} from "react";
+import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} >
+    <Stack.Navigator options={{ headerShown: false }} >
       <Stack.Screen component={OnBoarding} name="OnBoarding" />
       <Stack.Screen component={Login} name="Login" />
     </Stack.Navigator>
