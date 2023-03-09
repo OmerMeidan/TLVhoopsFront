@@ -170,24 +170,25 @@ function Login() {
 
         <TabView.Item style={{ backgroundColor: 'white', width: '100%', height: '100%' }}>
           <SafeAreaView style={styles.homePage}>
-            <SafeAreaView style={{ marginTop: '8%', justifyContent: 'flex-start' }}>
-              <Text h1 h1Style={{ color: '#3A98B9' }}>Logo</Text>
+            <SafeAreaView style={{ justifyContent: 'flex-start' }}>
+              <Text h1 h1Style={{ color: '#3A98B9', marginTop: '1%' }}>Logo</Text>
 
             </SafeAreaView>
             <SafeAreaView style={styles.LoginPage}>
+
 
 
               <TextInput placeholder='email' onChangeText={(value) => setEmail(value)} style={styles.textInput} />
 
               <TextInput placeholder='password' autoCapitalize='none' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
 
-              <TouchableOpacity onPress={() => { handleLogIn() }}>
-                <Text >Log In</Text>
-              </TouchableOpacity>
 
-              {/* <Button title='Log in' onPress={() => { handleLogIn() }} /> */}
+
 
             </SafeAreaView>
+              <TouchableOpacity onPress={() => { handleLogIn() }} style={styles.button}>
+                <Text style={styles.buttonText}>Log In</Text>
+              </TouchableOpacity>
           </SafeAreaView>
         </TabView.Item>
 
@@ -220,7 +221,9 @@ function Login() {
               <TextInput defaultValue={`${def}`} placeholder='phone number' onChangeText={(value) => setRegisterPhone(value)} style={styles.textInput} />
               <TextInput defaultValue={`${def}`} placeholder='preferred position' onChangeText={(value) => setRegisterPosition(value)} style={styles.textInput} />
               <TextInput defaultValue={`${def}`} placeholder='heigth' onChangeText={(value) => setRegisterHeight(value)} style={styles.textInput} />
-              <Button title='Sign up' onPress={() => handleSignUp()} />
+              <TouchableOpacity onPress={() => { handleLogIn() }} style={styles.signUpbutton}>
+                <Text style={styles.buttonText}>Sign Up</Text>
+              </TouchableOpacity>
             </SafeAreaView>
           }
         </TabView.Item>
@@ -270,9 +273,11 @@ const styles = StyleSheet.create({
   textInput: {
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 20,
+    borderColor: '#3A98B9',
     padding: 10,
-    width: '50%'
+    width: '60%',
+
   },
   homePage: {
     flex: 1,
@@ -280,10 +285,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  Button: {
-    borderColor: 'black',
-    borderWidth: 10
-  },
+
   LoginPage: {
     flex: 0.7,
     width: '100%',
@@ -297,7 +299,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: Platform.OS === 'android' ? false : '20%'
-  }
+  },
+  button: {
+    backgroundColor: "#3A98B9",
+    padding: 10,
+    width: "60%",
+    borderRadius: 20,
+    textAlign: 'center',
+
+
+  },
+  signUpbutton: {
+    backgroundColor: "#3A98B9",
+    padding: 10,
+    width: "60%",
+    borderRadius: 20,
+    textAlign: 'center',
+
+
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 30
+  },
+
 })
 
 export default Login;

@@ -11,7 +11,7 @@ import {
   Alert,
   Platform,
   TouchableOpacity,
-  ScrollView
+  ScrollView, Easing
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Tab, TabView, Text } from '@rneui/themed';
@@ -19,6 +19,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios'
 import colors from '../../colors';
+
+
 function PostAGame() {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
@@ -172,8 +174,11 @@ function PostAGame() {
     <SafeAreaView style={{ height: '100%', width: '100%', backgroundColor: 'white' }}>
       <ScrollView>
         <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '8%', flex: 1 }}>
-          <Text h2 >Create a New Game</Text>
+          <Text h2 >Post Your Game Now!</Text>
+          <Text>Here you can post yoyr game and other players from the community will join you!</Text>
           <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '15%' }}>
+          <TextInput placeholder='Location name' style={styles.textInput} />
+          <TextInput placeholder='Vaild Address of the location' style={styles.textInput} />
             <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput} />
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
@@ -211,10 +216,11 @@ function PostAGame() {
             />
 
 
-            <TextInput placeholder='Maximum Players' style={styles.textInput} />
+            <TextInput placeholder='How many players already?' style={styles.textInput} />
 
-            <TextInput placeholder='Price' style={styles.textInput} />
-            <DropDownPicker
+            <TextInput placeholder="Price - if it's free enter 0" style={styles.textInput} />
+            <TextInput placeholder='Host Phone number' style={styles.textInput} />
+            {/* <DropDownPicker
               placeholder='select level'
               open={openLocation}
               value={Location}
@@ -223,7 +229,7 @@ function PostAGame() {
               setValue={setLocation}
               setItems={setLocationsArr}
               style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, width: '50%', marginBottom: '5%', marginLeft: '25%' }}
-            />
+            /> */}
           </View>
         </View>
         <TouchableOpacity style={styles.CreateButton} onPress={() => handleCreateGame()}>
