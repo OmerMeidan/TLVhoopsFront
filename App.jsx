@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnBoarding from "./src/assets/screens/OnBoarding";
 import Login from "./src/assets/screens/Login";
 import HomeScreen from "./src/assets/screens/HomeScreen";
+// import { GoogleMapsApiProvider } from '@react-native-maps';
 import PremiumGameDetails from "./src/assets/screens/PremiumGameDetails";
 import CommunityGameDetails from "./src/assets/screens/CommunityGameDetails";
 import TermsAndCo from "./src/assets/screens/TermsAndCo";
@@ -20,6 +21,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <AuthProvider >
+      {/* <GoogleMapsApiProvider apiKey="AIzaSyA5xU-SY93_xtrSnJMqbi_RT3yf9obFy00"> */}
       <NavigationContainer>
         <Stack.Navigator >
           <Stack.Screen component={OnBoarding} name="OnBoarding" options={{ headerShown: false }} />
@@ -31,6 +33,7 @@ const App = () => {
           <Stack.Screen component={Waiver} name="Waiver" options={{ title: '' }} />
         </Stack.Navigator>
       </NavigationContainer>
+      {/* </GoogleMapsApiProvider> */}
     </AuthProvider>
 
 

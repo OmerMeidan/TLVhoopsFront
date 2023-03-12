@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
     StyleSheet,
     View,
@@ -19,7 +19,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios'
 import colors from '../../colors';
 import MapView from 'react-native-maps';
-import { Marker } from 'react-native-maps'
+import { Marker,PROVIDER_GOOGLE } from 'react-native-maps'
 import { CheckBox } from '@rneui/themed';
 
 
@@ -35,7 +35,29 @@ function CommunityGameDetails({ route }) {
     const [toggleTermsCheckBox, setToggleTermsCheckBox] = useState(false)
     const [toggleWaiverCheckBox, setToggleWaiverCheckBox] = useState(false)
     const navigation = useNavigation();
-
+    const [latitude,setLatitude]=useState(32.0872801)
+    const [longitude,setLongitude]=useState(34.8040903)
+    useEffect(()=>{
+        
+        const getCord = async() =>{
+            const street = location.split(" ")[0]
+            const streetNumber = location.split(" ")[1].split("/")[0]
+            console.log(street,streetNumber , "ok");
+            try{
+                const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${street}+${streetNumber}+Tel Aviv,+IL&key=AIzaSyA5xU-SY93_xtrSnJMqbi_RT3yf9obFy00`)
+                if(response.data){
+                    console.log(response.data.results[0].geometry.location.lat,response.data.results[0].geometry.location.lng);
+                    setLatitude(response.data.results[0].geometry.location.lat)
+                    setLongitude(response.data.results[0].geometry.location.lng)
+                }
+            }
+            catch(error){
+                console.log(error);
+            }
+        }
+        getCord()
+       
+    },[])
     return (
         <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
             <View style={{ width: 320, height: 700, backgroundColor: "#3A98B9", borderRadius: '15%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
@@ -53,16 +75,17 @@ function CommunityGameDetails({ route }) {
                 </View>
                 <View style={{ width: '70%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
                     <MapView
+                        provider={PROVIDER_GOOGLE}
                         style={{ width: '120%', height: '80%', borderRadius: '15%' }}
                         maxZoomLevel={20}
                         initialRegion={{
-                            latitude: 37.78825,
-                            longitude: -122.4324,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
+                            latitude:  `${latitude}`,
+                            longitude: `${longitude}`,
+                            latitudeDelta: 0.00922,
+                            longitudeDelta: 0.00421,
                         }}>
                         <Marker
-                            coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+                            coordinate={{ latitude: `${latitude}`, longitude:`${longitude}`}}
                             image={require('../../040ca4b7d907fc901da64c5015740a13-removebg-preview-removebg-preview.png')}
                         />
                     </MapView>
