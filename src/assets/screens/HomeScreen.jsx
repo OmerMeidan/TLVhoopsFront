@@ -83,7 +83,7 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
           <Text style={styles.HelloUserStyle}>Hello {userDetails&&userDetails.firstName}!</Text>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <MaterialIcons name="person" size={50} color="#3A98B9" />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
         <View>
           <Text style={styles.CarouselHeader}>SOMETHING</Text>
