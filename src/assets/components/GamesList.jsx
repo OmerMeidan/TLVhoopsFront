@@ -47,7 +47,7 @@ const GamesList = ({ location, date, startTime, endTime, onPress }) => {
           backgroundColor: "#3A98B9",
           padding: 10,
           width: 90,
-          borderRadius: 10,
+          borderRadius: 20,
         }}
       >
         <Text 

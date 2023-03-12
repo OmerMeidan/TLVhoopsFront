@@ -6,7 +6,7 @@ const BannerSlider = ({ data }) => {
     <View>
       <Image
         source={data.image}
-        style={{ height: 150, width: 300, borderRadius: 10 }}
+        style={{ height: 170, width: 300, borderRadius: 20 }}
       />
     </View>
   );

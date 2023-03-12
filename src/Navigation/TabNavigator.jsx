@@ -28,7 +28,7 @@ const TabNavigator = () => {
             headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarStyle: { backgroundColor: "#3A98B9" }, tabBarInactiveTintColor: '#fff', tabBarActiveTintColor: '#155372'
         }}>
 
-            < Tab.Screen name="HomeStack" component={HomeStack} options={{
+            < Tab.Screen name="Home" component={HomeStack} options={{
 
                 tabBarIcon: ({ color, size }) => (
                     <Ionicons name="home-outline" color={color} size={size} pass />

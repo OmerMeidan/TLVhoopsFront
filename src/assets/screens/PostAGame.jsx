@@ -19,7 +19,14 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios'
 import colors from '../../colors';
-
+import {
+  INPUT_RANGE_START,
+  INPUT_RANGE_END,
+  OUTPUT_RANGE_START,
+  OUTPUT_RANGE_END,
+  ANIMATION_TO_VALUE,
+  ANIMATION_DURATION,
+} from '../../Constans';
 
 function PostAGame() {
   const [open, setOpen] = useState(false);
@@ -174,9 +181,9 @@ function PostAGame() {
     <SafeAreaView style={{ height: '100%', width: '100%', backgroundColor: 'white' }}>
       <ScrollView>
         <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '8%', flex: 1 }}>
-          <Text h2 >Post Your Game Now!</Text>
-          <Text>Here you can post yoyr game and other players from the community will join you!</Text>
-          <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '15%' }}>
+          <Text h2 style={{color:'#3A98B9'}}>Post Your Game Now!</Text>
+          <Text style={{color:'#3A98B9', textAlign:'center', paddingTop:'5%'}}>Here you can post yoyr game and other players from the community will join you!</Text>
+          <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '10%' }}>
           <TextInput placeholder='Location name' style={styles.textInput} />
           <TextInput placeholder='Vaild Address of the location' style={styles.textInput} />
             <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput} />
@@ -204,16 +211,7 @@ function PostAGame() {
             />
             <TextInput placeholder='Minimum Age' style={styles.textInput} />
             <TextInput placeholder='Maximum Age' style={styles.textInput} />
-            <DropDownPicker
-              placeholder='select level'
-              open={open}
-              value={Level}
-              items={items}
-              setOpen={setOpen}
-              setValue={setLevel}
-              setItems={setItems}
-              style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, width: '50%', marginBottom: '5%', marginLeft: '25%' }}
-            />
+       
 
 
             <TextInput placeholder='How many players already?' style={styles.textInput} />
@@ -230,11 +228,22 @@ function PostAGame() {
               setItems={setLocationsArr}
               style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, width: '50%', marginBottom: '5%', marginLeft: '25%' }}
             /> */}
+     <DropDownPicker
+              placeholder='select level'
+              open={open}
+              value={Level}
+              items={items}
+              setOpen={setOpen}
+              setValue={setLevel}
+              setItems={setItems}
+              style={{ borderWidth: 1,  borderRadius: 20,    borderColor: '#3A98B9',  marginBottom: '5%', width :'60%', marginLeft:'20%', }}
+            />
+
+        <TouchableOpacity style={styles.Createbutton} onPress={() => handleCreateGame()}>
+          <Text  style={styles.buttonText}>Create</Text>
+        </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={styles.CreateButton} onPress={() => handleCreateGame()}>
-          <Text h4 h4Style={{ color: 'white' }}>Create</Text>
-        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -245,11 +254,22 @@ const styles = StyleSheet.create({
   textInput: {
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 20,
+    borderColor: '#3A98B9',
     padding: 10,
-    width: '50%',
+    width: '60%',
     marginBottom: '5%'
   },
+
+
+  // textInput: {
+  //   borderWidth: 1,
+  //   borderColor: '#ccc',
+  //   borderRadius: 5,
+  //   padding: 10,
+  //   width: '50%',
+  //   marginBottom: '5%'
+  // },
   selector: {
     borderWidth: 1,
     borderColor: '#ccc',
@@ -258,13 +278,19 @@ const styles = StyleSheet.create({
     height: '10%',
     marginBottom: '5%'
   },
-  CreateButton: {
-    width: '100%',
-    height: '1%',
-    backgroundColor: colors.primary,
-    flex: 0.1,
-    justifyContent: 'center',
-    alignItems: 'center'
+
+  Createbutton: {
+    backgroundColor: "#3A98B9",
+    padding: 10,
+    width: "60%",
+    borderRadius: 20,
+    textAlign: 'center',
+
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 30
   }
 })
 export default PostAGame;

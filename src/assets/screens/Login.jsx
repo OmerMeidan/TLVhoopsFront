@@ -8,7 +8,7 @@ import {
   Alert,
   Platform,
   View,
-  InputField, TouchableOpacity
+  InputField, TouchableOpacity, Image
 } from 'react-native';
 import axios from 'axios'
 import { useEffect, useState } from 'react';
@@ -22,13 +22,14 @@ import colors from '../../colors';
 import { Dimensions } from "react-native";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 export const windowWidth = Dimensions.get("window").width;
 export const windowHeight = Dimensions.get("window").height;
 
 function Login() {
-  const { setToken, token,setEmailToken,emailToken } = useContext(AuthContext);
+  const { setToken, token, setEmailToken, emailToken } = useContext(AuthContext);
 
   //login inputs
   const [email, setEmail] = useState(null)
@@ -170,8 +171,10 @@ function Login() {
 
         <TabView.Item style={{ backgroundColor: 'white', width: '100%', height: '100%' }}>
           <SafeAreaView style={styles.homePage}>
+          <Image source={require('../images/DemoLogo.jpeg')}
+                    style={{ width: 100, height: 100 }} />
+
             <SafeAreaView style={{ justifyContent: 'flex-start' }}>
-              <Text h1 h1Style={{ color: '#3A98B9', marginTop: '1%' }}>Logo</Text>
 
             </SafeAreaView>
             <SafeAreaView style={styles.LoginPage}>
@@ -186,9 +189,9 @@ function Login() {
 
 
             </SafeAreaView>
-              <TouchableOpacity onPress={() => { handleLogIn() }} style={styles.button}>
-                <Text style={styles.buttonText}>Log In</Text>
-              </TouchableOpacity>
+            <TouchableOpacity onPress={() => { handleLogIn() }} style={styles.button}>
+              <Text style={styles.buttonText}>Log In</Text>
+            </TouchableOpacity>
           </SafeAreaView>
         </TabView.Item>
 
@@ -201,33 +204,35 @@ function Login() {
               autoPlay
             />
             :
-            <SafeAreaView style={styles.SignUpPage}>
-              <SafeAreaView style={{ marginTop: '4%', justifyContent: 'flex-start', marginBottom: '8%' }}>
-                <Text h1 h1Style={{ color: 'black' }}>Sign Up</Text>
+            <ScrollView>
+              <SafeAreaView style={styles.SignUpPage}>
+                <SafeAreaView style={{ marginTop: '4%', justifyContent: 'flex-start', marginBottom: '8%' }}>
+                <Image source={require('../images/DemoLogo.jpeg')}
+                    style={{ width: 100, height: 100 }} />
+                </SafeAreaView>
+                <TextInput defaultValue={`${def}`} placeholder='first name' onChangeText={(value) => setRegisterFirstName(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='last name' onChangeText={(value) => setRegisterLastName(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='email' onChangeText={(value) => setRegisterEmail(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='password' onChangeText={(value) => setRegisterPassword(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='confirm password' onChangeText={(value) => setRegisterConfirmPassword(value)} style={styles.textInput} />
+                <TextInput onPressIn={() => showDatePicker()} defaultValue={`${BirthDateValue}`} placeholder='birth date' onChangeText={(value) => setRegisterBirthDate(value)} style={styles.textInput} />
+                <DateTimePickerModal
+                  isVisible={isDatePickerVisible}
+                  mode="date"
+                  maximumDate={new Date(2006, 11, 31)}
+                  onConfirm={handleConfirm}
+                  onCancel={hideDatePicker}
+                />
+                <TextInput defaultValue={`${def}`} placeholder='phone number' onChangeText={(value) => setRegisterPhone(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='preferred position' onChangeText={(value) => setRegisterPosition(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='heigth' onChangeText={(value) => setRegisterHeight(value)} style={styles.textInput} />
+                <TouchableOpacity onPress={() => { handleLogIn() }} style={styles.signUpbutton}>
+                  <Text style={styles.buttonText}>Sign Up</Text>
+                </TouchableOpacity>
               </SafeAreaView>
-              <TextInput defaultValue={`${def}`} placeholder='first name' onChangeText={(value) => setRegisterFirstName(value)} style={styles.textInput} />
-              <TextInput defaultValue={`${def}`} placeholder='last name' onChangeText={(value) => setRegisterLastName(value)} style={styles.textInput} />
-              <TextInput defaultValue={`${def}`} placeholder='email' onChangeText={(value) => setRegisterEmail(value)} style={styles.textInput} />
-              <TextInput defaultValue={`${def}`} placeholder='password' onChangeText={(value) => setRegisterPassword(value)} style={styles.textInput} />
-              <TextInput defaultValue={`${def}`} placeholder='confirm password' onChangeText={(value) => setRegisterConfirmPassword(value)} style={styles.textInput} />
-              <TextInput onPressIn={() => showDatePicker()} defaultValue={`${BirthDateValue}`} placeholder='birth date' onChangeText={(value) => setRegisterBirthDate(value)} style={styles.textInput} />
-              <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                maximumDate={new Date(2006, 11, 31)}
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-              />
-              <TextInput defaultValue={`${def}`} placeholder='phone number' onChangeText={(value) => setRegisterPhone(value)} style={styles.textInput} />
-              <TextInput defaultValue={`${def}`} placeholder='preferred position' onChangeText={(value) => setRegisterPosition(value)} style={styles.textInput} />
-              <TextInput defaultValue={`${def}`} placeholder='heigth' onChangeText={(value) => setRegisterHeight(value)} style={styles.textInput} />
-              <TouchableOpacity onPress={() => { handleLogIn() }} style={styles.signUpbutton}>
-                <Text style={styles.buttonText}>Sign Up</Text>
-              </TouchableOpacity>
-            </SafeAreaView>
+            </ScrollView>
           }
         </TabView.Item>
-
 
 
       </TabView>
@@ -239,19 +244,23 @@ function Login() {
         indicatorStyle={{
           backgroundColor: 'white',
           height: 0,
+
         }}
-        style={{ height: '9%' }}
-        variant="primary"
+        style={{ height: '9%', backgroundColor: '#3A98B9' }}
+      // variant="primary"
+
+
       >
         <Tab.Item
           title="Login"
-          titleStyle={{ fontSize: 12 }}
+          titleStyle={{ fontSize: 12, color: '#fff' }}
           icon={{ name: 'log-in-outline', type: 'ionicon', color: 'white' }}
+
         />
         <Tab.Item
-          style={{ height: '100%' }}
+          style={{ height: '100%', }}
           title="Sign Up"
-          titleStyle={{ fontSize: 12 }}
+          titleStyle={{ fontSize: 12, color: '#fff' }}
           icon={{ name: 'basketball-outline', type: 'ionicon', color: 'white' }}
         />
       </Tab>

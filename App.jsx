@@ -14,6 +14,7 @@ import PremiumGameDetails from "./src/assets/screens/PremiumGameDetails";
 import CommunityGameDetails from "./src/assets/screens/CommunityGameDetails";
 import TermsAndCo from "./src/assets/screens/TermsAndCo";
 import Waiver from "./src/assets/screens/Waiver";
+import About from "./src/assets/screens/About";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,8 +26,9 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator >
           <Stack.Screen component={OnBoarding} name="OnBoarding" options={{ headerShown: false }} />
-          <Stack.Screen component={Login} name="Login" options={{ title: '' }} />
+          <Stack.Screen component={Login} name="Login" options={{ headerShown: false }} />
           <Stack.Screen component={AppStack} name="AppStack" options={{ headerShown: false }} />
+          <Stack.Screen component={About} name="About" options={{ headerShown: false }} />
           <Stack.Screen component={PremiumGameDetails} name="PremiumGameDetails" options={{ title: '' }} />
           <Stack.Screen component={CommunityGameDetails} name="CommunityGameDetails" options={{ title: '' }} />
           <Stack.Screen component={TermsAndCo} name="TermsAndCo" options={{ title: '' }} />

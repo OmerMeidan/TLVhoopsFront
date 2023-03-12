@@ -60,15 +60,15 @@ function CommunityGameDetails({ route }) {
     },[])
     return (
         <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ width: 320, height: 700, backgroundColor: "#3A98B9", borderRadius: '15%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
-                <Text h3 h3Style={{ marginTop: '5%', color: '#fff' }}>{GameTitle}</Text>
+            <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '15%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
+                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff' }}>{GameTitle}</Text>
                 <View style={{ width: '100%', flex: 1, alignItems: 'flex-start', marginTop: '10%', flexDirection: 'row' }}>
                     <View style={{ flex: 1, width: '100%', height: '100%' }}>
-                        <Text h4 style={styles.Text}>{GameLocation}</Text>
-                        <Text h4 style={styles.Text}>{GameDate}</Text>
-                        <Text h4 style={styles.Text}>{GameStartTime}-{GameEndTime}</Text>
-                        <Text h4 style={styles.Text}>{GameLevel} Level</Text>
-                        <Text h4 style={styles.Text}>{NumOfPlayers} players already in</Text>
+                        <Text style={styles.Text}>{GameLocation}</Text>
+                        <Text style={styles.Text}>{GameDate}</Text>
+                        <Text style={styles.Text}>{GameStartTime}-{GameEndTime}</Text>
+                        <Text style={styles.Text}>{GameLevel} Level</Text>
+                        <Text style={styles.Text}>{NumOfPlayers} players already in</Text>
 
                     </View>
 
@@ -90,16 +90,14 @@ function CommunityGameDetails({ route }) {
                         />
                     </MapView>
                 </View>
-                <View>
 
-                </View>
 
-                <View style={{ marginBottom: '20%' }}>
+                <View style={{ marginTop: '10%' }}>
                     <Text style={styles.textstyle}>Please read carefully The Terms&Conditions and the Participation Waiver Before Registertation for a game! </Text>
                     <View style={{ alignItems: 'flex-start', paddingTop: '10%' }}>
                         <CheckBox
                             center
-                            title={<Text style={{ color: 'white', fontSize: 30, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('TermsAndCo')}>Terms&Conditions</Text>}
+                            title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('TermsAndCo')}>Terms&Conditions</Text>}
                             checked={toggleTermsCheckBox}
                             checkedColor={'white'}
                             containerStyle={{ backgroundColor: 'transparent' }}
@@ -107,7 +105,7 @@ function CommunityGameDetails({ route }) {
                         />
                         <CheckBox
                             center
-                            title={<Text style={{ color: 'white', fontSize: 30, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('Waiver')}>Waiver</Text>}
+                            title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('Waiver')}>Waiver</Text>}
                             checked={toggleWaiverCheckBox}
                             checkedColor={'white'}
                             containerStyle={{ backgroundColor: 'transparent' }}
@@ -116,11 +114,9 @@ function CommunityGameDetails({ route }) {
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
-                    <Button
-                        title="Join Game"
-                        buttonStyle={{ backgroundColor: 'rgba(39, 39, 39, 1)' }}
-                        titleStyle={{ color: 'white', marginHorizontal: 20 }}
-                    />
+                <TouchableOpacity onPress={() => { handleRegisterForGame() }} style={styles.button}>
+                  <Text style={styles.buttonText}>Register Now!</Text>
+                </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>
@@ -132,14 +128,28 @@ const styles = StyleSheet.create({
     Text: {
         color: "#fff",
         fontFamily: colors.font,
-        marginBottom: '3%'
+        marginBottom: '3%',
+        fontSize: 12
     },
     textstyle: {
         color: "#fff",
-
-        fontSize: 20,
+        fontSize: 15,
+        fontWeight: '600',
         textAlign: 'center',
-    }
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: "#3A98B9",
+        fontSize: 30
+    },
+    button: {
+        backgroundColor: "#fff",
+        padding: 10,
+        width: "60%",
+        borderRadius: 20,
+        textAlign: 'center',
+    
+      },
 })
 
 export default CommunityGameDetails;
