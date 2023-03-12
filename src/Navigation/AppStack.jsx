@@ -5,7 +5,7 @@ import axios from "axios";
 import ViewProfile from "../assets/screens/ViewProfile";
 import PostAGame from "../assets/screens/PostAGame";
 import About from "../assets/screens/About";
-import ConnectUs from "../assets/screens/ConnectUs";
+import ContactUs from "../assets/screens/ContactUs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "../assets/components/CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -42,7 +42,7 @@ const AppStack = () => {
           <Ionicons name="information-circle-outline" size={22} color={color} />
         )
       }} />
-      <Drawer.Screen component={ConnectUs} name="Connect Us" options={{
+      <Drawer.Screen component={ContactUs} name="Contact Us" options={{
         drawerIcon: ({ color }) => (
           <Ionicons name="call-outline" size={22} color={color} />
         )
