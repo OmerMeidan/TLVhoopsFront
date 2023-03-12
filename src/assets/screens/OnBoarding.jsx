@@ -62,7 +62,7 @@ const OnBoarding = ({ navigation }) => {
             },
           ],
         }]}
-        source={require('../images/onBoardingImage.png')} />
+        source={require('../images/boardingg.jpg')} />
       <View style={styles.container}>
         <View style={styles.mainHeaderButton}>
           <Text style={styles.mainHeader}>TLV-HOOPS</Text>
@@ -93,16 +93,16 @@ const OnBoarding = ({ navigation }) => {
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
-    width: 1200,
-    height: 1200,
+    width: 1100,
+    height: 1100,
     top: 0,
-    opacity: 0.8,
+    opacity: 1,
     transform: [
       {
-        translateX: 0,
+        translateX: 10,
       },
       {
-        translateY: 0,
+        translateY: 10,
       },
     ],
   },

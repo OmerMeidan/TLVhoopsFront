@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Text, View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { Text, View, SafeAreaView, ScrollView,Image,StyleSheet } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Carousel from "react-native-snap-carousel";
 import { sliderData, CommunityGames, PremiumGames } from "../model/data";
@@ -16,6 +16,8 @@ import axios from 'axios'
 const HomeScreen = () => {
   const navigation = useNavigation()
   const [gamesTab, setGamesTab] = useState(1);
+
+  
   const renderBanner = ({ item, index }) => {
     return <BannerSlider data={item} />;
   };
@@ -23,16 +25,16 @@ const HomeScreen = () => {
   const onSelectSwitch = (value) => {
     setGamesTab(value);
   };
-const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,setCommunityGamesArr,emailToken,userDetails,setUserDetails  } = useContext(AuthContext);
+  const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails } = useContext(AuthContext);
   useEffect(() => {
     //final result - 2 arrays that have all of the community and premium games inside.
     const GetAllGames = async () => {
       try {
         setCommunityGamesArr([]);
         setPremiumGamesArr([]);
-        const response = await axios.post('https://tlv-hoops-server.onrender.com/gameList',{})
-        if(response.data){
-          console.log('games',response.data)
+        const response = await axios.post('https://tlv-hoops-server.onrender.com/gameList', {})
+        if (response.data) {
+          console.log('games', response.data)
           response.data.forEach(game => {
             if (game.tlvpremium) {
               console.log(game);
@@ -51,17 +53,17 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
 
     }
 
-   const GetUserDetail = async()=>{
-    try{
-      const response = await axios.post('https://tlv-hoops-server.onrender.com/playerList',{})
-      if(response.data){
-        setUserDetails(response.data.find(user=>user.email===emailToken))
-      }
+    const GetUserDetail = async () => {
+      try {
+        const response = await axios.post('https://tlv-hoops-server.onrender.com/playerList', {})
+        if (response.data) {
+          setUserDetails(response.data.find(user => user.email === emailToken))
+        }
 
-    }
-    catch(error){
-      console.log(error)
-    }
+      }
+      catch (error) {
+        console.log(error)
+      }
     }
 
     GetUserDetail()
@@ -70,7 +72,7 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
 
 
 
-  
+
 
 
 
@@ -80,13 +82,14 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
     <SafeAreaView style={styles.SafeAreaViewStyle} >
       <ScrollView style={styles.ScrollViewStyle}>
         <View style={styles.TopView}>
-          <Text style={styles.HelloUserStyle}>Hello {userDetails&&userDetails.firstName}!</Text>
+          <Text style={styles.HelloUserStyle}>Hello {userDetails && userDetails.firstName}!</Text>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <MaterialIcons name="person" size={50} color="#3A98B9" />
+          <Image source={require('../images/DemoLogo.jpeg')}
+                    style={{ width: 30, height: 30 }} />
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={styles.CarouselHeader}>SOMETHING</Text>
+          <Text style={styles.CarouselHeader}>FOR THE BASKETBALL COMMUNITY</Text>
         </View>
         <Carousel
           ref={(c) => {
@@ -100,6 +103,18 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
           scrollAnimationDuration={1000}
           autoPlay
         />
+
+        
+        <View style={{
+          paddingTop:'7%',
+          justifyContent: 'center',
+        }}>
+          <TouchableOpacity onPress={() => navigation.navigate('About')} style={styles.button}>
+          <Text style={styles.textInput}>New For TLV-HOOPS? Tap here for read About the Community and the Premium Games!</Text>
+          </TouchableOpacity>
+        </View>
+
+
         <View style={{ marginVertical: 20 }}>
           <TypeOfGamesSwitch
             selectionMode={1}
@@ -108,41 +123,43 @@ const { setToken, token,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,set
             onSelectSwitch={onSelectSwitch}
           />
         </View>
-        {gamesTab == 1 &&
-          CommunityGamesArr.map((game, i) => (
-            <GamesList
-              key={i}
-              location={game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
-              date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
-              startTime={game.startTime.toString().length>3?game.startTime.toString().slice(0, 2) + ":" +game.startTime.toString().slice(2):game.startTime.toString().slice(0, 1) + ":" +game.startTime.toString().slice(1)}
-              endTime={game.endTime.toString().length>3?game.endTime.toString().slice(0, 2) + ":" +game.endTime.toString().slice(2):game.endTime.toString().slice(0, 1) + ":" +game.endTime.toString().slice(1)}
-              onPress={() => navigation.navigate('CommunityGameDetails', { 
-                location: game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
-                date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
-                startTime: game.startTime.toString().length>3?game.startTime.toString().slice(0, 2) + ":" +game.startTime.toString().slice(2):game.startTime.toString().slice(0, 1) + ":" +game.startTime.toString().slice(1),
-                endTime:game.endTime.toString().length>3?game.endTime.toString().slice(0, 2) + ":" +game.endTime.toString().slice(2):game.endTime.toString().slice(0, 1) + ":" +game.endTime.toString().slice(1),
-                numOfPlayers:game.participants.length
-              })}
-            />
-          ))}
-        {gamesTab == 2 &&
-          PremiumGamesArr.map((game, i) => (
-            <GamesList
-              key={i}
-              location={game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
-              date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
-              startTime={game.startTime.toString().length>3?game.startTime.toString().slice(0, 2) + ":" +game.startTime.toString().slice(2):game.startTime.toString().slice(0, 1) + ":" +game.startTime.toString().slice(1)}
-              endTime={game.endTime.toString().length>3?game.endTime.toString().slice(0, 2) + ":" +game.endTime.toString().slice(2):game.endTime.toString().slice(0, 1) + ":" +game.endTime.toString().slice(1)}
-              onPress={() => navigation.navigate('PremiumGameDetails', { 
-                location: game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
-                date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
-                startTime: game.startTime.toString().length>3?game.startTime.toString().slice(0, 2) + ":" +game.startTime.toString().slice(2):game.startTime.toString().slice(0, 1) + ":" +game.startTime.toString().slice(1),
-                endTime:game.endTime.toString().length>3?game.endTime.toString().slice(0, 2) + ":" +game.endTime.toString().slice(2):game.endTime.toString().slice(0, 1) + ":" +game.endTime.toString().slice(1),
-                numOfPlayers:game.participants.length
-              }
-              )}
-            />
-          ))}
+        <ScrollView>
+          {gamesTab == 1 &&
+            CommunityGamesArr.map((game, i) => (
+              <GamesList
+                key={i}
+                location={game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
+                date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
+                startTime={game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1)}
+                endTime={game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1)}
+                onPress={() => navigation.navigate('CommunityGameDetails', {
+                  location: game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
+                  date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
+                  startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
+                  endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
+                  numOfPlayers: game.participants.length
+                })}
+              />
+            ))}
+          {gamesTab == 2 &&
+            PremiumGamesArr.map((game, i) => (
+              <GamesList
+                key={i}
+                location={game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
+                date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
+                startTime={game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1)}
+                endTime={game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1)}
+                onPress={() => navigation.navigate('PremiumGameDetails', {
+                  location: game.locationID.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
+                  date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
+                  startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
+                  endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
+                  numOfPlayers: game.participants.length
+                }
+                )}
+              />
+            ))}
+        </ScrollView>
       </ScrollView>
     </SafeAreaView>
   );
@@ -161,17 +178,35 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   HelloUserStyle: {
-    fontSize: 16,
+    fontSize: 20,
     color: "#3A98B9",
+    fontWeight:'400'
   },
   CarouselHeader: {
     marginVertical: 15,
     flex: 1,
-    fontSize: 22,
+    fontSize: 15,
     textAlign: "center",
     fontWeight: "bold",
     color: "#3A98B9",
   },
+  textInput: {
+ 
+    color: '#fff',
+    backgroundColor:'#3A98B9',
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight:"600"
+
+  },
+  button: {
+    backgroundColor: '#3A98B9',
+    padding: 10,
+    borderRadius: 20,
+    textAlign: 'center',
+
+  }
 });
 
 export default HomeScreen;
