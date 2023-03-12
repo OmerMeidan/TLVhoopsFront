@@ -63,12 +63,12 @@ function CommunityGameDetails({ route }) {
             <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '15%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
                 <Text h3 h3Style={{ paddingTop: '5%', color: '#fff' }}>{GameTitle}</Text>
                 <View style={{ width: '100%', flex: 1, alignItems: 'flex-start', marginTop: '10%', flexDirection: 'row' }}>
-                    <View style={{ flex: 1, width: '100%', height: '100%' }}>
+                    <View style={{ flex: 1, width: '100%', height: '100%', paddingLeft: 30 }}>
                         <Text style={styles.Text}>{GameLocation}</Text>
                         <Text style={styles.Text}>{GameDate}</Text>
                         <Text style={styles.Text}>{GameStartTime}-{GameEndTime}</Text>
-                        <Text style={styles.Text}>{GameLevel} Level</Text>
-                        <Text style={styles.Text}>{NumOfPlayers} players already in</Text>
+                        <Text style={styles.Text}>Level: {GameLevel}</Text>
+                        <Text style={styles.Text}>Already Joined: {NumOfPlayers}</Text>
 
                     </View>
 
@@ -92,12 +92,12 @@ function CommunityGameDetails({ route }) {
                 </View>
 
 
-                <View style={{ marginTop: '10%' }}>
-                    <Text style={styles.textstyle}>Please read carefully The Terms&Conditions and the Participation Waiver Before Registertation for a game! </Text>
-                    <View style={{ alignItems: 'flex-start', paddingTop: '10%' }}>
+                <View style={{ marginTop: '5%' }}>
+                    <Text style={styles.textstyle}>Please read carefully The Terms & Conditions and the Participation Waiver Before Registertation for a game! </Text>
+                    <View style={{ alignItems: 'flex-start', paddingTop: '5%', paddingBottom: '5%' }}>
                         <CheckBox
                             center
-                            title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('TermsAndCo')}>Terms&Conditions</Text>}
+                            title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('TermsAndCo')}>Terms & Conditions</Text>}
                             checked={toggleTermsCheckBox}
                             checkedColor={'white'}
                             containerStyle={{ backgroundColor: 'transparent' }}
@@ -129,18 +129,19 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontFamily: colors.font,
         marginBottom: '3%',
-        fontSize: 12
+        fontSize: 20
     },
     textstyle: {
         color: "#fff",
         fontSize: 15,
         fontWeight: '600',
-        textAlign: 'center',
+        textAlign: 'left',
+        maxWidth: '90%',
     },
     buttonText: {
         textAlign: 'center',
         color: "#3A98B9",
-        fontSize: 30
+        fontSize: 30,
     },
     button: {
         backgroundColor: "#fff",
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
         width: "60%",
         borderRadius: 20,
         textAlign: 'center',
-    
+        marginBottom: 20,
       },
 })
 
