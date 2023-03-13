@@ -75,7 +75,7 @@ function CommunityGameDetails({ route }) {
                 </View>
                 <View style={{ width: '70%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
                     <MapView
-                        provider={PROVIDER_GOOGLE}
+                  
                         style={{ width: '120%', height: '80%', borderRadius: '15%' }}
                         maxZoomLevel={20}
                         initialRegion={{

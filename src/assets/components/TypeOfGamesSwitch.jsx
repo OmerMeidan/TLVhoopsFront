@@ -31,7 +31,7 @@ export default function TypeOfGamesSwitch({
         onPress={() => updateSwitchData(1)}
         style={{
           flex: 1,
-          backgroundColor: getSelectionMode == 2 ? "#3A98B9" : "#e4e4e4",
+          backgroundColor: getSelectionMode == 2 ? "#3A98B9" : "#fff",
           borderRadius: 20,
           justifyContent: "center",
           alignItems: "center",
@@ -54,7 +54,7 @@ export default function TypeOfGamesSwitch({
         onPress={() => updateSwitchData(2)}
         style={{
           flex: 1,
-          backgroundColor: getSelectionMode == 1 ? "#3A98B9" : "#e4e4e4",
+          backgroundColor: getSelectionMode == 1 ? "#3A98B9" : "#fff",
           borderRadius: 20,
           justifyContent: "center",
           alignItems: "center",
