@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Text, View, Image, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, Image, TextInput, Button, StyleSheet } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from '../../context/AuthContext';
 
@@ -14,65 +14,71 @@ const ViewProfile = () => {
   };
 
   return (
-    <SafeAreaView style={{ height: '100%', backgroundColor: 'white',  }}>
-      <ScrollView>
-        <View style={{ height: '100%', justifyContent: 'flex-start', alignItems: 'center', flex: 1 }}>
-          <Text style={styles.myProfileHeader}>My Profile</Text>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '60%'}}>
-
-            <Text style={styles.headertext}>First Name:</Text>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Image source={require('../images/DemoLogo.jpeg')} style={{ height: '20%', width: '40%' }} />
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        {isEditing ? (
+          <>
+            <Text>First Name:</Text>
             <TextInput style={styles.textInput}
               placeholder="First Name"
               value={editedUserDetails.firstName}
               onChangeText={text => setEditedUserDetails({ ...editedUserDetails, firstName: text })}
             />
-            <Text style={styles.headertext}>Last Name:</Text>
+            <Text>Last Name:</Text>
             <TextInput style={styles.textInput}
               placeholder="Last Name"
               value={editedUserDetails.lastName}
               onChangeText={text => setEditedUserDetails({ ...editedUserDetails, lastName: text })}
             />
-            <Text style={styles.headertext}>Email:</Text>
+            <Text>Email:</Text>
             <TextInput style={styles.textInput}
               placeholder="Email"
               value={editedUserDetails.email}
               onChangeText={text => setEditedUserDetails({ ...editedUserDetails, email: text })}
             />
-            <Text style={styles.headertext}>Preferred Position:</Text>
+            <Text>Preferred Position:</Text>
             <TextInput style={styles.textInput}
               placeholder="Preferred Position"
               value={editedUserDetails.preferredPosition}
               onChangeText={text => setEditedUserDetails({ ...editedUserDetails, preferredPosition: text })}
             />
-            <Text style={styles.headertext}>Height:</Text>
+            <Text>Height:</Text>
             <TextInput style={styles.textInput}
               placeholder="Height"
               value={editedUserDetails.height}
               onChangeText={text => setEditedUserDetails({ ...editedUserDetails, height: text })}
             />
-            <Text style={styles.headertext}>Birth Date:</Text>
+            <Text>Birth Date:</Text>
             <TextInput style={styles.textInput}
               placeholder="Birth Date"
               value={editedUserDetails.birthDate}
               onChangeText={text => setEditedUserDetails({ ...editedUserDetails, birthDate: text })}
             />
-            <Text style={styles.headertext}>Phone Number:</Text>
+            <Text>Phone Number:</Text>
             <TextInput style={styles.textInput}
               placeholder="Phone Number"
               value={editedUserDetails.phoneNumber}
               onChangeText={text => setEditedUserDetails({ ...editedUserDetails, phoneNumber: text })}
             />
-
-
-            <TouchableOpacity style={styles.Createbutton} onPress={() => handleUpdateProfileData()}>
-              <Text style={styles.buttonText}>Update</Text>
-            </TouchableOpacity>
-        
-
-
-          </View>
-        </View>
-      </ScrollView>
+          </>
+        ) : (
+          <>
+            <Text>First Name: {userDetails.firstName}</Text>
+            <Text >Last Name: {userDetails.lastName}</Text>
+            <Text >Email: {userDetails.email}</Text>
+            <Text >Preferred Position: {userDetails.preferredPosition}</Text>
+            <Text >Height: {userDetails.height}</Text>
+            <Text >Birth Date: {userDetails.birthDate.toString().substr(0, 2) + '/' + userDetails.birthDate.toString().substr(2, 2) + '/' + userDetails.birthDate.toString().substr(4, 4)}</Text>
+            <Text >Phone Number: {userDetails.phoneNumber}</Text>
+          </>
+        )}
+        {isEditing ? (
+          <Button title="Update" onPress={handleUpdateProfile} />
+        ) : (
+          <Button title="Edit" onPress={() => setIsEditing(true)} />
+        )}
+      </View>
     </SafeAreaView>
   )
 };
@@ -88,27 +94,7 @@ const styles = StyleSheet.create({
     borderColor: '#3A98B9',
     padding: 10,
     width: '100%',
-  },
-  Createbutton: {
-    backgroundColor: "#3A98B9",
-    padding: 10,
-    width: "70%",
-    borderRadius: 20,
-    textAlign: 'center',
 
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: '#fff',
-    fontSize: 30,
-  },
-  myProfileHeader:{
-    color:'#3A98B9',
-    paddingBottom:'5%',
-    fontSize:30,
-  },
-  headertext:{
-    marginTop:'10%', color:'#3A98B9'
   }
 })
 

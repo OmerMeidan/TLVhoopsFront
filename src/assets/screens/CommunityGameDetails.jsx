@@ -60,7 +60,7 @@ function CommunityGameDetails({ route }) {
     },[])
     return (
         <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '15%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
+            <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '20%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
                 <Text h3 h3Style={{ paddingTop: '5%', color: '#fff' }}>{GameTitle}</Text>
                 <View style={{ width: '100%', flex: 1, alignItems: 'flex-start', marginTop: '10%', flexDirection: 'row' }}>
                     <View style={{ flex: 1, width: '100%', height: '100%' }}>
@@ -115,7 +115,7 @@ function CommunityGameDetails({ route }) {
                 </View>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
                 <TouchableOpacity onPress={() => { handleRegisterForGame() }} style={styles.button}>
-                  <Text style={styles.buttonText}>Register Now!</Text>
+                  <Text style={styles.buttonText}>JOIN GAME!</Text>
                 </TouchableOpacity>
                 </View>
             </View>

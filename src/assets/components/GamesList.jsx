@@ -15,27 +15,28 @@ const GamesList = ({ location, date, startTime, endTime, onPress }) => {
         justifyContent: "space-between",
         alignItems: "center",
         marginBottom: 20,
+
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
         <MaterialIcons
           name="sports-basketball"
           size={40}
-          color="#3A98B9"
+          color="#fff"
           style={{ borderRadius: 10, marginRight: 8 }}
         />
         <View style={{ width: windowWidth - 220 }}>
           <Text
             numberOfLines={1}
             style={{
-              color: "#3A98B9",
+              color: "#fff",
               fontSize: 13,
               textTransform: "uppercase",
             }}
           >
             {location} , {date}
           </Text>
-          <Text style={{ color: "#3A98B9", fontSize: 13 }}>
+          <Text style={{ color: "#fff", fontSize: 13 }}>
             {startTime} - {endTime}
           </Text>
         </View>
