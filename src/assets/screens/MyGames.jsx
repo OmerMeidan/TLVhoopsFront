@@ -1,10 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from '../../context/AuthContext';
-import { Text, View,ScrollView,StyleSheet,SafeAreaView } from 'react-native'
+import { View,ScrollView,StyleSheet,SafeAreaView } from 'react-native'
 import GamesList from "../components/GamesList";
 import axios from 'axios'
 import TypeOfGamesSwitch from "../components/TypeOfGamesSwitch";
 import { useNavigation } from "@react-navigation/native";
+import LottieView from 'lottie-react-native';
+import { Tab, TabView, Text, Button } from '@rneui/themed';
+
+
 const MyGames = () => {
     const navigation = useNavigation()
     const [gamesTab, setGamesTab] = useState(1);
@@ -19,7 +23,6 @@ const MyGames = () => {
                     console.log(userDetails.email);
                     setMyGames([])
                     setMyGames(prevState => [...prevState, response.data.filter(game=>(game.participants.find(player=>player===userDetails.email)))]);
-                    seperateByDate()
                 }
             }
             catch(error){
@@ -27,6 +30,11 @@ const MyGames = () => {
             }
 
         }
+        
+        getPlayerGames()
+    },[])
+
+    useEffect(()=>{
         const seperateByDate=()=>{
             setPastGamesArr([])
             setUpcomingGamesArr([])
@@ -53,11 +61,13 @@ const MyGames = () => {
             }
                 ))
         }
-        getPlayerGames()
-    },[])
+        seperateByDate()
+
+    },[myGames])
     const onSelectSwitch = (value) => {
         setGamesTab(value);
       };
+
      
     return (
         <SafeAreaView style={styles.SafeAreaViewStyle} >
@@ -73,6 +83,7 @@ const MyGames = () => {
         </View>
         <ScrollView>
           {gamesTab == 1 &&
+           UpcomingGamesArr.length!==0?
             UpcomingGamesArr.map((game, i) => (
               <GamesList
                 key={i}
@@ -88,8 +99,20 @@ const MyGames = () => {
                   numOfPlayers: game.participants.length
                 })}
               />
-            ))}
+            ))
+            :
+            gamesTab == 1 &&
+            <View style={{height:'100%',width:'100%',alignItems:'center'}}>
+            <LottieView style={{height:'100%',width:'100%'}}
+                source={require('../58686-basketball (1).json')}
+                loop
+                autoPlay
+            />
+            <Text h2 h2Style={{color:'white',fontFamily:'Gill Sans'}}>nothing to show here</Text>
+        </View>
+        }
           {gamesTab == 2 &&
+           pastGamesArr.length!==0?
             pastGamesArr.map((game, i) => (
               <GamesList
                 key={i}
@@ -106,9 +129,20 @@ const MyGames = () => {
                 }
                 )}
               />
-            ))}
+            ))
+            :
+            gamesTab == 2 && 
+            <View style={{height:'100%',width:'100%',alignItems:'center'}}>
+                <LottieView style={{height:'100%',width:'100%'}}
+                    source={require('../58686-basketball (1).json')}
+                    loop
+                    autoPlay
+                />
+                <Text h2 h2Style={{color:'white',fontFamily:'Gill Sans'}}>nothing to show here</Text>
+            </View>
+            
+            }
         </ScrollView>
-        {/* </View> */}
         </SafeAreaView>
     )
 
@@ -122,6 +156,7 @@ const styles = StyleSheet.create({
     },
     SafeAreaViewStyle: {
       flex: 1,
+      backgroundColor: '#3A98B9'
     },
     ScrollViewStyle: {
       padding: 20,

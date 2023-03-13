@@ -4,10 +4,10 @@ import { Text, View, Image } from "react-native";
 const BannerSlider = ({ data }) => {
   return (
     <View>
-      <Image
+      {/* <Image
         source={data.Image}
         style={{ height: 150, width: 300, borderRadius: 10 }}
-      />
+      /> */}
     </View>
   );
 };
