@@ -78,13 +78,14 @@ const HomeScreen = () => {
     GetAllGames()
   }, [])
 
+  
 
 
 
 
 
 
-  console.log(PremiumGamesArr);
+  console.log(userDetails);
   // console.log(CommunityGamesArr);
   return (
     <SafeAreaView style={styles.SafeAreaViewStyle} >
