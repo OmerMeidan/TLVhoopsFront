@@ -60,7 +60,7 @@ function CommunityGameDetails({ route }) {
     },[])
     return (
         <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '15%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
+            <View style={{ width: '95%', height: '95%', backgroundColor: "#3A98B9", borderRadius: '15%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
                 <Text h3 h3Style={{ paddingTop: '5%', color: '#fff' }}>{GameTitle}</Text>
                 <View style={{ width: '100%', flex: 1, alignItems: 'flex-start', marginTop: '10%', flexDirection: 'row' }}>
                     <View style={{ flex: 1, width: '100%', height: '100%', paddingLeft: 30 }}>
@@ -73,7 +73,7 @@ function CommunityGameDetails({ route }) {
                     </View>
 
                 </View>
-                <View style={{ width: '70%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+                <View style={{ width: '70%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
                     <MapView
                         provider={PROVIDER_GOOGLE}
                         style={{ width: '120%', height: '80%', borderRadius: '15%' }}

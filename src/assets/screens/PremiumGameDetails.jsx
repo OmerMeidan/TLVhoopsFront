@@ -56,10 +56,10 @@ function PremiumGameDetails({route}) {
     return (
         
         <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ width: 400, height: 500, backgroundColor: colors.primary, borderRadius: '15%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
-                <Text h3 h3Style={{ marginTop: '5%' }}>{GameTitle}</Text>
+            <View style={{ width: '95%', height: '95%', backgroundColor: "#3A98B9", borderRadius: '15%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
+                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff' }}>{GameTitle}</Text>
                 <View style={{ width: '100%', flex: 1, alignItems: 'flex-start', marginTop: '10%', flexDirection: 'row' }}>
-                    <View style={{ flex: 1, width: '100%', height: '100%' }}>
+                    <View style={{ flex: 1, width: '100%', height: '100%', paddingLeft: 30 }}>
                         <Text h4 style={styles.Text}>{GameLocation}</Text>
                         <Text h4 style={styles.Text}>{GameDate}</Text>
                         <Text h4 style={styles.Text}>{GameStartTime}-{GameEndTime}</Text>
@@ -69,7 +69,7 @@ function PremiumGameDetails({route}) {
                     </View>
 
                 </View>
-                <View style={{ width: '100%', height: '100%', flex: 1 }}>
+                <View style={{ width: '90%', height: '100%', flex: 1 }}>
                
                     <MapView
                         provider={PROVIDER_GOOGLE}
@@ -109,6 +109,7 @@ function PremiumGameDetails({route}) {
 
 const styles = StyleSheet.create({
     Text: {
+        color: "#fff",
         fontFamily: colors.font,
         marginBottom: '3%'
     },
