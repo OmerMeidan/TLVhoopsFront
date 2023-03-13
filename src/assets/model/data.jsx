@@ -1,16 +1,13 @@
 export const sliderData = [
-  {
-    title: "First Game",
-    image: require("../images/slideroption1.jpeg"),
-  },
-  {
-    title: "Seacond Game",
-    image: require("../images/slideroption2.jpg"),
-  },
-  {
-    title: "Third Game",
-    image: require("../images/slideroption3.jpeg"),
-  },
+  
+   ("../images/slideroption1.jpeg"),
+  ,
+ 
+   ("../images/slideroption2.jpg"),
+ 
+  
+   ("../images/slideroption3.jpeg"),
+
 ];
 
 export const CommunityGames = [

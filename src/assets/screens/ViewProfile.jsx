@@ -1,3 +1,4 @@
+import { BackgroundImage } from "@rneui/themed/dist/config";
 import React, { useState, useContext } from "react";
 import { Text, View, Image, TextInput, Button, StyleSheet } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,8 +15,8 @@ const ViewProfile = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Image source={require('../images/DemoLogo.jpeg')} style={{ height: '20%', width: '40%' }} />
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' ,backgroundColor:"#3A98B9" }}>
+      <Image source={require('../images/DemoLogo.jpeg')} style={{ height: '30%', width: '45%' }} />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {isEditing ? (
           <>
@@ -25,13 +26,13 @@ const ViewProfile = () => {
               value={editedUserDetails.firstName}
               onChangeText={text => setEditedUserDetails({ ...editedUserDetails, firstName: text })}
             />
-            <Text>Last Name:</Text>
+            <Text style={styles.headers}>Last Name:</Text>
             <TextInput style={styles.textInput}
               placeholder="Last Name"
               value={editedUserDetails.lastName}
               onChangeText={text => setEditedUserDetails({ ...editedUserDetails, lastName: text })}
             />
-            <Text>Email:</Text>
+            <Text >Email:</Text>
             <TextInput style={styles.textInput}
               placeholder="Email"
               value={editedUserDetails.email}
@@ -94,7 +95,10 @@ const styles = StyleSheet.create({
     borderColor: '#3A98B9',
     padding: 10,
     width: '100%',
-
+    color:'#fff'
+  },
+  headers:{
+    color:'#fff'
   }
 })
 

@@ -24,8 +24,10 @@ const CustomDrawer = (props) => {
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
-                <Image source={require('../images/DemoLogo.jpeg')}
-                    style={{ width: 100, height: 100 }} />
+                <View style={{ backgroundColor: '#3A98B9', alignItems: 'center' }}>
+                    <Image source={require('../images/DemoLogo.jpeg')}
+                        style={{ width: 100, height: 100, backgroundColor: '#3A98B9' }} />
+                </View>
                 <View style={{ flex: 1, paddingTop: 10 }}>
                     <DrawerItemList {...props} />
                 </View>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Text, View, SafeAreaView, ScrollView, Image, StyleSheet } from "react-native";
+import { Text, View, SafeAreaView, ScrollView, Image, StyleSheet, ActivityIndicator } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Carousel from "react-native-snap-carousel";
-import { sliderData, CommunityGames, PremiumGames } from "../model/data";
+
+
 import BannerSlider from "../components/BannerSlider";
 import { windowWidth } from "../utilis/Dimensions";
 import TypeOfGamesSwitch from "../components/TypeOfGamesSwitch";
@@ -11,10 +11,12 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from '../../context/AuthContext';
+import { SliderBox } from 'react-native-image-slider-box'
+import {Carousel} from 'react-native-auto-carousel';
 
 
 import { Dimensions } from 'react-native';
-// import { Carousel } from 'react-native-auto-carousel';
+
 
 
 
@@ -78,57 +80,31 @@ const HomeScreen = () => {
     GetAllGames()
   }, [])
 
-  
 
 
 
 
+  const sliderData = [require('../images/sliderData1.jpeg'), require('../images/slideroption2.jpg')]
 
 
-  console.log(userDetails);
+  // console.log(userDetails);
   // console.log(CommunityGamesArr);
   return (
     <SafeAreaView style={styles.SafeAreaViewStyle} >
       <ScrollView style={styles.ScrollViewStyle}>
         <View style={styles.TopView}>
-          <Text style={styles.HelloUserStyle}>Hello {userDetails.firstName}!</Text>
+  
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Image source={require('../images/DemoLogo.jpeg')}
-              style={{ width: 30, height: 30 }} />
+              style={{ width: 100, height: 100 }} />
           </TouchableOpacity>
         </View>
-        <View>
+        {/* <View>
           <Text style={styles.CarouselHeader}>FOR THE BASKETBALL COMMUNITY</Text>
+        </View> */}
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <SliderBox images={sliderData} dotColor='white' inactiveDotColor='grey' autoplay={true} autoplayInterval={5000} circleLoop={true}  ImageComponentStyle={{borderRadius: 20, width:'90%' }} paginationBoxStyle={{marginright:'20%'}}/>
         </View>
-        <Carousel
-          ref={(c) => {
-            this._carousel = c;
-          }}
-          data={sliderData}
-          renderItem={renderBanner}
-          sliderWidth={windowWidth - 40}
-          itemWidth={300}
-          loop={true}
-          scrollAnimationDuration={1000}
-          autoPlay={true}
-          autoplayInterval={5000}
-        />
-
-        {/* <Carousel
-          data={sliderData}
-          renderItem={item => (
-            <Image
-              key={item}
-              src={{ uri: item }}
-              style={{
-                height: '50%',
-                width: windowWidth
-              }}
-            />
-          )}
-        /> */}
-
-
         <View style={{
           paddingTop: '7%',
           justifyContent: 'center',
@@ -192,8 +168,10 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   TopView: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
+    flex:1,
+    alignItems:'center',
+justifyContent:'center',
+    marginBottom:20,
 
   },
   SafeAreaViewStyle: {
@@ -214,12 +192,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: "center",
     fontWeight: "bold",
-    color: "#3A98B9",
+    color: "#fff",
   },
   textInput: {
 
-    color: '#fff',
-    backgroundColor: '#3A98B9',
+    color: '#3A98B9',
+    backgroundColor: '#fff',
     textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -227,7 +205,7 @@ const styles = StyleSheet.create({
 
   },
   button: {
-    backgroundColor: '#3A98B9',
+    backgroundColor: '#fff',
     padding: 10,
     borderRadius: 20,
     textAlign: 'center',

@@ -45,7 +45,7 @@ const GamesList = ({ location, date, startTime, endTime, onPress }) => {
       <TouchableOpacity
         onPress={onPress}
         style={{
-          backgroundColor: "#3A98B9",
+          backgroundColor:'#fff',
           padding: 10,
           width: 90,
           borderRadius: 20,
@@ -54,9 +54,10 @@ const GamesList = ({ location, date, startTime, endTime, onPress }) => {
         <Text 
         
           style={{
-            color: "#fff",
+            color: "#3A98B9",
             textAlign: "center",
             fontSize: 13,
+          
           }}
         >
           View
