@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
+  Image,
   View,
   SafeAreaView,
   TouchableOpacity,
@@ -65,7 +66,8 @@ const OnBoarding = ({ navigation }) => {
         source={require('../images/boardingg.jpg')} />
       <View style={styles.container}>
         <View style={styles.mainHeaderButton}>
-          <Text style={styles.mainHeader}>TLV-HOOPS</Text>
+        <Image source={require('../images/DemoLogo.jpeg')}
+              style={{ width: '43%', height: '40%', marginTop:'30%' }} />
           <StatusBar style="auto" />
         </View>
         <View
@@ -73,7 +75,7 @@ const OnBoarding = ({ navigation }) => {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            marginBottom: -550,
+            
           }}
         >
           <TouchableOpacity
@@ -93,8 +95,8 @@ const OnBoarding = ({ navigation }) => {
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
-    width: 1100,
-    height: 1100,
+    width: 1300,
+    height: 1300,
     top: 0,
     opacity: 1,
     transform: [
@@ -111,20 +113,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    fontFamily: colors.font
+   
   },
 
   mainHeaderButton: {
-    backgroundColor: "#3A98B9",
-    padding: 10,
-    width: "40%",
+   
+    height: "54%",
     borderRadius: 20,
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginRight: '50%',
-    marginTop: '10%'
-
+    justifyContent: "center", // updated
+ 
   },
+  
   mainHeader: {
     fontWeight: "bold",
     fontSize: 25,
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop:'40%'
 
 
 

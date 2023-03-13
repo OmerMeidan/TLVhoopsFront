@@ -25,6 +25,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { ScrollView } from 'react-native-gesture-handler';
 
 
+
 export const windowWidth = Dimensions.get("window").width;
 export const windowHeight = Dimensions.get("window").height;
 
@@ -161,9 +162,9 @@ function Login() {
 
 
   return (
-    <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
+    <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: '#3A98B9' }}>
 
-      <SafeAreaView style={{ backgroundColor: 'white' }}>
+      <SafeAreaView style={{ backgroundColor: '#3A98B9' }}>
         <StatusBar style={styles.container} />
       </SafeAreaView>
       <TabView value={index} onChange={setIndex} animationType="spring">
@@ -171,8 +172,8 @@ function Login() {
 
         <TabView.Item style={{ backgroundColor: 'white', width: '100%', height: '100%' }}>
           <SafeAreaView style={styles.homePage}>
-          <Image source={require('../images/DemoLogo.jpeg')}
-                    style={{ width: 100, height: 100 }} />
+            <Image source={require('../images/DemoLogo.jpeg')}
+              style={{ width: "30%", height: "17%" }} />
 
             <SafeAreaView style={{ justifyContent: 'flex-start' }}>
 
@@ -196,7 +197,7 @@ function Login() {
         </TabView.Item>
 
 
-        <TabView.Item style={{ backgroundColor: 'white', width: '100%' }}>
+        <TabView.Item style={{ backgroundColor: '#3A98B9', width: '100%', height: '100%' }}>
           {!isLoading ?
             <LottieView
               source={require('../32960-loader-basketball (2).json')}
@@ -204,11 +205,11 @@ function Login() {
               autoPlay
             />
             :
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: '#3A98B9' }}>
               <SafeAreaView style={styles.SignUpPage}>
-                <SafeAreaView style={{ marginTop: '4%', justifyContent: 'flex-start', marginBottom: '8%' }}>
-                <Image source={require('../images/DemoLogo.jpeg')}
-                    style={{ width: 100, height: 100 }} />
+                <SafeAreaView style={{ justifyContent: 'flex-start', backgroundColor: '#3A98B9', }}>
+                  <Image source={require('../images/DemoLogo.jpeg')}
+                    style={{ width: 130, height: 130}} />
                 </SafeAreaView>
                 <TextInput defaultValue={`${def}`} placeholder='first name' onChangeText={(value) => setRegisterFirstName(value)} style={styles.textInput} />
                 <TextInput defaultValue={`${def}`} placeholder='last name' onChangeText={(value) => setRegisterLastName(value)} style={styles.textInput} />
@@ -226,7 +227,7 @@ function Login() {
                 <TextInput defaultValue={`${def}`} placeholder='phone number' onChangeText={(value) => setRegisterPhone(value)} style={styles.textInput} />
                 <TextInput defaultValue={`${def}`} placeholder='preferred position' onChangeText={(value) => setRegisterPosition(value)} style={styles.textInput} />
                 <TextInput defaultValue={`${def}`} placeholder='heigth' onChangeText={(value) => setRegisterHeight(value)} style={styles.textInput} />
-                <TouchableOpacity onPress={() => { handleLogIn() }} style={styles.signUpbutton}>
+                <TouchableOpacity onPress={() => { handleSignUp() }} style={styles.signUpbutton}>
                   <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
               </SafeAreaView>
@@ -258,7 +259,7 @@ function Login() {
 
         />
         <Tab.Item
-          style={{ height: '100%', }}
+
           title="Sign Up"
           titleStyle={{ fontSize: 12, color: '#fff' }}
           icon={{ name: 'basketball-outline', type: 'ionicon', color: 'white' }}
@@ -273,7 +274,7 @@ function Login() {
 const styles = StyleSheet.create({
   container: {
     marginTop: '10%',
-    backgroundColor: 'white',
+    backgroundColor: '#3A98B9',
     alignItems: 'center',
     justifyContent: 'center',
     fontStyle: 'white',
@@ -286,11 +287,12 @@ const styles = StyleSheet.create({
     borderColor: '#3A98B9',
     padding: 10,
     width: '60%',
+    backgroundColor: "#fff"
 
   },
   homePage: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#3A98B9',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -304,8 +306,9 @@ const styles = StyleSheet.create({
   },
   SignUpPage: {
     flex: 1,
-    width: '100%',
+
     justifyContent: 'center',
+    backgroundColor: '#3A98B9',
     alignItems: 'center',
     gap: Platform.OS === 'android' ? false : '20%'
   },
@@ -315,6 +318,7 @@ const styles = StyleSheet.create({
     width: "60%",
     borderRadius: 20,
     textAlign: 'center',
+    backgroundColor: '#3A98B9'
 
 
   },
@@ -332,6 +336,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 30
   },
+
+
 
 })
 

@@ -31,7 +31,7 @@ const CustomDrawer = (props) => {
                 </View>
             </DrawerContentScrollView>
             <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-                <TouchableOpacity onPress={() => { handleLogOut() }} style={{ paddingVertical: 15 }}>
+                <TouchableOpacity onPress={() => { handleLogOut() }} style={{ paddingVertical: 7 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Ionicons name="log-out-outline" size={22} />
                         <Text

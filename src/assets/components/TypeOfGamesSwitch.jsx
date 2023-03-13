@@ -19,9 +19,9 @@ export default function TypeOfGamesSwitch({
       style={{
         height: 44,
         width: "100%",
-        backgroundColor: "#e4e4e4",
+        backgroundColor: "#3A98B9",
         borderRadius: 10,
-        borderColor: "#AD40AF",
+        borderColor: "#3A98B9",
         flexDirection: "row",
         justifyContent: "center",
       }}
@@ -31,7 +31,7 @@ export default function TypeOfGamesSwitch({
         onPress={() => updateSwitchData(1)}
         style={{
           flex: 1,
-          backgroundColor: getSelectionMode == 1 ? "#3A98B9" : "#e4e4e4",
+          backgroundColor: getSelectionMode == 2 ? "#3A98B9" : "#e4e4e4",
           borderRadius: 20,
           justifyContent: "center",
           alignItems: "center",
@@ -42,7 +42,7 @@ export default function TypeOfGamesSwitch({
         
         <Text
           style={{
-            color: getSelectionMode == 1 ? "white" : "#3A98B9",
+            color: getSelectionMode == 1 ? "#3A98B9" :  "white",
             fontSize: 14,
           }}
         >
@@ -54,7 +54,7 @@ export default function TypeOfGamesSwitch({
         onPress={() => updateSwitchData(2)}
         style={{
           flex: 1,
-          backgroundColor: getSelectionMode == 2 ? "#3A98B9" : "#e4e4e4",
+          backgroundColor: getSelectionMode == 1 ? "#3A98B9" : "#e4e4e4",
           borderRadius: 20,
           justifyContent: "center",
           alignItems: "center",
@@ -62,7 +62,7 @@ export default function TypeOfGamesSwitch({
       >
         <Text
           style={{
-            color: getSelectionMode == 2 ? "white" : "#3A98B9",
+            color: getSelectionMode == 1 ? "white" : "#3A98B9",
             fontSize: 14,
           }}
         >

@@ -21,11 +21,11 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <AuthProvider >
+    <AuthProvider style={{backgroundcolor:'#3A98B9'}} >
       {/* <GoogleMapsApiProvider apiKey="AIzaSyA5xU-SY93_xtrSnJMqbi_RT3yf9obFy00"> */}
       <NavigationContainer>
         <Stack.Navigator >
-          <Stack.Screen component={OnBoarding} name="OnBoarding" options={{ headerShown: false }} />
+          <Stack.Screen component={OnBoarding} name="OnBoarding" options={{ headerShown: false  }} />
           <Stack.Screen component={Login} name="Login" options={{ headerShown: false }} />
           <Stack.Screen component={AppStack} name="AppStack" options={{ headerShown: false }} />
           <Stack.Screen component={About} name="About" options={{ headerShown: false }} />
