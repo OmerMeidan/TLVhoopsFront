@@ -156,7 +156,8 @@ const HomeScreen = () => {
                   startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
                   endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
                   numOfPlayers: game.participants.length,
-                  gameID: game.gameID
+                  gameID: game.gameID,
+                  participants: game.participants
                 }
                 )}
               />
