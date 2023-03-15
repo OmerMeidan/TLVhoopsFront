@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -17,7 +18,7 @@ const HomeStack = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen component={HomeScreen} name="HomeScreen" />
-            <Stack.Screen component={GamesDetails} name="GamesDetails"/>
+            <Stack.Screen component={GamesDetails} name="GamesDetails" />
         </Stack.Navigator>
     );
 };
@@ -26,7 +27,7 @@ const TabNavigator = () => {
     return (
         <Tab.Navigator screenOptions={{
             headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarStyle: { backgroundColor: "#3A98B9" }, tabBarInactiveTintColor: '#fff', tabBarActiveTintColor: '#155372'
-         }}>
+        }}>
 
             < Tab.Screen name="Home" component={HomeStack} options={{
 

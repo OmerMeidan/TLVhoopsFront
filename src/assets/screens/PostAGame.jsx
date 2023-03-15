@@ -270,8 +270,8 @@ function PostAGame() {
           <Text h2 style={{color:'#fff'}}>Post Your Game Now!</Text>
           <Text style={{color:'#fff', textAlign:'center', paddingTop:'5%'}}>Here you can post your game and other players from the community will join you!</Text>
           <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '10%' }}>
-          <TextInput placeholderTextColor={'black'}  placeholder='Location name' style={styles.textInput} />
-          <TextInput placeholderTextColor={'black'}  placeholder='Vaild Address of the location' style={styles.textInput} />
+          <TextInput defaultValue={courtName} placeholderTextColor={'black'} onChangeText={text=>setCourtName(text)}  placeholder='Court name' style={styles.textInput} />
+          <TextInput defaultValue={Location} placeholderTextColor={'black'} onChangeText={text=>setLocation(text)} placeholder='Vaild Address of the location' style={styles.textInput} />
             <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput}  placeholderTextColor={'black'} />
             <DateTimePickerModal
               isVisible={isDatePickerVisible}

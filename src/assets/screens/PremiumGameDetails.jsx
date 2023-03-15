@@ -10,7 +10,8 @@ import {
     Alert,
     Platform,
     TouchableOpacity,
-    Linking
+    Linking, 
+    Button
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -61,12 +62,17 @@ function PremiumGameDetails({ route }) {
 
     }, [])
 
-console.log(gameID);
+  
+    
+
+    const handlePlayersList = () => {
+
+    }
     const handleRegisterForPremiumGame = async () => {
         if (toggleTermsCheckBox && toggleWaiverCheckBox) {
 
             try {
-                
+
                 const res = await axios.post('https://tlv-hoops-server.onrender.com/addPlayer', {
                     gameID: gameID,
                     player: userDetails.email
@@ -80,7 +86,7 @@ console.log(gameID);
                                 text: 'OK',
                                 onPress: () => {
                                     console.log('OK')
-                              
+
                                 },
                             },
                         ],
@@ -112,7 +118,7 @@ console.log(gameID);
         <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
             <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '20%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
                 <Text h3 h3Style={{ paddingTop: '5%', color: '#fff' }}>{GameTitle}</Text>
-                <View style={{ width: '100%', flex: 1, alignItems: 'flex-start', marginTop: '10%', flexDirection: 'row' }}>
+                <View style={{ width: '100%', flex: 1, alignItems: 'flex-start', marginTop: '5%', flexDirection: 'row' }}>
                     <View style={{ flex: 1, width: '100%', height: '100%' }}>
                         <Text style={styles.Text}>{GameLocation}</Text>
                         <Text style={styles.Text}>{GameDate}</Text>
@@ -138,7 +144,9 @@ console.log(gameID);
                             image={require('../../040ca4b7d907fc901da64c5015740a13-removebg-preview-removebg-preview.png')}
                         />
                     </MapView>
-                    <Button title='hi' onPress={()=>{Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`)}} ></Button>
+                    <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={styles.mapsButton}>
+                        <Text style={styles.mapbuttonText}>Open Maps</Text>
+                    </TouchableOpacity>
                 </View>
 
 
@@ -163,12 +171,12 @@ console.log(gameID);
                         />
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row', width: '100%',  justifyContent:'space-around' , margin:'2%'}}>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around', margin: '2%' }}>
                     <TouchableOpacity onPress={() => { handleRegisterForPremiumGame() }} style={styles.button}>
                         <Text style={styles.buttonText}>JOIN GAME!</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { handleRegisterForPremiumGame() }} style={styles.button}>
-                        <Text style={styles.buttonText}>Players List</Text>
+                    <TouchableOpacity onPress={() => { handlePlayersLIST() }} style={styles.button}>
+                        <Text style={styles.buttonText}>PLAYERS LIST</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -185,15 +193,16 @@ const styles = StyleSheet.create({
         fontFamily: colors.font,
         marginBottom: '3%',
         fontSize: 16,
-        fontWeight:'600'
+        fontWeight: '600',
+        textAlign:'center', 
     },
     button: {
         backgroundColor: "#fff",
         padding: 10,
         width: "37%",
-        borderRadius: 20,
+        borderRadius: 15,
         textAlign: 'center',
-        justifyContent:'space-around'
+        justifyContent: 'space-around'
 
     },
     textstyle: {
@@ -206,6 +215,25 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: "#3A98B9",
         fontSize: 20
+    },
+    mapsButton: {
+        backgroundColor: "#fff",
+        padding: 5,
+        width: "40%",
+        borderRadius: 15,
+        textAlign: 'center',
+        marginTop: '3%'
+
+    },
+    openMapsButton: {
+        textAlign: 'center',
+        color: "#3A98B9",
+        fontSize: 50
+    },
+    mapbuttonText: {
+        textAlign: 'center',
+        color: "#3A98B9",
+        fontSize: 13
     },
 })
 
