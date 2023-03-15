@@ -264,22 +264,22 @@ function PostAGame() {
   console.log("hi", participantsArr)
 
   return (
-    <SafeAreaView style={{ height: '100%', width: '100%', backgroundColor: 'white' }}>
+    <SafeAreaView style={{ height: '100%', width: '100%', backgroundColor: '#3A98B9' }}>
       <ScrollView>
         <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '8%', flex: 1 }}>
-          <Text h2 style={{ color: '#3A98B9' }}>Post Your Game Now!</Text>
-          <Text style={{ color: '#3A98B9', textAlign: 'center', paddingTop: '5%' }}>Here you can post your game and other players from the community will join you!</Text>
+          <Text h2 style={{color:'#fff'}}>Post Your Game Now!</Text>
+          <Text style={{color:'#fff', textAlign:'center', paddingTop:'5%'}}>Here you can post your game and other players from the community will join you!</Text>
           <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '10%' }}>
-            <TextInput defaultValue={courtName}  placeholder='Court name' style={styles.textInput} onChangeText={text => setCourtName(text)} />
-            <TextInput defaultValue={Location} placeholder='Vaild Address of the location' style={styles.textInput} onChangeText={text => setLocation(text)} />
-            <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput} />
+          <TextInput placeholderTextColor={'black'}  placeholder='Location name' style={styles.textInput} />
+          <TextInput placeholderTextColor={'black'}  placeholder='Vaild Address of the location' style={styles.textInput} />
+            <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput}  placeholderTextColor={'black'} />
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
               mode="date"
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
             />
-            <TextInput  defaultValue={`${StartValue}`} onPressIn={() => showStartTimePicker()} placeholder='Start Time' style={styles.textInput} />
+            <TextInput defaultValue={`${StartValue}`} onPressIn={() => showStartTimePicker()} placeholder='Start Time '  placeholderTextColor={'black'} style={styles.textInput} />
             <DateTimePickerModal
               is24Hour={true}
               isVisible={isStartTimePickerVisible}
@@ -287,7 +287,7 @@ function PostAGame() {
               onConfirm={handleConfirmStartTime}
               onCancel={hideStartTimePicker}
             />
-            <TextInput  defaultValue={`${EndValue}`} onPressIn={() => showEndTimePicker()} placeholder='End Time' style={styles.textInput} />
+            <TextInput defaultValue={`${EndValue}`} onPressIn={() => showEndTimePicker()} placeholder='End Time'  placeholderTextColor={'black'}  style={styles.textInput} />
             <DateTimePickerModal
               is24Hour={true}
               isVisible={isEndTimePickerVisible}
@@ -296,14 +296,15 @@ function PostAGame() {
               onCancel={hideEndTimePicker}
             />
 
-            <TextInput defaultValue={MinimumAge} placeholder='Minimum Age' onChangeText={text => setMinimumAge(text)} style={styles.textInput} />
-            <TextInput defaultValue={MaximumAge} placeholder='Maximum Age' onChangeText={text => setMaximumAge(text)} style={styles.textInput} />
+            <TextInput defaultValue={MinimumAge} placeholder='Minimum Age' placeholderTextColor={'black'}  onChangeText={text => setMinimumAge(text)} style={styles.textInput} />
+            <TextInput defaultValue={MaximumAge} placeholder='Maximum Age' placeholderTextColor={'black'}  onChangeText={text => setMaximumAge(text)} style={styles.textInput} />
 
 
 
-            <TextInput defaultValue={MaximumPlayers} placeholder='Maximum palyers' onChangeText={text => setMaximumPlayers(text)} style={styles.textInput} />
+            <TextInput defaultValue={MaximumPlayers} placeholder='Maximum palyers' placeholderTextColor={'black'}  onChangeText={text => setMaximumPlayers(text)} style={styles.textInput} />
 
             <TextInput style={styles.textInput}
+            placeholderTextColor={'black'} 
               placeholder="Search for players to join you!"
               value={inputText}
               autoCapitalize='none'
@@ -358,17 +359,18 @@ function PostAGame() {
 
             <DropDownPicker
               placeholder='Select Game level'
+              placeholderTextColor={'black'} 
               open={open}
               value={Level}
               items={items}
               setOpen={setOpen}
               setValue={setLevel}
               setItems={setItems}
-              style={{ borderWidth: 1, borderRadius: 20, borderColor: '#3A98B9', marginBottom: '5%', width: '60%', marginLeft: '20%', }}
+              style={{ borderWidth: 1, borderRadius: 15, borderColor: '#3A98B9', marginBottom: '5%', width: '60%', marginLeft: '20%', }}
             />
 
             <TouchableOpacity style={styles.Createbutton} onPress={() => handleCreateGame()}>
-              <Text style={styles.buttonText}>Create</Text>
+              <Text style={styles.buttonText}>Post Now!</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -382,32 +384,25 @@ const styles = StyleSheet.create({
   textInput: {
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 20,
-    borderColor: '#3A98B9',
+    borderRadius: 15,
     padding: 10,
     width: '60%',
-    marginBottom: '5%'
+    marginBottom: '5%',
+    backgroundColor:'#fff',
+    placeholderTextColor:'black'
+    
   },
   textInputSearch: {
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 20,
-    borderColor: '#3A98B9',
+    borderRadius: 15,
+    borderColor: '#ç',
     padding: 10,
     width: '60%',
     marginBottom: '5%'
-  },
-  AddPlayer: {
-    width: '1%'
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    width: '50%',
-    marginBottom: '5%'
-  },
+},
+
+
   a: {
     borderWidth: 1,
     borderColor: '#ccc',
@@ -427,16 +422,16 @@ const styles = StyleSheet.create({
   },
 
   Createbutton: {
-    backgroundColor: "#3A98B9",
+    backgroundColor: "#fff",
     padding: 10,
     width: "60%",
-    borderRadius: 20,
+    borderRadius: 15,
     textAlign: 'center',
 
   },
   buttonText: {
     textAlign: 'center',
-    color: '#fff',
+    color: '#3A98B9',
     fontSize: 30
   }
 })

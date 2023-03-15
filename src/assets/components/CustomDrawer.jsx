@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AuthContext } from '../../context/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -22,17 +23,20 @@ const CustomDrawer = (props) => {
 
 
     return (
+        
         <View style={{ flex: 1 }}>
-            <DrawerContentScrollView {...props}>
-                <View style={{ backgroundColor: '#3A98B9', alignItems: 'center' }}>
+            <DrawerContentScrollView {...props} >
+     
+            <View style={{ backgroundColor: '#3A98B9', alignItems: 'center' }}>
                     <Image source={require('../images/DemoLogo.jpeg')}
-                        style={{ width: 100, height: 100, backgroundColor: '#3A98B9' }} />
-                </View>
+                        style={{ width: 100, height: 100,  }} />
+                        </View>
                 <View style={{ flex: 1, paddingTop: 10 }}>
                     <DrawerItemList {...props} />
                 </View>
+               
             </DrawerContentScrollView>
-            <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
+            <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc',  backgroundColor:'#fff' }}>
                 <TouchableOpacity onPress={() => { handleLogOut() }} style={{ paddingVertical: 7 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Ionicons name="log-out-outline" size={22} />
@@ -48,6 +52,7 @@ const CustomDrawer = (props) => {
                 </TouchableOpacity>
             </View>
         </View>
+     
     )
 }
 

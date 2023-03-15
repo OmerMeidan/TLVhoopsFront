@@ -1,6 +1,7 @@
 import { BackgroundImage } from "@rneui/themed/dist/config";
+import { style } from "deprecated-react-native-prop-types/DeprecatedViewPropTypes";
 import React, { useState, useContext } from "react";
-import { Text, View, Image, TextInput, Button, StyleSheet } from 'react-native';
+import { Text, View, Image, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from '../../context/AuthContext';
 
@@ -9,131 +10,191 @@ const ViewProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUserDetails, setEditedUserDetails] = useState(userDetails);
 
-  const handleUpdateProfile = () => {
+  const handleUpdateProfile = async () => {
+
+    
     setUserDetails(editedUserDetails);
     setIsEditing(false);
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' ,backgroundColor:"#3A98B9" }}>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#3A98B9" }}>
       <Image source={require('../images/DemoLogo.jpeg')} style={{ height: '30%', width: '45%' }} />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {isEditing ? (
           <>
-            <Text>First Name:</Text>
-            <TextInput style={styles.textInput}
-              placeholder="First Name"
-              value={editedUserDetails.firstName}
-              onChangeText={text => setEditedUserDetails({ ...editedUserDetails, firstName: text })}
-            />
-            <Text style={styles.headers}>Last Name:</Text>
-            <TextInput style={styles.textInput}
-              placeholder="Last Name"
-              value={editedUserDetails.lastName}
-              onChangeText={text => setEditedUserDetails({ ...editedUserDetails, lastName: text })}
-            />
-            <Text >Email:</Text>
-            <TextInput style={styles.textInput}
-              placeholder="Email"
-              value={editedUserDetails.email}
-              onChangeText={text => setEditedUserDetails({ ...editedUserDetails, email: text })}
-            />
-            <Text>Preferred Position:</Text>
-            <TextInput style={styles.textInput}
-              placeholder="Preferred Position"
-              value={editedUserDetails.preferredPosition}
-              onChangeText={text => setEditedUserDetails({ ...editedUserDetails, preferredPosition: text })}
-            />
-            <Text>Height:</Text>
-            <TextInput style={styles.textInput}
-              placeholder="Height"
-              value={editedUserDetails.height}
-              onChangeText={text => setEditedUserDetails({ ...editedUserDetails, height: text })}
-            />
-            <Text>Birth Date:</Text>
-            <TextInput style={styles.textInput}
-              placeholder="Birth Date"
-              value={editedUserDetails.birthDate}
-              onChangeText={text => setEditedUserDetails({ ...editedUserDetails, birthDate: text })}
-            />
-            <Text>Phone Number:</Text>
-            <TextInput style={styles.textInput}
-              placeholder="Phone Number"
-              value={editedUserDetails.phoneNumber}
-              onChangeText={text => setEditedUserDetails({ ...editedUserDetails, phoneNumber: text })}
-            />
+            <View style={styles.row}>
+              <Text style={styles.header}>First Name:</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="First Name"
+                value={editedUserDetails.firstName}
+                onChangeText={(text) => setEditedUserDetails({ ...editedUserDetails, firstName: text })}
+              />
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Last Name:</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Last Name"
+                value={editedUserDetails.lastName}
+                onChangeText={(text) => setEditedUserDetails({ ...editedUserDetails, lastName: text })}
+              />
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Email:</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Email"
+                value={editedUserDetails.email}
+                onChangeText={(text) => setEditedUserDetails({ ...editedUserDetails, email: text })}
+              />
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Preferred Position:</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Preferred Position"
+                value={editedUserDetails.preferredPosition}
+                onChangeText={(text) => setEditedUserDetails({ ...editedUserDetails, preferredPosition: text })}
+              />
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Height:</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Height"
+                value={editedUserDetails.height}
+                onChangeText={(text) => setEditedUserDetails({ ...editedUserDetails, height: text })}
+              />
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Birth Date:</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Birth Date"
+                value={editedUserDetails.birthDate}
+                onChangeText={(text) => setEditedUserDetails({ ...editedUserDetails, birthDate: text })}
+              />
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Phone Number:</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Phone Number"
+                value={editedUserDetails.phoneNumber}
+                onChangeText={(text) => setEditedUserDetails({ ...editedUserDetails, phoneNumber: text })}
+              />
+            </View>
           </>
+
+
         ) : (
           <>
-            <Text>First Name: {userDetails.firstName}</Text>
-            <Text >Last Name: {userDetails.lastName}</Text>
-            <Text >Email: {userDetails.email}</Text>
-            <Text >Preferred Position: {userDetails.preferredPosition}</Text>
-            <Text >Height: {userDetails.height}</Text>
-            <Text >Birth Date: {userDetails.birthDate.toString().substr(0, 2) + '/' + userDetails.birthDate.toString().substr(2, 2) + '/' + userDetails.birthDate.toString().substr(4, 4)}</Text>
-            <Text >Phone Number: {userDetails.phoneNumber}</Text>
+            <View style={styles.row}>
+              <Text style={styles.header}>First Name:</Text>
+              <Text>{userDetails.firstName}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Last Name:</Text>
+              <Text>{userDetails.lastName}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Email:</Text>
+              <Text>{userDetails.email}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Preferred Position:</Text>
+              <Text>{userDetails.preferredPosition}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Height:</Text>
+              <Text>{userDetails.height}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Birth Date:</Text>
+              <Text>{userDetails.birthDate.toString().substr(0, 2) + '/' + userDetails.birthDate.toString().substr(2, 2) + '/' + userDetails.birthDate.toString().substr(4, 4)}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.header}>Phone Number:</Text>
+              <Text>{userDetails.phoneNumber}</Text>
+            </View>
           </>
+
+
         )}
         {isEditing ? (
-          <Button title="Update" onPress={handleUpdateProfile} />
+          <TouchableOpacity onPress={handleUpdateProfile} style={styles.button}>
+            <Text style={styles.buttonText}>Update</Text>
+          </TouchableOpacity>
+
+
         ) : (
-          <Button title="Edit" onPress={() => setIsEditing(true)} />
+          <TouchableOpacity onPress={() => setIsEditing(true)} style={styles.button}>
+            <Text style={styles.buttonText}>Edit</Text>
+          </TouchableOpacity>
+
         )}
       </View>
     </SafeAreaView>
   )
 };
 
-
-
 const styles = StyleSheet.create({
-
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 20,
-    borderColor: '#3A98B9',
-    padding: 10,
-    width: '100%',
-    color:'#fff'
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
   },
-  headers:{
-    color:'#fff'
-  }
-})
+  header: {
+    marginRight: 10,
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: '#fff',
+    marginHorizontal: '5%'
+  },
+  textInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: '#fff',
+    width: '30%',
+    padding: 10,
+    fontSize: 16,
+  },
+  button: {
+    marginTop: '5%',
+    backgroundColor: "#fff",
+    padding: 10,
+    width: "60%",
+    borderRadius: 15,
+    textAlign: 'center',
+
+
+
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#3A98B9',
+    fontSize: 30
+  },
+
+  infoStyle: {
+    marginVertical: 10,
+    marginHorizontal: 20,
+    padding: 10,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  viewStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 5,
+  },
+});
 
 
 export default ViewProfile;
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect, useState, useContext } from "react";
-// import { Text, View, Image } from 'react-native'
-// import { SafeAreaView } from "react-native-safe-area-context";
-// import { AuthContext } from '../../context/AuthContext';
-// const ViewProfile = () => {
-//   const { userDetails, setUserDetails } = useContext(AuthContext);
-//   return (
-//     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       <Image source={require('../images/DemoLogo.jpeg')} style={{ height: '40%', width: '30%',  }} />
-//       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//         <Text> {userDetails.firstName} {userDetails.lastName} </Text>
-//         <Text> {userDetails.email} </Text>
-//         <Text> {userDetails.preferredPosition} </Text>
-//         <Text> {userDetails.height} </Text>
-//         <Text> {userDetails.birthDate.toString().substr(0, 2) + '/' + userDetails.birthDate.toString().substr(2, 2) + '/' + userDetails.birthDate.toString().substr(4, 4)} </Text>
-//         <Text> {userDetails.phoneNumber} </Text>
-//       </View>
-//     </SafeAreaView>
-//   )
-// }
-
-// export default ViewProfile;
 

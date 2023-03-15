@@ -52,7 +52,7 @@ const OnBoarding = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <AnimetedImage
-        resizeMode="repeat"
+        resizeMode="cover"
         style={[styles.background, {
           transform: [
             {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   mainHeaderButton: {
    
     height: "54%",
-    borderRadius: 20,
+    borderRadius: 50,
     flexDirection: "row",
     justifyContent: "center", // updated
  
