@@ -32,9 +32,7 @@ const MyGames = () => {
         }
         
         getPlayerGames()
-        return(
-            getPlayerGames()
-        )
+        
     },[])
 
     useEffect(()=>{

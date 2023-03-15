@@ -38,9 +38,11 @@ const HomeScreen = () => {
         const response = await axios.post('https://tlv-hoops-server.onrender.com/gameList', {})
         if (response.data) {
 
+
           response.data.forEach(game => {
             if (game.tlvpremium) {
        
+
               setPremiumGamesArr(prevState => [...prevState, game]);
             } else {
               setCommunityGamesArr(prevState => [...prevState, game]);
@@ -120,7 +122,7 @@ const HomeScreen = () => {
         </View>
         <ScrollView style={{ color: 'white', backgroundColor: '#3A98B9' }}>
           {gamesTab == 1 &&
-            CommunityGamesArr.sort((a, b) => new Date(a.date.toString().replace(/\//g, "-")) - new Date(b.date.toString().replace(/\//g, "-"))).map((game, i) => (
+            CommunityGamesArr.sort((a, b) => new Date(a.date.toString().slice(4) +"-"+a.date.toString().slice(2, 4)+"-"+a.date.toString().slice(0, 2)) - new Date(b.date.toString().slice(4) +"-"+b.date.toString().slice(2, 4)+"-"+b.date.toString().slice(0, 2))).map((game, i) => (
               <GamesList
                 key={i}
                 location={game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
@@ -139,7 +141,7 @@ const HomeScreen = () => {
               />
             ))}
           {gamesTab == 2 &&
-            PremiumGamesArr.map((game, i) => (
+            PremiumGamesArr.sort((a, b) => new Date(a.date.toString().slice(4) +"-"+a.date.toString().slice(2, 4)+"-"+a.date.toString().slice(0, 2)) - new Date(b.date.toString().slice(4) +"-"+b.date.toString().slice(2, 4)+"-"+b.date.toString().slice(0, 2))).map((game, i) => (
               <GamesList
                 key={i}
                 location={game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2')}

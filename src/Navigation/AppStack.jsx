@@ -11,17 +11,32 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "../assets/components/CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import TabNavigator from "./TabNavigator";
-import { AuthContext } from '../context/AuthContext';
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from '@react-navigation/native';
+
 const Drawer = createDrawerNavigator();
 
 
 const AppStack = () => {
+  const navigation = useNavigation()
 
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} drawer screenOptions={{
       headerTintColor:'#fff', 
       headerTitle: '', headerStyle: { backgroundColor: "#3A98B9" },
       drawerLabelStyle: { marginLeft: -25, fontSize: 15, },
+      headerRight: () => (
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity onPress={() => navigation.navigate("Notifications")}>
+          <Ionicons
+            name="notifications-outline"
+            size={22}
+            color="#fff"
+            style={{ marginRight: 15 }}
+          />
+          </TouchableOpacity>
+        </View>
+      ),
     }}>
       <Drawer.Screen component={TabNavigator} name="Home Screen" options={{
         drawerIcon: ({ color }) => (
