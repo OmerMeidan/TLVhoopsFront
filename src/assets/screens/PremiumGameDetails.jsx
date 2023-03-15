@@ -10,7 +10,8 @@ import {
     Alert,
     Platform,
     TouchableOpacity,
-    Linking
+    Linking,
+    Button
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
