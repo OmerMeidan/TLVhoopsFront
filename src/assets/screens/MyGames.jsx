@@ -32,7 +32,8 @@ const MyGames = () => {
         }
         
         getPlayerGames()
-        
+        setTimeout(getPlayerGames,3000)
+
     },[])
 
     useEffect(()=>{
@@ -74,7 +75,7 @@ const MyGames = () => {
         <SafeAreaView style={styles.SafeAreaViewStyle} >
         {/* <View>
             {myGames.map((array,i)=>array.map((a,j)=><Text key={j}>{a.date}</Text>))} */}
-            <View style={{ marginVertical: 20 }}>
+            <View style={{ marginHorizontal:'5%', margin:'5%' }}>
           <TypeOfGamesSwitch
             selectionMode={1}
             option1="Upcomming Games"
@@ -82,7 +83,7 @@ const MyGames = () => {
             onSelectSwitch={onSelectSwitch}
           />
         </View>
-        <ScrollView>
+        <ScrollView style={{ marginHorizontal:'5%', margin:'5%' }}>
           {gamesTab == 1 &&
            UpcomingGamesArr.length!==0?
             UpcomingGamesArr.map((game, i) => (
@@ -157,7 +158,8 @@ const styles = StyleSheet.create({
     },
     SafeAreaViewStyle: {
       flex: 1,
-      backgroundColor: '#3A98B9'
+      backgroundColor: '#3A98B9',
+   
     },
     ScrollViewStyle: {
       padding: 20,

@@ -73,6 +73,7 @@ const HomeScreen = () => {
 
     GetUserDetail()
     GetAllGames()
+    setTimeout(GetAllGames,3000)
   }, [])
 
 
