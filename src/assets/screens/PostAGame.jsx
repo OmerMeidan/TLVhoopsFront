@@ -91,6 +91,7 @@ function PostAGame() {
           createdByUser: userDetails.email,
           approved: false,
           participants: participantsArr,
+          // phoneNumber:userDetails.phoneNumber
         })
       if (res.status === 200) {
         setParticipantsArr([])
@@ -110,7 +111,7 @@ function PostAGame() {
           },
           {
             text: 'return to home page',
-            onPress: () => console.log('user wants to return to home page')
+            onPress: () => refresh()
           }])
       }
       else if(error.response.status === 409){
@@ -118,6 +119,31 @@ function PostAGame() {
           text:'Ok',
           onPress:()=>window.location.reload()
         }])
+      }
+      else if(error.response.status === 500){
+        if(MaximumPlayers>20){
+          Alert.alert("Maximum players value is more than allowed", "please try again!", [
+            {
+              text: 'try again',
+              onPress: () => console.log('user wants to try again')
+            }])
+        }
+        else if(MaximumPlayers<4){
+          Alert.alert("Maximum players value is less than allowed", "please try again!", [
+            {
+              text: 'try again',
+              onPress: () => console.log('user wants to try again')
+            }])
+        }
+        Alert.alert("Cannot Create This Game", "please try again!", [
+          {
+            text: 'try again',
+            onPress: () => console.log('user wants to try again')
+          },
+          {
+            text: 'return to home page',
+            onPress: () => refresh()
+          }])
       }
       console.log(error)
 
@@ -148,12 +174,10 @@ function PostAGame() {
 
     // Set the state variables for year, month, and day
    
-    
-   
     const finalDate = new Date(year + "-" + month + "-" + day);
     const today = new Date();
-    if (finalDate.getTime() < today.getTime()) {
-      Alert.alert("This date is expired", 'Ok', [{
+    if ((finalDate.getTime()+100000000) < today.getTime()) {
+      Alert.alert("This date is expired", '', [{
         text: 'Ok',
         onPress: () =>console.log('ok')
       }])
@@ -270,8 +294,8 @@ function PostAGame() {
           <Text h2 style={{color:'#fff'}}>Post Your Game Now!</Text>
           <Text style={{color:'#fff', textAlign:'center', paddingTop:'5%'}}>Here you can post your game and other players from the community will join you!</Text>
           <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '10%' }}>
-          <TextInput placeholderTextColor={'black'}  placeholder='Location name' style={styles.textInput} />
-          <TextInput placeholderTextColor={'black'}  placeholder='Vaild Address of the location' style={styles.textInput} />
+          <TextInput defaultValue={courtName} placeholderTextColor={'black'} onChangeText={text=>setCourtName(text)}  placeholder='Court name' style={styles.textInput} />
+          <TextInput defaultValue={Location} placeholderTextColor={'black'} onChangeText={text=>setLocation(text)} placeholder='Vaild Address of the location' style={styles.textInput} />
             <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput}  placeholderTextColor={'black'} />
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
@@ -326,19 +350,19 @@ function PostAGame() {
               renderItem={({ item }) => {
                 if (item.firstName.startsWith(inputText) || item.lastName.startsWith(inputText) ) {
                   return (
-                    <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-around' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-around', backgroundColor:'white' }}>
                       <Text>{item.firstName + " " + item.lastName}</Text>
                       <TouchableOpacity
                         onPress={() => handleAddPlayer(item.email)}
                         style={{
-                          backgroundColor: '#3A98B9',
+                          backgroundColor: '#fff',
                           width: 70,
                           padding: 3,
                           borderRadius: 20,
                         }}>
                         <Text
                           style={{
-                            color: "#fff",
+                            color: "#3A98B9",
                             textAlign: "center",
                             fontSize: 13,
                           }}>Add Player
