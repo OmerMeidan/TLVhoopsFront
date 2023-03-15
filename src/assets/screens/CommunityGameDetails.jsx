@@ -10,8 +10,8 @@ import {
     Alert,
     Platform,
     TouchableOpacity,
-    Button,
-    Linking
+    Linking,
+    Button
 } from 'react-native';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -27,7 +27,7 @@ import { CheckBox } from '@rneui/themed';
 
 
 function CommunityGameDetails({ route }) {
- 
+    const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails } = useContext(AuthContext);
     const { location, date, startTime, endTime, numOfPlayers, gameID } = route.params
     const [GameTitle, setGameTitle] = useState('Community Game')
     const [GameLocation, setGameLocation] = useState(location)
@@ -62,12 +62,12 @@ function CommunityGameDetails({ route }) {
         getCord()
 
     }, [])
-console.log(gameID);
+    console.log(gameID);
     const handleRegisterForGame = async () => {
         if (toggleTermsCheckBox && toggleWaiverCheckBox) {
 
             try {
-                
+
                 const res = await axios.post('https://tlv-hoops-server.onrender.com/addPlayer', {
                     gameID: gameID,
                     player: userDetails.email
@@ -112,14 +112,14 @@ console.log(gameID);
 
 
     return (
-        <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '20%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
+        <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', textAlign:'center' }}>
+            <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '20%', justifyContent:'center', textAlign:'center', alignItems:'center', borderColor: colors.primary, borderWidth: 3 }}>
                 <Text h3 h3Style={{ paddingTop: '5%', color: '#fff' }}>{GameTitle}</Text>
-                <View style={{ width: '100%', flex: 1, alignItems: 'flex-start', marginTop: '10%', flexDirection: 'row' }}>
-                    <View style={{ flex: 1, width: '100%', height: '100%' }}>
+                <View style={{ width: '100%', flex: 1, marginTop: '5%', flexDirection: 'row', justifyContent:'center', textAlign:'center', alignItems:'center' }}>
+                    <View style={{ flex: 1, width: '100%', height: '100%', justifyContent: 'center' }}>
                         <Text style={styles.Text}>{GameLocation}</Text>
-                        <Text style={styles.Text}>{GameDate}</Text>
-                        <Text style={styles.Text}>{GameStartTime}-{GameEndTime}</Text>
+                        <Text style={styles.Text}>{GameDate}, {GameStartTime}-{GameEndTime} </Text>
+
                         <Text style={styles.Text}>{GameLevel} Level</Text>
                         <Text style={styles.Text}>{NumOfPlayers} players already in</Text>
 
@@ -128,7 +128,6 @@ console.log(gameID);
                 </View>
                 <View style={{ width: '70%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
                     <MapView
-
                         style={{ width: '120%', height: '80%', borderRadius: '15%' }}
                         maxZoomLevel={20}
                         region={{
@@ -142,9 +141,16 @@ console.log(gameID);
                             image={require('../../040ca4b7d907fc901da64c5015740a13-removebg-preview-removebg-preview.png')}
                         />
                     </MapView>
-                    
-                    <Button title='hi' onPress={()=>{Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`)}} ></Button>
+                    {/* <Button title='Open Maps' titleStyle={{}}  onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} /> */}
+
+
+                    <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={styles.mapsButton}>
+                        <Text style={styles.mapbuttonText}>Open Maps</Text>
+                    </TouchableOpacity>
+
                 </View>
+
+
 
 
                 <View style={{ marginTop: '10%' }}>
@@ -185,27 +191,49 @@ const styles = StyleSheet.create({
         fontFamily: colors.font,
         marginBottom: '3%',
         fontSize: 16,
-        fontWeight: '600'
+        fontWeight: '600',
+        textAlign:'center', 
     },
     textstyle: {
         color: "#fff",
         fontSize: 15,
         fontWeight: '800',
         textAlign: 'center',
+        margin:'5%'
     },
     buttonText: {
         textAlign: 'center',
         color: "#3A98B9",
         fontSize: 30
     },
+    mapbuttonText: {
+        textAlign: 'center',
+        color: "#3A98B9",
+        fontSize: 13
+    },
     button: {
         backgroundColor: "#fff",
         padding: 10,
         width: "60%",
-        borderRadius: 20,
-        textAlign: 'center',
+        borderRadius: 15,
+        textAlign: 'center', 
+        marginBottom:'2%'
 
     },
+    mapsButton: {
+        backgroundColor: "#fff",
+        padding: 5,
+        width: "40%",
+        borderRadius: 15,
+        textAlign: 'center',
+        marginTop: '3%'
+
+    },
+    openMapsButton: {
+        textAlign: 'center',
+        color: "#3A98B9",
+        fontSize: 50
+    }
 })
 
 export default CommunityGameDetails;

@@ -15,7 +15,7 @@ import { SliderBox } from 'react-native-image-slider-box'
 import { Dimensions } from 'react-native';
 
 import axios from 'axios'
-import { fadeDuration } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
+
 const HomeScreen = () => {
   const navigation = useNavigation()
   const [gamesTab, setGamesTab] = useState(1);
@@ -37,8 +37,12 @@ const HomeScreen = () => {
         setPremiumGamesArr([]);
         const response = await axios.post('https://tlv-hoops-server.onrender.com/gameList', {})
         if (response.data) {
+
+
           response.data.forEach(game => {
             if (game.tlvpremium) {
+       
+
               setPremiumGamesArr(prevState => [...prevState, game]);
             } else {
               setCommunityGamesArr(prevState => [...prevState, game]);
@@ -95,7 +99,7 @@ const HomeScreen = () => {
 
         </View>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <SliderBox images={sliderData} dotColor='white' inactiveDotColor='grey' autoplay={true} autoplayInterval={6000} circleLoop={true} ImageComponentStyle={{ borderRadius: 15, width: '90%' }} paginationBoxStyle={{ marginright: '20%' }} />
+          <SliderBox images={sliderData} dotColor='white' inactiveDotColor='grey' autoplay={true} autoplayInterval={6000} circleLoop={true} ImageComponentStyle={{ borderRadius: 15, width: '90%' }} paginationBoxStyle={{ }} />
         </View>
         <View style={{
           paddingTop: '7%',
@@ -132,7 +136,7 @@ const HomeScreen = () => {
                   startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
                   endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
                   numOfPlayers: game.participants.length,
-                  gameID:game.gameID
+                  gameID: game.gameID
                 })}
               />
             ))}
@@ -151,7 +155,7 @@ const HomeScreen = () => {
                   startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
                   endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
                   numOfPlayers: game.participants.length,
-                  gameID:game.gameID
+                  gameID: game.gameID
                 }
                 )}
               />
@@ -181,7 +185,7 @@ const styles = StyleSheet.create({
   },
   HelloUserStyle: {
     fontSize: 22,
-    fontWeight:'600',
+    fontWeight: '600',
     color: "#fff",
     fontWeight: '400'
   },

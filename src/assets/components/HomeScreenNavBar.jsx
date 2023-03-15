@@ -86,15 +86,15 @@ function HomeScreenNavBar() {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        marginTop: '10%',
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontStyle: 'white',
-        paddingTop: Platform.OS === 'android' ? 20 : 0
-    },
-})
+// const styles = StyleSheet.create({
+//     container: {
+//         marginTop: '10%',
+//         backgroundColor: 'white',
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         fontStyle: 'white',
+//         paddingTop: Platform.OS === 'android' ? 20 : 0
+//     },
+// })
 
 export default HomeScreenNavBar;

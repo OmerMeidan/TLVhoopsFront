@@ -182,9 +182,9 @@ function Login() {
 
 
 
-              <TextInput placeholder='email' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
+              <TextInput placeholder='email' placeholderTextColor={'#8c9393'} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
 
-              <TextInput placeholder='password' placeholderTextColor={'#2c2f2f'} autoCapitalize='none' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
+              <TextInput placeholder='password' placeholderTextColor={'#8c9393'} autoCapitalize='none' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
 
 
 

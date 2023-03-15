@@ -52,7 +52,7 @@ const OnBoarding = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <AnimetedImage
-        resizeMode="cover"
+        resizeMode="repeat"
         style={[styles.background, {
           transform: [
             {
@@ -66,8 +66,8 @@ const OnBoarding = ({ navigation }) => {
         source={require('../images/boardingg.jpg')} />
       <View style={styles.container}>
         <View style={styles.mainHeaderButton}>
-        <Image source={require('../images/DemoLogo.jpeg')}
-              style={{ width: '43%', height: '40%', marginTop:'30%' }} />
+          <Image source={require('../images/tlvhooks.png')}
+            style={{ width: '43%', height: '40%', marginTop: '70%' }} />
           <StatusBar style="auto" />
         </View>
         <View
@@ -75,7 +75,7 @@ const OnBoarding = ({ navigation }) => {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            
+
           }}
         >
           <TouchableOpacity
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     opacity: 1,
     transform: [
       {
-        translateX: 10,
+        translateX: 5,
       },
       {
         translateY: 10,
@@ -113,18 +113,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-   
+
   },
 
   mainHeaderButton: {
-   
+
     height: "54%",
     borderRadius: 50,
     flexDirection: "row",
     justifyContent: "center", // updated
- 
+
   },
-  
+
   mainHeader: {
     fontWeight: "bold",
     fontSize: 25,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop:'40%'
+    marginTop: '40%'
 
 
 

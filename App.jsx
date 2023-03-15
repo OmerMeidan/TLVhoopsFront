@@ -1,3 +1,4 @@
+import "./ignoreWarnings";
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useContext } from 'react';
 import AppStack from './src/Navigation/AppStack'
