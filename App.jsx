@@ -17,6 +17,7 @@ import TermsAndCo from "./src/assets/screens/TermsAndCo";
 import Waiver from "./src/assets/screens/Waiver";
 import About from "./src/assets/screens/About";
 import Notifications from "./src/assets/screens/Notifications";
+import PlayersList from "./src/assets/screens/PlayersList";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ const App = () => {
           <Stack.Screen component={TermsAndCo} name="TermsAndCo" options={{ title: '' }} />
           <Stack.Screen component={Waiver} name="Waiver" options={{ title: '' }} />
           <Stack.Screen component={Notifications} name="Notifications" options={{ title: '' }} />
+          <Stack.Screen component={PlayersList} name="PlayersList" options={{ title: '' }} />
         </Stack.Navigator>
       </NavigationContainer>
       {/* </GoogleMapsApiProvider> */}

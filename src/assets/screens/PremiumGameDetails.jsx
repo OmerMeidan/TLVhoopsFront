@@ -11,7 +11,8 @@ import {
     Platform,
     TouchableOpacity,
     Linking, 
-    Button
+    Button,
+    Card
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -25,7 +26,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 function PremiumGameDetails({ route }) {
     const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails } = useContext(AuthContext);
-    const { location, date, startTime, endTime, numOfPlayers, gameID } = route.params
+    const { location, date, startTime, endTime, numOfPlayers, gameID, participants } = route.params
     const [GameTitle, setGameTitle] = useState('Premium Game')
     const [GameLocation, setGameLocation] = useState(location)
     const [GameDate, setGameDate] = useState(date)
@@ -65,8 +66,10 @@ function PremiumGameDetails({ route }) {
   
     
 
-    const handlePlayersList = () => {
-
+    const handlePlayersList = (participants) => {
+        navigation.navigate("PlayersList"), {
+            participants: participants,
+        }
     }
     const handleRegisterForPremiumGame = async () => {
         if (toggleTermsCheckBox && toggleWaiverCheckBox) {
@@ -175,7 +178,7 @@ function PremiumGameDetails({ route }) {
                     <TouchableOpacity onPress={() => { handleRegisterForPremiumGame() }} style={styles.button}>
                         <Text style={styles.buttonText}>JOIN GAME!</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { handlePlayersLIST() }} style={styles.button}>
+                    <TouchableOpacity onPress={() => { handlePlayersList(participants) }} style={styles.button}>
                         <Text style={styles.buttonText}>PLAYERS LIST</Text>
                     </TouchableOpacity>
 
