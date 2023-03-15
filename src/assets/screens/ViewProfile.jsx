@@ -10,25 +10,25 @@ const ViewProfile = (route) => {
   const [editedUserDetails, setEditedUserDetails] = useState(userDetails);
 
 
-  const handleUpdateProfile = async () => {
-    try{
-    const res = await axios.post('https://tlv-hoops-server.onrender.com/editPlayer', {
-firstName: editedUserDetails.firstName,
-lastName: editedUserDetails.lastName,
-email: editedUserDetails.email,
-birthDate: editedUserDetails.birthDate,
-phoneNumber: editedUserDetails.phoneNumber,
-preferredPosition: editedUserDetails.preferredPosition,
-height: editedUserDetails.height,
-admin: editedUserDetails.admin,
+//   const handleUpdateProfile = async () => {
+//     try{
+//     const res = await axios.post('https://tlv-hoops-server.onrender.com/editPlayer', {
+// firstName: editedUserDetails.firstName,
+// lastName: editedUserDetails.lastName,
+// email: editedUserDetails.email,
+// birthDate: editedUserDetails.birthDate,
+// phoneNumber: editedUserDetails.phoneNumber,
+// preferredPosition: editedUserDetails.preferredPosition,
+// height: editedUserDetails.height,
+// admin: editedUserDetails.admin,
 
 
-    })
-  }
+//     })
+//   }
     
 
-    setIsEditing(false);
-  };
+//     setIsEditing(false);
+//   };
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#3A98B9" }}>
