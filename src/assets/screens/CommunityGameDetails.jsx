@@ -10,10 +10,11 @@ import {
     Alert,
     Platform,
     TouchableOpacity,
-
+    Button,
+    Linking
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Tab, TabView, Text, Button } from '@rneui/themed';
+import { Tab, TabView, Text } from '@rneui/themed';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios'
@@ -78,8 +79,8 @@ function CommunityGameDetails({ route }) {
                   
                         style={{ width: '120%', height: '80%', borderRadius: '15%' }}
                         maxZoomLevel={20}
-                        initialRegion={{
-                            latitude:  `${latitude}`,
+                        region={{
+                            latitude: `${latitude}`,
                             longitude: `${longitude}`,
                             latitudeDelta: 0.00922,
                             longitudeDelta: 0.00421,
@@ -89,6 +90,8 @@ function CommunityGameDetails({ route }) {
                             image={require('../../040ca4b7d907fc901da64c5015740a13-removebg-preview-removebg-preview.png')}
                         />
                     </MapView>
+                    
+                    <Button title='hi' onPress={()=>{Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`)}} ></Button>
                 </View>
 
 

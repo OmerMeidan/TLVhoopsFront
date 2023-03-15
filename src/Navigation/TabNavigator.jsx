@@ -26,7 +26,7 @@ const TabNavigator = () => {
     return (
         <Tab.Navigator screenOptions={{
             headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarStyle: { backgroundColor: "#3A98B9" }, tabBarInactiveTintColor: '#fff', tabBarActiveTintColor: '#155372'
-        }}>
+         }}>
 
             < Tab.Screen name="Home" component={HomeStack} options={{
 

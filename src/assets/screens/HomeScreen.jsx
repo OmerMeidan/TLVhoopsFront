@@ -12,14 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from '../../context/AuthContext';
 import { SliderBox } from 'react-native-image-slider-box'
-import {Carousel} from 'react-native-auto-carousel';
-
-
 import { Dimensions } from 'react-native';
-
-
-
-
 
 import axios from 'axios'
 const HomeScreen = () => {
@@ -37,7 +30,6 @@ const HomeScreen = () => {
 
   const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails } = useContext(AuthContext);
   useEffect(() => {
-    //final result - 2 arrays that have all of the community and premium games inside.
     const GetAllGames = async () => {
       try {
         setCommunityGamesArr([]);
@@ -99,9 +91,7 @@ const HomeScreen = () => {
               style={{ width: 100, height: 100 }} />
           </TouchableOpacity>
         </View>
-        {/* <View>
-          <Text style={styles.CarouselHeader}>FOR THE BASKETBALL COMMUNITY</Text>
-        </View> */}
+       
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <SliderBox images={sliderData} dotColor='white' inactiveDotColor='grey' autoplay={true} autoplayInterval={5000} circleLoop={true}  ImageComponentStyle={{borderRadius: 20, width:'90%' }} paginationBoxStyle={{marginright:'20%'}}/>
         </View>
@@ -113,6 +103,7 @@ const HomeScreen = () => {
             <Text style={styles.textInput}>New For TLV-HOOPS? Tap here for read About the Community and the Premium Games!</Text>
           </TouchableOpacity>
         </View>
+
 
 
         <View style={{ marginVertical: 20, backgroundColor: '#3A98B9' }}>
