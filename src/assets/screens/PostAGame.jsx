@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     width: '60%',
     marginBottom: '5%',
     backgroundColor:'#fff',
-    placeholderTextColor:'black'
+
     
   },
   textInputSearch: {

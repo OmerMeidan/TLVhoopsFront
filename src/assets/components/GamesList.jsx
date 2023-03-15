@@ -6,7 +6,6 @@ import { useNavigation } from "@react-navigation/native";
 import PremiumGameDetails from "../screens/PremiumGameDetails";
 
 const GamesList = ({ location, date, startTime, endTime, onPress, gameID }) => {
-
   const navigation = useNavigation();
   return (
     <View

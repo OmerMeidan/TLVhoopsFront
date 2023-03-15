@@ -11,7 +11,7 @@ import {
     Platform,
     TouchableOpacity,
     Linking,
-    Button
+    
 } from 'react-native';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -62,7 +62,9 @@ function CommunityGameDetails({ route }) {
         getCord()
 
     }, [])
-    console.log(gameID);
+
+
+
     const handleRegisterForGame = async () => {
         if (toggleTermsCheckBox && toggleWaiverCheckBox) {
 
@@ -90,7 +92,8 @@ function CommunityGameDetails({ route }) {
                     Alert.alert('Error', 'Failed to add player')
                 }
             } catch (error) {
-                Alert.alert('Error', 'Failed to add player')
+                console.log(error);
+                Alert.alert('Error!', 'Failed to add player')
             }
         } else {
             Alert.alert(
@@ -111,24 +114,92 @@ function CommunityGameDetails({ route }) {
 
 
 
+    // const handleUpdateProfile = async () => {
+    //     try{
+    //     const res = await axios.post('https://tlv-hoops-server.onrender.com/editPlayer', {
+    // firstName: editedUserDetails.firstName,
+    // lastName: editedUserDetails.lastName,
+    // email: editedUserDetails.email,
+    // birthDate: editedUserDetails.birthDate,
+    // phoneNumber: editedUserDetails.phoneNumber,
+    // preferredPosition: editedUserDetails.preferredPosition,
+    // height: editedUserDetails.height
+    //     })
+    //     if(res.data){
+    //       Alert.alert(
+    //         'User Details Updated',[
+    // {
+    //   text:'OK',
+    //   onPress: () => {
+    //     console.log('OK')
+    //     navigation.navigate('AppStack')
+    // },
+    // },
+    //         ]
+    //       )
+    //     } else {
+    //       Alert.alert('Error')
+    //     }
+    //   } catch (error) {
+    //     Alert.alert('ERROR')
+    //   }
+
+    // setUserDetails(editedUserDetails);
+    //     setIsEditing(false);
+    //   };
+
+
+
+
     return (
-        <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', textAlign:'center' }}>
-            <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '20%', justifyContent:'center', textAlign:'center', alignItems:'center', borderColor: colors.primary, borderWidth: 3 }}>
-                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff' }}>{GameTitle}</Text>
-                <View style={{ width: '100%', flex: 1, marginTop: '5%', flexDirection: 'row', justifyContent:'center', textAlign:'center', alignItems:'center' }}>
+        <SafeAreaView style={{ width: '100%', height: '110%', alignItems: 'center', justifyContent: 'center', textAlign: 'center',backgroundColor:'#3A98B9' }}>
+            <View style={{ width: '100%', height: '100%', backgroundColor: "#3A98B9", justifyContent: 'center', textAlign: 'center', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
+                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff', }}>{GameTitle}</Text>
+                <View style={{ width: '100%', flex: 1, marginTop: '5%', flexDirection: 'row', justifyContent: 'center', textAlign: 'center', alignItems: 'center' }}>
                     <View style={{ flex: 1, width: '100%', height: '100%', justifyContent: 'center' }}>
                         <Text style={styles.Text}>{GameLocation}</Text>
                         <Text style={styles.Text}>{GameDate}, {GameStartTime}-{GameEndTime} </Text>
 
                         <Text style={styles.Text}>{GameLevel} Level</Text>
-                        <Text style={styles.Text}>{NumOfPlayers} players already in</Text>
+                        <Text style={styles.Text}>{NumOfPlayers} Players Already Joined</Text>
 
                     </View>
 
                 </View>
-                <View style={{ width: '70%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+
+
+
+
+                                <CheckBox
+                                    center
+                                    title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline',}} onPress={() => navigation.navigate('TermsAndCo')}>Terms & Conditions</Text>}
+                                    checked={toggleTermsCheckBox}
+                                    checkedColor={'white'}
+                                    containerStyle={{ backgroundColor: 'transparent' }}
+                                    onPress={() => setToggleTermsCheckBox(!toggleTermsCheckBox)}
+                                />
+                                <CheckBox
+                                    center
+                                    title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', }} onPress={() => navigation.navigate('Waiver')}>Waiver</Text>}
+                                    checked={toggleWaiverCheckBox}
+                                    checkedColor={'white'}
+                                    containerStyle={{ backgroundColor: 'transparent' }}
+                                    onPress={() => setToggleWaiverCheckBox(!toggleWaiverCheckBox)}
+                                />
+                        <View>
+                            <View style={{ alignItems: 'flex-start', paddingTop: '0%' }}>
+                            <Text style={styles.textstyle}>Please read The Terms & Conditions carefully and the Participation Waiver Before Registertation for a game! </Text>
+                            </View>
+                        </View>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={() => { handleRegisterForGame() }} style={styles.button}>
+                        <Text style={styles.buttonText}>JOIN GAME!</Text>
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={{ width: '100%', height: '100%', flex: 2, justifyContent: 'center', alignItems: 'center', }}>
+                <View style={{width:'100%',height:'100%'}} >
                     <MapView
-                        style={{ width: '120%', height: '80%', borderRadius: '15%' }}
+                        style={{ width: '100%', height: '90%', borderRadius: '15%',opacity:'0.9' }}
                         maxZoomLevel={20}
                         region={{
                             latitude: `${latitude}`,
@@ -144,41 +215,11 @@ function CommunityGameDetails({ route }) {
                     {/* <Button title='Open Maps' titleStyle={{}}  onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} /> */}
 
 
-                    <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={styles.mapsButton}>
+                    {/* <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={styles.mapsButton}>
                         <Text style={styles.mapbuttonText}>Open Maps</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
-                </View>
-
-
-
-
-                <View style={{ marginTop: '10%' }}>
-                    <Text style={styles.textstyle}>Please read carefully The Terms&Conditions and the Participation Waiver Before Registertation for a game! </Text>
-                    <View style={{ alignItems: 'flex-start', paddingTop: '10%' }}>
-                        <CheckBox
-                            center
-                            title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('TermsAndCo')}>Terms&Conditions</Text>}
-                            checked={toggleTermsCheckBox}
-                            checkedColor={'white'}
-                            containerStyle={{ backgroundColor: 'transparent' }}
-                            onPress={() => setToggleTermsCheckBox(!toggleTermsCheckBox)}
-                        />
-                        <CheckBox
-                            center
-                            title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('Waiver')}>Waiver</Text>}
-                            checked={toggleWaiverCheckBox}
-                            checkedColor={'white'}
-                            containerStyle={{ backgroundColor: 'transparent' }}
-                            onPress={() => setToggleWaiverCheckBox(!toggleWaiverCheckBox)}
-                        />
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => { handleRegisterForGame() }} style={styles.button}>
-                        <Text style={styles.buttonText}>JOIN GAME!</Text>
-                    </TouchableOpacity>
-                </View>
+                </View></TouchableOpacity>
             </View>
         </SafeAreaView>
     )
@@ -190,16 +231,17 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontFamily: colors.font,
         marginBottom: '3%',
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '600',
-        textAlign:'center', 
+        textAlign: 'left',
+        marginLeft: 30
     },
     textstyle: {
         color: "#fff",
-        fontSize: 15,
+        fontSize: 10,
         fontWeight: '800',
         textAlign: 'center',
-        margin:'5%'
+        margin: '5%'
     },
     buttonText: {
         textAlign: 'center',
@@ -216,8 +258,8 @@ const styles = StyleSheet.create({
         padding: 10,
         width: "60%",
         borderRadius: 15,
-        textAlign: 'center', 
-        marginBottom:'2%'
+        textAlign: 'center',
+        marginBottom: '2%'
 
     },
     mapsButton: {

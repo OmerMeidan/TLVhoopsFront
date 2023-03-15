@@ -1,34 +1,51 @@
 
 import React, { useState, useContext } from "react";
-import { Text, View, Image, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TextInput, Button, StyleSheet, Alert ,TouchableOpacity } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from '../../context/AuthContext';
+import axios from "axios";
 
-const ViewProfile = (route) => {
+const ViewProfile = () => {
   const { userDetails, setUserDetails } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [editedUserDetails, setEditedUserDetails] = useState(userDetails);
 
 
-  const handleUpdateProfile = async () => {
-    try{
-    const res = await axios.post('https://tlv-hoops-server.onrender.com/editPlayer', {
-firstName: editedUserDetails.firstName,
-lastName: editedUserDetails.lastName,
-email: editedUserDetails.email,
-birthDate: editedUserDetails.birthDate,
-phoneNumber: editedUserDetails.phoneNumber,
-preferredPosition: editedUserDetails.preferredPosition,
-height: editedUserDetails.height,
-admin: editedUserDetails.admin,
 
-
-    })
-  }
+    const handleUpdateProfile = async () => {
+        try{
+        const res = await axios.post('https://tlv-hoops-server.onrender.com/editPlayer', {
+    firstName: editedUserDetails.firstName,
+    lastName: editedUserDetails.lastName,
+    email: editedUserDetails.email,
+    birthDate: editedUserDetails.birthDate,
+    phoneNumber: editedUserDetails.phoneNumber,
+    preferredPosition: editedUserDetails.preferredPosition,
+    height: editedUserDetails.height
+        })
+        if(res.data){
+          Alert.alert(
+            'User Details Updated',[
+    {
+      text:'OK',
+      onPress: () => {
+        console.log('OK')
+        navigation.navigate('AppStack')
+    },
+    },
+            ]
+          )
+        } else {
+          Alert.alert('Error')
+        }
+      } catch (error) {
+        console.log(error + 'fdsfsd')
+        Alert.alert('error')
+      }
     
 
-    setIsEditing(false);
-  };
+        setIsEditing(false);
+      };
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#3A98B9" }}>

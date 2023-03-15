@@ -35,15 +35,16 @@ export default function TypeOfGamesSwitch({
           borderRadius: 15,
           justifyContent: "center",
           alignItems: "center",
+       
         }}
       >
 
 
-        
+
         <Text
           style={{
-            color: getSelectionMode == 1 ? "#3A98B9" :  "white",
-            fontSize: 14,
+            color: getSelectionMode == 1 ? "#3A98B9" : "white",
+            fontSize: 17,   fontWeight: '600'
           }}
         >
           {option1}
@@ -63,7 +64,7 @@ export default function TypeOfGamesSwitch({
         <Text
           style={{
             color: getSelectionMode == 1 ? "white" : "#3A98B9",
-            fontSize: 14,
+            fontSize: 17,   fontWeight: '600'
           }}
         >
           {option2}
