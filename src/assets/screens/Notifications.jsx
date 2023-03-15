@@ -17,15 +17,6 @@ const Notifications = () => {
 export default Notifications
 
 const styles = StyleSheet.create({
-    container: {
-        alignContent: 'center',
-        margin: 37
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
     SafeAreaViewStyle: {
         flex: 1,
         backgroundColor: '#3A98B9'

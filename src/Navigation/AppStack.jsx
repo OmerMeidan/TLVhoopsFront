@@ -12,11 +12,15 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import TabNavigator from "./TabNavigator";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from '@react-navigation/native';
+import { Badge } from "@rneui/themed";
+import { useContext } from "react";
+import { AuthContext } from '../../context/AuthContext';
 
 const Drawer = createDrawerNavigator();
 
-
 const AppStack = () => {
+
+  const { notificationCount, setNotificationCount } = useContext(AuthContext);
   const navigation = useNavigation()
 
   return (
@@ -27,12 +31,18 @@ const AppStack = () => {
       headerRight: () => (
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity onPress={() => navigation.navigate("Notifications")}>
+          <Badge
+            value={notificationCount}
+            containerStyle={{ position: "absolute", top: -4, right: -4 }}
+            badgeStyle={{ backgroundColor: "red" }}
+          >
           <Ionicons
             name="notifications-outline"
             size={22}
             color="#fff"
             style={{ marginRight: 15 }}
           />
+          </Badge>
           </TouchableOpacity>
         </View>
       ),
