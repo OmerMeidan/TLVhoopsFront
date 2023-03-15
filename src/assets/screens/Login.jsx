@@ -182,9 +182,9 @@ function Login() {
 
 
 
-              <TextInput placeholder='email' onChangeText={(value) => setEmail(value)} style={styles.textInput} />
+              <TextInput placeholder='email' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
 
-              <TextInput placeholder='password' autoCapitalize='none' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
+              <TextInput placeholder='password' placeholderTextColor={'#2c2f2f'} autoCapitalize='none' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
 
 
 
@@ -211,12 +211,12 @@ function Login() {
                   <Image source={require('../images/DemoLogo.jpeg')}
                     style={{ width: 130, height: 130}} />
                 </SafeAreaView>
-                <TextInput defaultValue={`${def}`} placeholder='first name' onChangeText={(value) => setRegisterFirstName(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='last name' onChangeText={(value) => setRegisterLastName(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='email' onChangeText={(value) => setRegisterEmail(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='password' onChangeText={(value) => setRegisterPassword(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='confirm password' onChangeText={(value) => setRegisterConfirmPassword(value)} style={styles.textInput} />
-                <TextInput onPressIn={() => showDatePicker()} defaultValue={`${BirthDateValue}`} placeholder='birth date' onChangeText={(value) => setRegisterBirthDate(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='first name'placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterFirstName(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='last name' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterLastName(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='email'placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterEmail(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='password' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterPassword(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='confirm password' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterConfirmPassword(value)} style={styles.textInput} />
+                <TextInput onPressIn={() => showDatePicker()} defaultValue={`${BirthDateValue}`} placeholder='birth date' onChangeText={(value) => setRegisterBirthDate(value)} style={styles.textInput} placeholderTextColor={'#2c2f2f'} />
                 <DateTimePickerModal
                   isVisible={isDatePickerVisible}
                   mode="date"
@@ -224,9 +224,9 @@ function Login() {
                   onConfirm={handleConfirm}
                   onCancel={hideDatePicker}
                 />
-                <TextInput defaultValue={`${def}`} placeholder='phone number' onChangeText={(value) => setRegisterPhone(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='preferred position' onChangeText={(value) => setRegisterPosition(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='heigth' onChangeText={(value) => setRegisterHeight(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='phone number' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterPhone(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='preferred position' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterPosition(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='heigth' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterHeight(value)} style={styles.textInput} />
                 <TouchableOpacity onPress={() => { handleSignUp() }} style={styles.signUpbutton}>
                   <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
   textInput: {
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 20,
+    borderRadius: 15,
     borderColor: '#3A98B9',
     padding: 10,
     width: '60%',
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#3A98B9",
     padding: 10,
     width: "60%",
-    borderRadius: 20,
+    borderRadius: 15,
     textAlign: 'center',
     backgroundColor: '#3A98B9'
 
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#3A98B9",
     padding: 10,
     width: "60%",
-    borderRadius: 20,
+    borderRadius: 15,
     textAlign: 'center',
 
 

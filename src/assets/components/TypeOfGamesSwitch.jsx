@@ -32,7 +32,7 @@ export default function TypeOfGamesSwitch({
         style={{
           flex: 1,
           backgroundColor: getSelectionMode == 2 ? "#3A98B9" : "#fff",
-          borderRadius: 20,
+          borderRadius: 15,
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -55,7 +55,7 @@ export default function TypeOfGamesSwitch({
         style={{
           flex: 1,
           backgroundColor: getSelectionMode == 1 ? "#3A98B9" : "#fff",
-          borderRadius: 20,
+          borderRadius: 15,
           justifyContent: "center",
           alignItems: "center",
         }}

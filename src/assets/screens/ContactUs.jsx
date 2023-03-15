@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Linking, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Linking, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ContactUs = () => {
@@ -30,6 +30,8 @@ const ContactUs = () => {
       <Text style={styles.footer}>
         You can also reach us by phone at {phoneNumber} or by email at {emailAddress}. We'll do our best to respond to your message within 24 hours. Thank you for choosing TLV Hoops!
       </Text>
+      <Image source={require('../images/DemoLogo.jpeg')}
+                style={{ width: 200, height: 200 }} />
     </SafeAreaView>
   );
 };
@@ -40,6 +42,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
+   backgroundColor:'#3A98B9'
   },
   title: {
     fontSize: 24,
@@ -56,14 +59,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    backgroundColor: '#3A98B9',
+    backgroundColor: '#fff',
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 15,
     marginBottom: 20,
     minWidth: 150,
   },
   buttonText: {
-    color: '#fff',
+    color: '#3A98B9',
     fontWeight: 'bold',
     textAlign: 'center',
   },

@@ -5,7 +5,8 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
 import PremiumGameDetails from "../screens/PremiumGameDetails";
 
-const GamesList = ({ location, date, startTime, endTime, onPress }) => {
+const GamesList = ({ location, date, startTime, endTime, onPress, gameID }) => {
+console.log("bgubh",gameID);
 
   const navigation = useNavigation();
   return (
@@ -25,7 +26,7 @@ const GamesList = ({ location, date, startTime, endTime, onPress }) => {
           color="#fff"
           style={{ borderRadius: 10, marginRight: 8 }}
         />
-        <View style={{ width: windowWidth - 220 }}>
+        <View style={{ width: windowWidth - 180 }}>
           <Text
             numberOfLines={1}
             style={{
@@ -34,10 +35,10 @@ const GamesList = ({ location, date, startTime, endTime, onPress }) => {
               textTransform: "uppercase",
             }}
           >
-            {location} , {date}
+            {location} 
           </Text>
           <Text style={{ color: "#fff", fontSize: 13 }}>
-            {startTime} - {endTime}
+           {date},  {startTime} - {endTime}
           </Text>
         </View>
       </View>
@@ -47,8 +48,8 @@ const GamesList = ({ location, date, startTime, endTime, onPress }) => {
         style={{
           backgroundColor:'#fff',
           padding: 10,
-          width: 90,
-          borderRadius: 20,
+          width: '20%',
+          borderRadius: 15,
         }}
       >
         <Text 

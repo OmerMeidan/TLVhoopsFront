@@ -15,6 +15,7 @@ import { SliderBox } from 'react-native-image-slider-box'
 import { Dimensions } from 'react-native';
 
 import axios from 'axios'
+import { fadeDuration } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 const HomeScreen = () => {
   const navigation = useNavigation()
   const [gamesTab, setGamesTab] = useState(1);
@@ -76,7 +77,7 @@ const HomeScreen = () => {
 
 
 
-  const sliderData = [require('../images/sliderData1.jpeg'), require('../images/slideroption2.jpg')]
+  const sliderData = [require('../images/slideroption1.jpeg'), require('../images/slideroption2.jpg'), require('../images/slideroption3.jpeg')]
 
 
   // console.log(userDetails);
@@ -84,16 +85,19 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.SafeAreaViewStyle} >
       <ScrollView style={styles.ScrollViewStyle}>
-        <View style={styles.TopView}>
-  
+        <View>
+
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Image source={require('../images/DemoLogo.jpeg')}
-              style={{ width: 100, height: 100 }} />
+            <View style={styles.TopView}>
+              <Text style={styles.HelloUserStyle}>Welcome,  {userDetails.firstName} !</Text>
+              <Image source={require('../images/DemoLogo.jpeg')}
+                style={{ width: 100, height: 100 }} />
+            </View>
           </TouchableOpacity>
+
         </View>
-       
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <SliderBox images={sliderData} dotColor='white' inactiveDotColor='grey' autoplay={true} autoplayInterval={5000} circleLoop={true}  ImageComponentStyle={{borderRadius: 20, width:'90%' }} paginationBoxStyle={{marginright:'20%'}}/>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <SliderBox images={sliderData} dotColor='white' inactiveDotColor='grey' autoplay={true} autoplayInterval={6000} circleLoop={true} ImageComponentStyle={{ borderRadius: 15, width: '90%' }} paginationBoxStyle={{ marginright: '20%' }} />
         </View>
         <View style={{
           paddingTop: '7%',
@@ -116,19 +120,21 @@ const HomeScreen = () => {
         </View>
         <ScrollView style={{ color: 'white', backgroundColor: '#3A98B9' }}>
           {gamesTab == 1 &&
-            CommunityGamesArr.map((game, i) => (
+            CommunityGamesArr.sort((a, b) => new Date(a.date.toString().replace(/\//g, "-")) - new Date(b.date.toString().replace(/\//g, "-"))).map((game, i) => (
               <GamesList
                 key={i}
                 location={game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
                 date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
                 startTime={game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1)}
                 endTime={game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1)}
+                gameID={game.gameID}
                 onPress={() => navigation.navigate('CommunityGameDetails', {
                   location: game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
                   date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
                   startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
                   endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
-                  numOfPlayers: game.participants.length
+                  numOfPlayers: game.participants.length,
+                  gameID:game.gameID
                 })}
               />
             ))}
@@ -140,12 +146,14 @@ const HomeScreen = () => {
                 date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
                 startTime={game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1)}
                 endTime={game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1)}
+                gameID={game.gameID}
                 onPress={() => navigation.navigate('PremiumGameDetails', {
                   location: game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
                   date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
                   startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
                   endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
-                  numOfPlayers: game.participants.length
+                  numOfPlayers: game.participants.length,
+                  gameID:game.gameID
                 }
                 )}
               />
@@ -159,10 +167,11 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   TopView: {
     flexDirection: "row",
-    flex:1,
-    alignItems:'center',
-justifyContent:'center',
-    marginBottom:20,
+    flex: 1,
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginBottom: 10,
 
   },
   SafeAreaViewStyle: {
@@ -173,7 +182,8 @@ justifyContent:'center',
     padding: 20,
   },
   HelloUserStyle: {
-    fontSize: 20,
+    fontSize: 22,
+    fontWeight:'600',
     color: "#fff",
     fontWeight: '400'
   },
@@ -198,7 +208,7 @@ justifyContent:'center',
   button: {
     backgroundColor: '#fff',
     padding: 10,
-    borderRadius: 20,
+    borderRadius: 15,
     textAlign: 'center',
 
   }

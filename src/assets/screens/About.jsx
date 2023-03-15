@@ -4,8 +4,8 @@ import { ScrollView } from "react-native-gesture-handler";
 
 const About = () => {
   return (
-    <ScrollView>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", justifyContent: 'center' }}>
+    <ScrollView style={{backgroundColor:'#3A98B9' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", justifyContent: 'center',  }}>
 
 
         <Text style={styles.header}>ABOUT TLV-HOOPS</Text>
@@ -34,7 +34,7 @@ const About = () => {
 const styles = StyleSheet.create({
   header: {
     fontSize: 30,
-    color: "#3A98B9",
+    color: "#fff",
     padding: '5%'
 
   },
@@ -46,13 +46,13 @@ const styles = StyleSheet.create({
   },
   aboutText: {
     textAlign: 'center',
-    color: "#3A98B9",
+    color: "#fff",
     fontSize: 15,
     width: '90%'
   },
   aboutText2: {
     textAlign: 'center',
-    color: "#3A98B9",
+    color: "#fff",
     fontSize: 15,
     width: '90%',
     padding: '5%'

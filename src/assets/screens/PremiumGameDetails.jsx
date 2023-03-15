@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
     StyleSheet,
     View,
@@ -19,10 +19,12 @@ import axios from 'axios'
 import colors from '../../colors';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps'
-import { CheckBox,Text } from '@rneui/themed';
+import { CheckBox, Text } from '@rneui/themed';
+import { AuthContext } from '../../context/AuthContext';
 
 function PremiumGameDetails({ route }) {
-    const { location, date, startTime, endTime, numOfPlayers } = route.params
+    const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails } = useContext(AuthContext);
+    const { location, date, startTime, endTime, numOfPlayers, gameID } = route.params
     const [GameTitle, setGameTitle] = useState('Premium Game')
     const [GameLocation, setGameLocation] = useState(location)
     const [GameDate, setGameDate] = useState(date)
@@ -35,6 +37,7 @@ function PremiumGameDetails({ route }) {
     const [longitude, setLongitude] = useState(34.8040903)
     const [toggleTermsCheckBox, setToggleTermsCheckBox] = useState(false)
     const [toggleWaiverCheckBox, setToggleWaiverCheckBox] = useState(false)
+    const navigation = useNavigation();
 
     useEffect(() => {
 
@@ -57,6 +60,53 @@ function PremiumGameDetails({ route }) {
         getCord()
 
     }, [])
+
+console.log(gameID);
+    const handleRegisterForPremiumGame = async () => {
+        if (toggleTermsCheckBox && toggleWaiverCheckBox) {
+
+            try {
+                
+                const res = await axios.post('https://tlv-hoops-server.onrender.com/addPlayer', {
+                    gameID: gameID,
+                    player: userDetails.email
+                })
+                if (res.data) {
+                    Alert.alert(
+                        'Congrats!',
+                        `You just registered! to the game in ${location}, ${date} , ${startTime}-${endTime}`,
+                        [
+                            {
+                                text: 'OK',
+                                onPress: () => {
+                                    console.log('OK')
+                              
+                                },
+                            },
+                        ],
+                    )
+                } else {
+                    Alert.alert('Error', 'Failed to add player')
+                }
+            } catch (error) {
+                Alert.alert('Error', 'Failed to add player')
+            }
+        } else {
+            Alert.alert(
+                'ERROR!',
+                'Please confirm Terms&Conditions and Waiver ',
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => {
+                            console.log('OK')
+                        },
+                    },
+                ],
+            )
+        }
+    }
+
     return (
 
         <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
@@ -75,7 +125,7 @@ function PremiumGameDetails({ route }) {
                 </View>
                 <View style={{ width: '70%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
                     <MapView
-                        style={{ width: '100%', height: '100%', borderRadius: '15%' }}
+                        style={{ width: '120%', height: '80%', borderRadius: '15%' }}
                         maxZoomLevel={20}
                         region={{
                             latitude: `${latitude}`,
@@ -113,7 +163,7 @@ function PremiumGameDetails({ route }) {
                         />
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', width: '100%',  justifyContent:'space-around' , margin:'2%'}}>
                     <TouchableOpacity onPress={() => { handleRegisterForPremiumGame() }} style={styles.button}>
                         <Text style={styles.buttonText}>JOIN GAME!</Text>
                     </TouchableOpacity>
@@ -131,8 +181,11 @@ function PremiumGameDetails({ route }) {
 
 const styles = StyleSheet.create({
     Text: {
+        color: "#fff",
         fontFamily: colors.font,
-        marginBottom: '3%'
+        marginBottom: '3%',
+        fontSize: 16,
+        fontWeight:'600'
     },
     button: {
         backgroundColor: "#fff",
@@ -140,7 +193,14 @@ const styles = StyleSheet.create({
         width: "37%",
         borderRadius: 20,
         textAlign: 'center',
+        justifyContent:'space-around'
 
+    },
+    textstyle: {
+        color: "#fff",
+        fontSize: 15,
+        fontWeight: '800',
+        textAlign: 'center',
     },
     buttonText: {
         textAlign: 'center',
