@@ -10,16 +10,16 @@ import {
     Alert,
     Platform,
     TouchableOpacity,
+    Linking
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Tab, TabView, Text, Button } from '@rneui/themed';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios'
 import colors from '../../colors';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps'
-import { CheckBox } from '@rneui/themed';
+import { CheckBox,Text } from '@rneui/themed';
 
 function PremiumGameDetails({ route }) {
     const { location, date, startTime, endTime, numOfPlayers } = route.params
@@ -77,7 +77,7 @@ function PremiumGameDetails({ route }) {
                     <MapView
                         style={{ width: '100%', height: '100%', borderRadius: '15%' }}
                         maxZoomLevel={20}
-                        initialRegion={{
+                        region={{
                             latitude: `${latitude}`,
                             longitude: `${longitude}`,
                             latitudeDelta: 0.00922,
@@ -88,6 +88,7 @@ function PremiumGameDetails({ route }) {
                             image={require('../../040ca4b7d907fc901da64c5015740a13-removebg-preview-removebg-preview.png')}
                         />
                     </MapView>
+                    <Button title='hi' onPress={()=>{Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`)}} ></Button>
                 </View>
 
 

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   StyleSheet,
   View,
   TextInput,
   ImageBackground,
-FlatList,
+  FlatList,
   Image,
   Animated,
   SafeAreaView,
@@ -12,7 +12,7 @@ FlatList,
   Alert,
   Platform,
   TouchableOpacity,
-  ScrollView, Easing
+  ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Tab, TabView, Text } from '@rneui/themed';
@@ -28,22 +28,17 @@ import {
   ANIMATION_TO_VALUE,
   ANIMATION_DURATION,
 } from '../../Constans';
-
+import { AuthContext } from '../../context/AuthContext';
 function PostAGame() {
+  const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
     { label: 'Beginner', value: 'Beginner' },
     { label: 'Mid-Level', value: 'Mid-Level' },
     { label: 'Pro', value: 'Pro' }
   ]);
-  const [openLocation, setOpenLocations] = useState(false)
-  const [LocationsArr, setLocationsArr] = useState([
-    { label: 'Tlv1', value: 'Tlv1' },
-    { label: 'Tlv2', value: 'Tlv2' },
-    { label: 'Tlv3', value: 'Tlv3' },
-  ])
   const navigation = useNavigation()
-  const [Date, setDate] = useState('')
+  const [date, setDate] = useState('')
   const [StartTime, setStartTime] = useState('')
   const [EndTime, setEndTime] = useState('')
   //input default values
@@ -55,31 +50,55 @@ function PostAGame() {
   const [MaximumAge, setMaximumAge] = useState('')
   const [Level, setLevel] = useState('')
   const [MaximumPlayers, setMaximumPlayers] = useState('')
-  const [Price, setPrice] = useState('')
+
   const [Location, setLocation] = useState('')
+  const [courtName, setCourtName] = useState('')
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(false);
   const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
+
+  const refresh = () => {
+    setCourtName('')
+    setLocation('')
+    setDateValue('')
+    setStartValue('')
+    setEndValue('')
+    setMinimumAge('')
+    setMaximumAge('')
+    setMaximumPlayers('')
+    setLevel('')
+    setInputText('')
+    navigation.navigate('Home')
+  }
   //Creating new game
   const handleCreateGame = async () => {
     try {
-      const res = await axios.post('', {
-        date: Date,
-        startTime: StartTime,
-        endTime: EndTime,
-        //createdByUser:token,
-        ageMin: MinimumAge,
-        ageMax: MaximumAge,
-        level: Level, //select
-        //tlvPremium:true/false,
-        price: Price, //price per person or per the rent
-        locationID: Location, //select 
-        //maximum players
-
-      })
+      // 
+      const res = await axios.post('https://tlv-hoops-server.onrender.com/addGame',
+        {
+          courtName: courtName,
+          address: Location,
+          date: date,
+          startTime: StartTime,
+          endTime: EndTime,
+          ageMin: MinimumAge,
+          maximumPlayers: MaximumPlayers,
+          ageMax: MaximumAge,
+          level: Level,
+          tlvpremium: false,
+          price: 0,
+          createdByUser: userDetails.email,
+          approved: false,
+          participants: participantsArr,
+        })
       if (res.status === 200) {
-        Alert.alert("Game Created Successfully")
+        setParticipantsArr([])
+        Alert.alert("Request to created Successfully", '', [{
+          text: 'Take me to home page',
+          onPress: () => {refresh()}
+        }])
+        //make it render again
       }
     }
     catch (error) {
@@ -93,6 +112,12 @@ function PostAGame() {
             text: 'return to home page',
             onPress: () => console.log('user wants to return to home page')
           }])
+      }
+      else if(error.response.status === 409){
+        Alert.alert("Game is already exist",'',[{
+          text:'Ok',
+          onPress:()=>window.location.reload()
+        }])
       }
       console.log(error)
 
@@ -122,8 +147,21 @@ function PostAGame() {
     console.log(day);
 
     // Set the state variables for year, month, and day
-    setDate(day + month + year)
-    setDateValue(day + "/" + month + "/" + year)
+   
+    
+   
+    const finalDate = new Date(year + "-" + month + "-" + day);
+    const today = new Date();
+    if (finalDate.getTime() < today.getTime()) {
+      Alert.alert("This date is expired", 'Ok', [{
+        text: 'Ok',
+        onPress: () =>console.log('ok')
+      }])
+    } else {
+      setDate(day + month + year)
+      setDateValue(day + "/" + month + "/" + year)
+      
+    }
     hideDatePicker();
   };
 
@@ -179,67 +217,61 @@ function PostAGame() {
   }
   console.log(Level)
 
-
+  useEffect(()=>{
+      return(
+        setParticipantsArr([])
+      )
+  },[])
   const [inputText, setInputText] = useState('');
   const [users, setUsers] = useState([]);
+  const [participantsArr, setParticipantsArr] = useState([])
 
-  
   useEffect(() => {
-    const handleSearch = async (searchText) => {
+    const handleSearch = async () => {
       // make your API call to search for user in database here
       try {
-        const response = await axios.post(`https://tlv-hoops-server.onrender.com/playerList?search=${searchText}`);
-        const data = response.data;
+        const response = await axios.post(`https://tlv-hoops-server.onrender.com/playerList`, {});
         // update the state with the search results
-        setUsers(data);
-        console.log('====================================');
-        console.log(data);
-        console.log('====================================');
+        setUsers(response.data);
+        console.log("hi");
       } catch (error) {
         console.error(error);
       }
     };
     // call the handleSearch function with the current input text
-    handleSearch(inputText);
-  }, [inputText]);
+    handleSearch();
+  }, []);
 
-  const renderUserItem = () => {
-    // define how each user item will be rendered in the FlatList
-    // setInputText(text)
-   let a =  users.find(ua=>ua.email.startsWith(inputText))
-   console.log('sdg', a);
-   if(a){
-    return (
-      <View>
-          <Text>{a.email}</Text>
-          {/* add more user details here as needed */}
-        </View>
-      );
-   }
-   else return null;
-      
-    
-  };
-const [isFlatList,setIsFlatList] = useState(false)
-const [SHTZ,setSHTZ] = useState('none')
-const handleFlatList = (text) => {
-  setInputText(text)
-  if(text !== '') {
-    setSHTZ('block')
-  } else {
-    setSHTZ('none')
+  const [SHTZ, setSHTZ] = useState('none')
+  const handleFlatList = (text) => {
+    setInputText(text)
+    if (text !== '') {
+      setSHTZ('block')
+    } else {
+      setSHTZ('none')
+    }
   }
-}
+
+  const handleAddPlayer = (player) => {
+    if (!participantsArr.find(a => a === player)) {
+      setParticipantsArr(prev => [...prev, player])
+    }
+    else {
+      Alert.alert("This user is already invited!")
+    }
+  }
+
+  console.log("hi", participantsArr)
 
   return (
     <SafeAreaView style={{ height: '100%', width: '100%', backgroundColor: 'white' }}>
       <ScrollView>
         <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '8%', flex: 1 }}>
-          <Text h2 style={{color:'#3A98B9'}}>Post Your Game Now!</Text>
-          <Text style={{color:'#3A98B9', textAlign:'center', paddingTop:'5%'}}>Here you can post yoyr game and other players from the community will join you!</Text>
+          <Text h2 style={{ color: '#3A98B9' }}>Post Your Game Now!</Text>
+          <Text style={{ color: '#3A98B9', textAlign: 'center', paddingTop: '5%' }}>Here you can post your game and other players from the community will join you!</Text>
           <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '10%' }}>
-          <TextInput placeholder='Location name' style={styles.textInput} />
-          <TextInput placeholder='Vaild Address of the location' style={styles.textInput} />
+            <TextInput defaultValue={courtName}  placeholder='Court name' style={styles.textInput} onChangeText={text => setCourtName(text)} />
+            <TextInput defaultValue={Location} placeholder='Vaild Address of the location' style={styles.textInput} onChangeText={text => setLocation(text)} />
             <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput} />
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
@@ -247,7 +279,7 @@ const handleFlatList = (text) => {
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
             />
-            <TextInput defaultValue={`${StartValue}`} onPressIn={() => showStartTimePicker()} placeholder='Start Time' style={styles.textInput} />
+            <TextInput  defaultValue={`${StartValue}`} onPressIn={() => showStartTimePicker()} placeholder='Start Time' style={styles.textInput} />
             <DateTimePickerModal
               is24Hour={true}
               isVisible={isStartTimePickerVisible}
@@ -255,7 +287,7 @@ const handleFlatList = (text) => {
               onConfirm={handleConfirmStartTime}
               onCancel={hideStartTimePicker}
             />
-            <TextInput defaultValue={`${EndValue}`} onPressIn={() => showEndTimePicker()} placeholder='End Time' style={styles.textInput} />
+            <TextInput  defaultValue={`${EndValue}`} onPressIn={() => showEndTimePicker()} placeholder='End Time' style={styles.textInput} />
             <DateTimePickerModal
               is24Hour={true}
               isVisible={isEndTimePickerVisible}
@@ -264,72 +296,80 @@ const handleFlatList = (text) => {
               onCancel={hideEndTimePicker}
             />
 
-            <TextInput placeholder='Minimum Age' style={styles.textInput} />
-            <TextInput placeholder='Maximum Age' style={styles.textInput} />
+            <TextInput defaultValue={MinimumAge} placeholder='Minimum Age' onChangeText={text => setMinimumAge(text)} style={styles.textInput} />
+            <TextInput defaultValue={MaximumAge} placeholder='Maximum Age' onChangeText={text => setMaximumAge(text)} style={styles.textInput} />
 
 
 
-            <TextInput placeholder='How many players already?' style={styles.textInput} />
+            <TextInput defaultValue={MaximumPlayers} placeholder='Maximum palyers' onChangeText={text => setMaximumPlayers(text)} style={styles.textInput} />
 
             <TextInput style={styles.textInput}
-                placeholder="Type user's name here"
-                value={inputText}
-                onChangeText={text=>handleFlatList(text)}
-              />
-    
-            <FlatList 
-              style={{ display:`${SHTZ}`,
-              borderWidth: 1,
-              borderColor: '#ccc',
-              borderRadius: 5,
-              width: '50%',
-              marginBottom: '5%',
-              padding: 10,
-              flexGrow: 0}}
+              placeholder="Search for players to join you!"
+              value={inputText}
+              autoCapitalize='none'
+              onChangeText={text => handleFlatList(text)}
+            />
+
+            <FlatList
+              style={{
+                display: `${SHTZ}`,
+                borderWidth: 1,
+                borderColor: '#ccc',
+                borderRadius: 5,
+                width: '50%',
+                marginBottom: '5%',
+                padding: 10,
+                flexGrow: 0
+              }}
               data={users}
               renderItem={({ item }) => {
-              if (item.email.startsWith(inputText)) {
-              return (
-                  <View>
-                    <Text>{item.email}</Text>
-                  </View>
-                    );
-              } else if(item.email.startsWith()) {
-                  return( 
-                  <View></View>
-                        )
-              }
-            }}
+                if (item.firstName.startsWith(inputText) || item.lastName.startsWith(inputText) ) {
+                  return (
+                    <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-around' }}>
+                      <Text>{item.firstName + " " + item.lastName}</Text>
+                      <TouchableOpacity
+                        onPress={() => handleAddPlayer(item.email)}
+                        style={{
+                          backgroundColor: '#3A98B9',
+                          width: 70,
+                          padding: 3,
+                          borderRadius: 20,
+                        }}>
+                        <Text
+                          style={{
+                            color: "#fff",
+                            textAlign: "center",
+                            fontSize: 13,
+                          }}>Add Player
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                } else if (item.firstName.startsWith()) {
+                  return (
+                    <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-around' }}>
+                      <Text>No matches found</Text>
+                      </View>
+                  )
+                }
+              }}
 
-/>
+            />
 
-
-            <TextInput placeholder="Price - if it's free enter 0" style={styles.textInput} />
-            <TextInput placeholder='Host Phone number' style={styles.textInput} />
-            {/* <DropDownPicker
-              placeholder='select level'
-              open={openLocation}
-              value={Location}
-              items={LocationsArr}
-              setOpen={setOpenLocations}
-              setValue={setLocation}
-              setItems={setLocationsArr}
-              style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, width: '50%', marginBottom: '5%', marginLeft: '25%' }}
-            /> */}
-     <DropDownPicker
-              placeholder='select level'
+            <DropDownPicker
+              placeholder='Select Game level'
               open={open}
               value={Level}
               items={items}
               setOpen={setOpen}
               setValue={setLevel}
               setItems={setItems}
-              style={{ borderWidth: 1,  borderRadius: 20,    borderColor: '#3A98B9',  marginBottom: '5%', width :'60%', marginLeft:'20%', }}
+              style={{ borderWidth: 1, borderRadius: 20, borderColor: '#3A98B9', marginBottom: '5%', width: '60%', marginLeft: '20%', }}
             />
 
-        <TouchableOpacity style={styles.Createbutton} onPress={() => handleCreateGame()}>
-          <Text  style={styles.buttonText}>Create</Text>
-        </TouchableOpacity>
+            <TouchableOpacity style={styles.Createbutton} onPress={() => handleCreateGame()}>
+              <Text style={styles.buttonText}>Create</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -348,16 +388,18 @@ const styles = StyleSheet.create({
     width: '60%',
     marginBottom: '5%'
   },
-textInputSearch:{
-  borderWidth: 1,
+  textInputSearch: {
+    borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 20,
     borderColor: '#3A98B9',
     padding: 10,
     width: '60%',
     marginBottom: '5%'
-},
-
+  },
+  AddPlayer: {
+    width: '1%'
+  },
   textInput: {
     borderWidth: 1,
     borderColor: '#ccc',
@@ -401,69 +443,3 @@ textInputSearch:{
 
 
 export default PostAGame;
-
-// import React, { useState, useEffect } from 'react';
-// import { TextInput, View, FlatList, Text } from 'react-native';
-// import axios from 'axios';
-
-// const UserSearch = () => {
-//   const [inputText, setInputText] = useState('');
-//   const [users, setUsers] = useState([]);
-
-//   const handleSearch = async (searchText) => {
-//     // make your API call to search for user in database here
-//     try {
-//       const response = await axios.post(`https://tlv-hoops-server.onrender.com/playerList?search=${searchText}`);
-//       const data = response.data;
-//       // update the state with the search results
-//       setUsers(data);
-//       console.log('====================================');
-//       console.log(data);
-//       console.log('====================================');
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     // call the handleSearch function with the current input text
-//     handleSearch(inputText);
-//   }, [inputText]);
-
-//   const renderUserItem = ({ item }) => {
-//     // define how each user item will be rendered in the FlatList
-//    let a = users.find(a=>a.email.includes(inputText))
-//    console.log(a);
-//    if(a){
-//     return (
-//         <View>
-//           <Text>{a.email}</Text>
-//           {/* add more user details here as needed */}
-//         </View>
-//       );
-//    }
-      
-    
-//   };
-
-//   return (
-//     <>
-//       <TextInput
-//         placeholder="Type user's name here"
-//         value={inputText}
-//         onChangeText={setInputText}
-//       />
-//       {/* <View>
-//         {(users.find(item=>item.email==inputText))
-//         }
-//       </View> */}
-//       <FlatList
-//         data={users}
-//         renderItem={renderUserItem}
-//         keyExtractor={(item) => item._id.toString()}
-//       />
-//     </>
-//   );
-// };
-
-// export default UserSearch;

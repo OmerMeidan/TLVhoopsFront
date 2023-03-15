@@ -4,7 +4,18 @@
     "slug": "RoysPart",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/images/DemoLogo.jpeg",
+    "ios": {
+      "icon": "./src/assets/images/DemoLogo.jpeg",
+      "supportsTablet": true
+    },
+    "android": {
+      "icon": "./src/assets/images/DemoLogo.jpeg",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/DemoLogo.jpeg",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -14,17 +25,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
     "web": {
       "favicon": "./assets/favicon.png"
     }
+    
   }
 }
