@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, SafeAreaView, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import colors from "../../colors";
+
 
 const About = () => {
   return (
@@ -9,12 +11,12 @@ const About = () => {
 
 
         <Text style={styles.header}>ABOUT TLV-HOOPS</Text>
-        <Text style={styles.header2}>What are the "Community" Games?</Text>
-        <Text style={styles.aboutText}>explanation about community games</Text>
-        <Text style={styles.header2}>what are the premium games?</Text>
-        <Text style={styles.aboutText2}>explanation about the premium games</Text>
-
-        <Text style={styles.aboutText}> TLV-Hoops is an innovative application that provides basketball enthusiasts with a platform to connect and engage in community games. With TLV-Hoops, you can post and join 3on3 or 5on5 basketball games by simply sharing the location, date, time, number of players, skill level, and age group.
+        <Text style={styles.header2}>What are "Community" Games?</Text>
+        <Text style={styles.aboutText}>A game in an external court, cost-free, community organized.</Text>
+        <Text style={styles.header2}>What are "Premium" games?</Text>
+        <Text style={styles.aboutText2}>Games in internal and scheduled courts, organized by the app's team, at a small cost.</Text>
+        <Text style={styles.header2}>What is TLV-Hoops?</Text>
+        <Text style={styles.aboutText}> TLV-Hoops is an innovative application that provides basketball enthusiasts with a platform to connect and engage in community games. With TLV-Hoops, you can post and join 3on3 or 5on5 basketball games by simply sharing simple details.
 
           Our goal is to foster a sense of community among basketball players and create a fun, competitive environment for everyone to enjoy. Whether you're an experienced player or just starting, TLV-Hoops offers a welcoming and inclusive space for all.
 
@@ -35,12 +37,12 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     color: "#fff",
-    padding: '5%'
+    padding: '5%', fontFamily: colors.font
 
   },
   header2: {
     fontSize: 22,
-
+    fontFamily: colors.font,
     padding: '5%'
 
   },
@@ -48,14 +50,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: "#fff",
     fontSize: 15,
-    width: '90%'
+    width: '90%',
+    fontFamily: colors.font,
   },
   aboutText2: {
     textAlign: 'center',
     color: "#fff",
     fontSize: 15,
     width: '90%',
-    padding: '5%'
+    padding: '5%',
+    fontFamily: colors.font
   }
 })
 

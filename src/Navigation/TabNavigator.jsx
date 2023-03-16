@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import colors from "../colors";
 
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -26,8 +27,8 @@ const HomeStack = () => {
 const TabNavigator = () => {
     return (
         <Tab.Navigator screenOptions={{
-            headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarStyle: { backgroundColor: "#3A98B9" }, tabBarInactiveTintColor: '#fff', tabBarActiveTintColor: '#155372'
-        }}>
+            headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarStyle: { backgroundColor: "#3A98B9" }, tabBarInactiveTintColor: '#fff', tabBarActiveTintColor: '#155372', tabBarFontFamily: colors.font
+        }} >
 
             < Tab.Screen name="Home" component={HomeStack} options={{
 

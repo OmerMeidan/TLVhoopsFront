@@ -109,4 +109,6 @@ const styles = StyleSheet.create({
         padding: 20,
         height:'100%',
     },
-})
+        backgroundColor:'#3A98B9'
+      },
+)

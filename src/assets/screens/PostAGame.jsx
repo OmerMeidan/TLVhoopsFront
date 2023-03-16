@@ -97,7 +97,7 @@ function PostAGame() {
         setParticipantsArr([])
         Alert.alert("Request to created Successfully", '', [{
           text: 'Take me to home page',
-          onPress: () => {refresh()}
+          onPress: () => { refresh() }
         }])
         //make it render again
       }
@@ -114,21 +114,21 @@ function PostAGame() {
             onPress: () => refresh()
           }])
       }
-      else if(error.response.status === 409){
-        Alert.alert("Game is already exist",'',[{
-          text:'Ok',
-          onPress:()=>window.location.reload()
+      else if (error.response.status === 409) {
+        Alert.alert("Game is already exist", '', [{
+          text: 'Ok',
+          onPress: () => window.location.reload()
         }])
       }
-      else if(error.response.status === 500){
-        if(MaximumPlayers>20){
+      else if (error.response.status === 500) {
+        if (MaximumPlayers > 20) {
           Alert.alert("Maximum players value is more than allowed", "please try again!", [
             {
               text: 'try again',
               onPress: () => console.log('user wants to try again')
             }])
         }
-        else if(MaximumPlayers<4){
+        else if (MaximumPlayers < 4) {
           Alert.alert("Maximum players value is less than allowed", "please try again!", [
             {
               text: 'try again',
@@ -173,18 +173,18 @@ function PostAGame() {
     console.log(day);
 
     // Set the state variables for year, month, and day
-   
+
     const finalDate = new Date(year + "-" + month + "-" + day);
     const today = new Date();
-    if ((finalDate.getTime()+100000000) < today.getTime()) {
+    if ((finalDate.getTime() + 100000000) < today.getTime()) {
       Alert.alert("This date is expired", '', [{
         text: 'Ok',
-        onPress: () =>console.log('ok')
+        onPress: () => console.log('ok')
       }])
     } else {
       setDate(day + month + year)
       setDateValue(day + "/" + month + "/" + year)
-      
+
     }
     hideDatePicker();
   };
@@ -241,11 +241,11 @@ function PostAGame() {
   }
   console.log(Level)
 
-  useEffect(()=>{
-      return(
-        setParticipantsArr([])
-      )
-  },[])
+  useEffect(() => {
+    return (
+      setParticipantsArr([])
+    )
+  }, [])
   const [inputText, setInputText] = useState('');
   const [users, setUsers] = useState([]);
   const [participantsArr, setParticipantsArr] = useState([])
@@ -291,19 +291,19 @@ function PostAGame() {
     <SafeAreaView style={{ height: '100%', width: '100%', backgroundColor: '#3A98B9' }}>
       <ScrollView>
         <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '8%', flex: 1 }}>
-          <Text h2 style={{color:'#fff'}}>Post Your Game Now!</Text>
-          <Text style={{color:'#fff', textAlign:'center', paddingTop:'5%'}}>Here you can post your game and other players from the community will join you!</Text>
+          <Text h2 style={{ color: '#fff', fontFamily: colors.font }}>Post Your Game Now!</Text>
+          <Text style={{ color: '#fff', textAlign: 'center', paddingTop: '5%', fontFamily: colors.font , fontSize:15}}>Here you can post your game and other players from the community will join you!</Text>
           <View style={{ height: '100%', width: '100%', justifyContent: 'flex-start', alignItems: 'center', marginTop: '10%' }}>
-          <TextInput defaultValue={courtName} placeholderTextColor={'black'} onChangeText={text=>setCourtName(text)}  placeholder='Court name' style={styles.textInput} />
-          <TextInput defaultValue={Location} placeholderTextColor={'black'} onChangeText={text=>setLocation(text)} placeholder='Vaild Address of the location' style={styles.textInput} />
-            <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput}  placeholderTextColor={'black'} />
+            <TextInput defaultValue={courtName} placeholderTextColor={'#8c9393'} onChangeText={text => setCourtName(text)} placeholder='Court name' style={styles.textInput} />
+            <TextInput defaultValue={Location} placeholderTextColor={'#8c9393'} onChangeText={text => setLocation(text)} placeholder='Vaild Address of the location' style={styles.textInput} />
+            <TextInput defaultValue={`${DateValue}`} onPressIn={() => showDatePicker()} placeholder='Date' style={styles.textInput} placeholderTextColor={'#8c9393'} />
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
               mode="date"
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
             />
-            <TextInput defaultValue={`${StartValue}`} onPressIn={() => showStartTimePicker()} placeholder='Start Time '  placeholderTextColor={'black'} style={styles.textInput} />
+            <TextInput defaultValue={`${StartValue}`} onPressIn={() => showStartTimePicker()} placeholder='Start Time ' placeholderTextColor={'#8c9393'} style={styles.textInput} />
             <DateTimePickerModal
               is24Hour={true}
               isVisible={isStartTimePickerVisible}
@@ -311,7 +311,7 @@ function PostAGame() {
               onConfirm={handleConfirmStartTime}
               onCancel={hideStartTimePicker}
             />
-            <TextInput defaultValue={`${EndValue}`} onPressIn={() => showEndTimePicker()} placeholder='End Time'  placeholderTextColor={'black'}  style={styles.textInput} />
+            <TextInput defaultValue={`${EndValue}`} onPressIn={() => showEndTimePicker()} placeholder='End Time' placeholderTextColor={'#8c9393'} style={styles.textInput} />
             <DateTimePickerModal
               is24Hour={true}
               isVisible={isEndTimePickerVisible}
@@ -320,15 +320,15 @@ function PostAGame() {
               onCancel={hideEndTimePicker}
             />
 
-            <TextInput defaultValue={MinimumAge} placeholder='Minimum Age' placeholderTextColor={'black'}  onChangeText={text => setMinimumAge(text)} style={styles.textInput} />
-            <TextInput defaultValue={MaximumAge} placeholder='Maximum Age' placeholderTextColor={'black'}  onChangeText={text => setMaximumAge(text)} style={styles.textInput} />
+            <TextInput defaultValue={MinimumAge} placeholder='Minimum Age' placeholderTextColor={'#8c9393'} onChangeText={text => setMinimumAge(text)} style={styles.textInput} />
+            <TextInput defaultValue={MaximumAge} placeholder='Maximum Age' placeholderTextColor={'#8c9393'} onChangeText={text => setMaximumAge(text)} style={styles.textInput} />
 
 
 
-            <TextInput defaultValue={MaximumPlayers} placeholder='Maximum palyers' placeholderTextColor={'black'}  onChangeText={text => setMaximumPlayers(text)} style={styles.textInput} />
+            <TextInput defaultValue={MaximumPlayers} placeholder='Maximum palyers' placeholderTextColor={'#8c9393'} onChangeText={text => setMaximumPlayers(text)} style={styles.textInput} />
 
             <TextInput style={styles.textInput}
-            placeholderTextColor={'black'} 
+              placeholderTextColor={'#8c9393'}
               placeholder="Search for players to join you!"
               value={inputText}
               autoCapitalize='none'
@@ -344,13 +344,14 @@ function PostAGame() {
                 width: '50%',
                 marginBottom: '5%',
                 padding: 10,
-                flexGrow: 0
+                flexGrow: 0,
+                fontFamily: colors.font
               }}
               data={users}
               renderItem={({ item }) => {
-                if (item.firstName.startsWith(inputText) || item.lastName.startsWith(inputText) ) {
+                if (item.firstName.startsWith(inputText) || item.lastName.startsWith(inputText)) {
                   return (
-                    <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-around', backgroundColor:'white' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', backgroundColor: 'white' }}>
                       <Text>{item.firstName + " " + item.lastName}</Text>
                       <TouchableOpacity
                         onPress={() => handleAddPlayer(item.email)}
@@ -372,9 +373,9 @@ function PostAGame() {
                   );
                 } else if (item.firstName.startsWith()) {
                   return (
-                    <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-around' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                       <Text>No matches found</Text>
-                      </View>
+                    </View>
                   )
                 }
               }}
@@ -383,14 +384,14 @@ function PostAGame() {
 
             <DropDownPicker
               placeholder='Select Game level'
-              placeholderTextColor={'black'} 
+              placeholderTextColor={'black'}
               open={open}
               value={Level}
               items={items}
               setOpen={setOpen}
               setValue={setLevel}
               setItems={setItems}
-              style={{ borderWidth: 1, borderRadius: 15, borderColor: '#3A98B9', marginBottom: '5%', width: '60%', marginLeft: '20%', }}
+              style={{ borderWidth: 1, borderRadius: 15, borderColor: '#3A98B9', marginBottom: '5%', width: '60%', marginLeft: '20%',fontFamily: colors.font }}
             />
 
             <TouchableOpacity style={styles.Createbutton} onPress={() => handleCreateGame()}>
@@ -412,9 +413,10 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '60%',
     marginBottom: '5%',
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
+    fontFamily: colors.font
 
-    
+
   },
   textInputSearch: {
     borderWidth: 1,
@@ -423,8 +425,9 @@ const styles = StyleSheet.create({
     borderColor: '#ç',
     padding: 10,
     width: '60%',
-    marginBottom: '5%'
-},
+    marginBottom: '5%',
+    fontFamily: colors.font
+  },
 
 
   a: {
@@ -434,7 +437,8 @@ const styles = StyleSheet.create({
     width: '50%',
     marginBottom: '5%',
     padding: 10,
-    flexGrow: 0
+    flexGrow: 0,
+    fontFamily: colors.font
   },
   selector: {
     borderWidth: 1,
@@ -442,7 +446,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: '50%',
     height: '10%',
-    marginBottom: '5%'
+    marginBottom: '5%',
+    fontFamily: colors.font
   },
 
   Createbutton: {
@@ -456,7 +461,8 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: '#3A98B9',
-    fontSize: 30
+    fontSize: 30,
+    fontFamily: colors.font
   }
 })
 

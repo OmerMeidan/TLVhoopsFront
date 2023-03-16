@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import colors from "../../colors";
 
 export default function TypeOfGamesSwitch({
   selectionMode,
@@ -24,6 +25,7 @@ export default function TypeOfGamesSwitch({
         borderColor: "#3A98B9",
         flexDirection: "row",
         justifyContent: "center",
+
       }}
     >
       <TouchableOpacity
@@ -33,9 +35,11 @@ export default function TypeOfGamesSwitch({
           flex: 1,
           backgroundColor: getSelectionMode == 2 ? "#3A98B9" : "#fff",
           borderRadius: 15,
+
           justifyContent: "center",
           alignItems: "center",
-       
+
+
         }}
       >
 
@@ -44,7 +48,7 @@ export default function TypeOfGamesSwitch({
         <Text
           style={{
             color: getSelectionMode == 1 ? "#3A98B9" : "white",
-            fontSize: 17,   fontWeight: '600'
+            fontSize: 20, fontWeight: '400', fontFamily: colors.font
           }}
         >
           {option1}
@@ -58,13 +62,13 @@ export default function TypeOfGamesSwitch({
           backgroundColor: getSelectionMode == 1 ? "#3A98B9" : "#fff",
           borderRadius: 15,
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "center", fontFamily: colors.font
         }}
       >
         <Text
           style={{
             color: getSelectionMode == 1 ? "white" : "#3A98B9",
-            fontSize: 17,   fontWeight: '600'
+            fontSize: 20, fontWeight: '400', fontFamily: colors.font
           }}
         >
           {option2}

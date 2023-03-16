@@ -66,7 +66,7 @@ const OnBoarding = ({ navigation }) => {
         source={require('../images/boardingg.jpg')} />
       <View style={styles.container}>
         <View style={styles.mainHeaderButton}>
-          <Image source={require('../images/tlvhooks.png')}
+          <Image source={require('../images/tlvhooks2.png')}
             style={{ width: '43%', height: '40%', marginTop: '70%' }} />
           <StatusBar style="auto" />
         </View>
@@ -153,7 +153,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: colors.font
   },
 });
 

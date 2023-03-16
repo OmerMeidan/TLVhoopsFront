@@ -4,6 +4,7 @@ import { Text, View, Image, TextInput, Button, StyleSheet, Alert ,TouchableOpaci
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from '../../context/AuthContext';
 import axios from "axios";
+import colors from "../../colors";
 
 const ViewProfile = () => {
   const { userDetails, setUserDetails } = useContext(AuthContext);
@@ -123,7 +124,7 @@ const ViewProfile = () => {
           <>
             <View style={styles.row}>
               <Text style={styles.header}>First Name:</Text>
-              <Text>{userDetails.firstName}</Text>
+              <Text style={styles.infoText}>{userDetails.firstName}</Text>
             </View>
             <View style={styles.row}>
               <Text style={styles.header}>Last Name:</Text>
@@ -179,7 +180,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     color: '#fff',
-    marginHorizontal: '5%'
+    marginHorizontal: '5%',
+    fontFamily: colors.font
   },
   textInput: {
     flex: 1,
@@ -189,6 +191,7 @@ const styles = StyleSheet.create({
     width: '30%',
     padding: 10,
     fontSize: 16,
+    fontFamily: colors.font
   },
   button: {
     marginTop: '5%',
@@ -198,13 +201,15 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     textAlign: 'center',
 
-
-
+  },
+  infoText:{
+    fontFamily: colors.font
   },
   buttonText: {
     textAlign: 'center',
     color: '#3A98B9',
-    fontSize: 30
+    fontSize: 30,
+    fontFamily: colors.font
   },
 
   infoStyle: {
@@ -215,6 +220,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#ddd',
+    fontFamily: colors.font
   },
   viewStyle: {
     flexDirection: 'row',

@@ -1,11 +1,12 @@
 
 import React, { useEffect, useContext } from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from "axios";
 import ViewProfile from "../assets/screens/ViewProfile";
 import PostAGame from "../assets/screens/PostAGame";
 import About from "../assets/screens/About";
+import Notifications from '../assets/screens/OnBoarding'
 import ContactUs from "../assets/screens/ContactUs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "../assets/components/CustomDrawer";
@@ -13,6 +14,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import TabNavigator from "./TabNavigator";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from '@react-navigation/native';
+import colors from "../colors";
 
 const Drawer = createDrawerNavigator();
 
@@ -21,19 +23,21 @@ const AppStack = () => {
   const navigation = useNavigation()
 
   return (
+
     <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} drawer screenOptions={{
-      headerTintColor:'#fff', 
+      headerTintColor: '#fff',
       headerTitle: '', headerStyle: { backgroundColor: "#3A98B9" },
-      drawerLabelStyle: { marginLeft: -25, fontSize: 15, },
+      drawerLabelStyle: { marginLeft: -25, fontSize: 15, fontFamily: colors.font },
       headerRight: () => (
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", backgroundColor: "#3A98B9" }}>
           <TouchableOpacity onPress={() => navigation.navigate("Notifications")}>
-          <Ionicons
-            name="notifications-outline"
-            size={22}
-            color="#fff"
-            style={{ marginRight: 15 }}
-          />
+            <Ionicons
+              name="notifications-outline"
+              size={22}
+              color="#fff"
+
+              style={{ marginRight: 15 }}
+            />
           </TouchableOpacity>
         </View>
       ),
@@ -41,8 +45,11 @@ const AppStack = () => {
       <Drawer.Screen component={TabNavigator} name="Home Screen" options={{
         drawerIcon: ({ color }) => (
           <Ionicons name="home-outline" size={22} color={color} />
-        )
+        ),
+        drawerLabelStyle: { fontFamily: colors.font, marginLeft: -25, fontSize: 15 },
       }} />
+
+
       <Drawer.Screen component={ViewProfile} name="View Profile" options={{
         drawerIcon: ({ color }) => (
           <Ionicons name="person-outline" size={22} color={color} />
@@ -65,6 +72,7 @@ const AppStack = () => {
       }} />
 
     </Drawer.Navigator>
+
   );
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Linking, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import colors from '../../colors';
 
 const ContactUs = () => {
   const phoneNumber = '+972-555-5555';
@@ -48,15 +49,18 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 60,
+    fontFamily: colors.font
   },
   content: {
     alignItems: 'center',
     marginBottom: 40,
+    
   },
   address: {
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',
+    fontFamily: colors.font
   },
   button: {
     backgroundColor: '#fff',
@@ -64,16 +68,19 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginBottom: 20,
     minWidth: 150,
+    
   },
   buttonText: {
     color: '#3A98B9',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: colors.font
   },
   footer: {
     fontSize: 14,
     textAlign: 'center',
-    paddingTop: 30
+    paddingTop: 30,
+    fontFamily: colors.font
   },
 });
 
