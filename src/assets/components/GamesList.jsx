@@ -4,6 +4,7 @@ import { windowWidth } from "../utilis/Dimensions";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
 import PremiumGameDetails from "../screens/PremiumGameDetails";
+import colors from "../../colors";
 
 const GamesList = ({ location, date, startTime, endTime, onPress, gameID }) => {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ const GamesList = ({ location, date, startTime, endTime, onPress, gameID }) => {
             style={{
               color: "#fff",
               fontSize: 13,
-              textTransform: "uppercase",
+              textTransform: "uppercase",fontFamily: colors.font
             }}
           >
             {location} 

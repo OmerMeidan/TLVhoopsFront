@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from '../../context/AuthContext';
 import { SliderBox } from 'react-native-image-slider-box'
 import { Dimensions } from 'react-native';
-
+import colors from "../../colors";
 import axios from 'axios'
 
 const HomeScreen = () => {
@@ -41,7 +41,7 @@ const HomeScreen = () => {
 
           response.data.forEach(game => {
             if (game.tlvpremium) {
-       
+
 
               setPremiumGamesArr(prevState => [...prevState, game]);
             } else {
@@ -73,14 +73,14 @@ const HomeScreen = () => {
 
     GetUserDetail()
     GetAllGames()
-    setTimeout(GetAllGames,3000)
+    setTimeout(GetAllGames, 3000)
   }, [])
 
 
 
 
 
-  const sliderData = [require('../images/slideroption1.jpeg'), require('../images/slideroption2.jpg'), require('../images/slideroption3.jpeg')]
+  const sliderData = [require('../images/slideroption1.jpeg'), require('../images/slideroption2.jpg'), require('../images/PremiumGameRules2.jpg'), require('../images/slideroption3.jpeg'), require('../images/slider4.jpg'),]
 
 
   // console.log(userDetails);
@@ -100,14 +100,23 @@ const HomeScreen = () => {
 
         </View>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <SliderBox images={sliderData} dotColor='white' inactiveDotColor='grey' autoplay={true} autoplayInterval={6000} circleLoop={true} ImageComponentStyle={{ borderRadius: 15, width: '90%' }} paginationBoxStyle={{ }} />
+          <SliderBox
+            firstItem={0}
+            images={sliderData}
+            dotColor='white'
+            inactiveDotColor='grey'
+            autoplay={true}
+            loop={true}
+            autoplayInterval={8000}
+            ImageComponentStyle={{ borderRadius: 15, width: '90%' }}
+          />
         </View>
         <View style={{
           paddingTop: '7%',
           justifyContent: 'center',
         }}>
           <TouchableOpacity onPress={() => navigation.navigate('About')} style={styles.button}>
-            <Text style={styles.textInput}>New For TLV-HOOPS? Tap here for read About the Community and the Premium Games!</Text>
+            <Text style={styles.textInput}>New In TLV-HOOPS? Tap Here For More Details About the Community and the Premium Games!</Text>
           </TouchableOpacity>
         </View>
 
@@ -123,7 +132,7 @@ const HomeScreen = () => {
         </View>
         <ScrollView style={{ color: 'white', backgroundColor: '#3A98B9' }}>
           {gamesTab == 1 &&
-            CommunityGamesArr.sort((a, b) => new Date(a.date.toString().slice(4) +"-"+a.date.toString().slice(2, 4)+"-"+a.date.toString().slice(0, 2)) - new Date(b.date.toString().slice(4) +"-"+b.date.toString().slice(2, 4)+"-"+b.date.toString().slice(0, 2))).map((game, i) => (
+            CommunityGamesArr.sort((a, b) => new Date(a.date.toString().slice(4) + "-" + a.date.toString().slice(2, 4) + "-" + a.date.toString().slice(0, 2)) - new Date(b.date.toString().slice(4) + "-" + b.date.toString().slice(2, 4) + "-" + b.date.toString().slice(0, 2))).map((game, i) => (
               <GamesList
                 key={i}
                 location={game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
@@ -142,7 +151,7 @@ const HomeScreen = () => {
               />
             ))}
           {gamesTab == 2 &&
-            PremiumGamesArr.sort((a, b) => new Date(a.date.toString().slice(4) +"-"+a.date.toString().slice(2, 4)+"-"+a.date.toString().slice(0, 2)) - new Date(b.date.toString().slice(4) +"-"+b.date.toString().slice(2, 4)+"-"+b.date.toString().slice(0, 2))).map((game, i) => (
+            PremiumGamesArr.sort((a, b) => new Date(a.date.toString().slice(4) + "-" + a.date.toString().slice(2, 4) + "-" + a.date.toString().slice(0, 2)) - new Date(b.date.toString().slice(4) + "-" + b.date.toString().slice(2, 4) + "-" + b.date.toString().slice(0, 2))).map((game, i) => (
               <GamesList
                 key={i}
                 location={game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
@@ -189,16 +198,10 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '600',
     color: "#fff",
-    fontWeight: '400'
+    fontWeight: '600',
+    fontFamily: colors.font
   },
-  CarouselHeader: {
-    marginVertical: 15,
-    flex: 1,
-    fontSize: 15,
-    textAlign: "center",
-    fontWeight: "bold",
-    color: "#fff",
-  },
+
   textInput: {
 
     color: '#3A98B9',
@@ -206,7 +209,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    fontWeight: "600"
+    fontWeight: "400",
+    fontFamily: colors.font
 
   },
   button: {

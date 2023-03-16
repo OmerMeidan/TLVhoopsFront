@@ -8,7 +8,8 @@ import {
   Alert,
   Platform,
   View,
-  InputField, TouchableOpacity, Image
+  InputField, TouchableOpacity, Image,
+  KeyboardAvoidingView
 } from 'react-native';
 import axios from 'axios'
 import { useEffect, useState } from 'react';
@@ -22,6 +23,7 @@ import colors from '../../colors';
 import { Dimensions } from "react-native";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -162,6 +164,7 @@ function Login() {
 
 
   return (
+
     <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: '#3A98B9' }}>
 
       <SafeAreaView style={{ backgroundColor: '#3A98B9' }}>
@@ -180,15 +183,34 @@ function Login() {
             </SafeAreaView>
             <SafeAreaView style={styles.LoginPage}>
 
+       
+                <View style={styles.inputContainer}>
+                  <Ionicons
+                    name="person-outline"
+                    size={20}
+                    color="#666"
+                    style={{ marginRight: 5 }}
+                  />
+                  <TextInput
+                    placeholder='User email'
+                    placeholderTextColor='#8c9393'
+                    onChangeText={(value) => setEmail(value)}
+                    style={styles.textInput}
+                  />
+                </View>
 
 
-              <TextInput placeholder='email' placeholderTextColor={'#8c9393'} onChangeText={(value) => setEmail(value)} style={styles.textInput} />
 
-              <TextInput placeholder='password' placeholderTextColor={'#8c9393'} autoCapitalize='none' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
-
-
-
-
+                <View style={styles.inputContainer}>
+                  <Ionicons
+                    name="ios-lock-closed-outline"
+                    size={20}
+                    color="#666"
+                    style={{ marginRight: 5 }}
+                  />
+                  <TextInput placeholder='Password' placeholderTextColor={'#8c9393'} secureTextEntry={true} autoCapitalize='none' onChangeText={(value) => setPassword(value)} style={styles.textInput} />
+                </View>
+             
             </SafeAreaView>
             <TouchableOpacity onPress={() => { handleLogIn() }} style={styles.button}>
               <Text style={styles.buttonText}>Log In</Text>
@@ -204,19 +226,19 @@ function Login() {
               loop
               autoPlay
             />
-            :
+            :<KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView style={{ backgroundColor: '#3A98B9' }}>
               <SafeAreaView style={styles.SignUpPage}>
                 <SafeAreaView style={{ justifyContent: 'flex-start', backgroundColor: '#3A98B9', }}>
                   <Image source={require('../images/DemoLogo.jpeg')}
-                    style={{ width: 130, height: 130}} />
+                    style={{ width: 130, height: 130 }} />
                 </SafeAreaView>
-                <TextInput defaultValue={`${def}`} placeholder='first name'placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterFirstName(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='last name' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterLastName(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='email'placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterEmail(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='password' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterPassword(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='confirm password' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterConfirmPassword(value)} style={styles.textInput} />
-                <TextInput onPressIn={() => showDatePicker()} defaultValue={`${BirthDateValue}`} placeholder='birth date' onChangeText={(value) => setRegisterBirthDate(value)} style={styles.textInput} placeholderTextColor={'#2c2f2f'} />
+                <TextInput defaultValue={`${def}`} placeholder='first name' placeholderTextColor={'#8c9393'} onChangeText={(value) => setRegisterFirstName(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='last name' placeholderTextColor={'#8c9393'} onChangeText={(value) => setRegisterLastName(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='email' placeholderTextColor={'#8c9393'} onChangeText={(value) => setRegisterEmail(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='password' placeholderTextColor={'#8c9393'} onChangeText={(value) => setRegisterPassword(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='confirm password' placeholderTextColor={'#8c9393'} onChangeText={(value) => setRegisterConfirmPassword(value)} style={styles.textInput} />
+                <TextInput onPressIn={() => showDatePicker()} defaultValue={`${BirthDateValue}`} placeholder='birth date' onChangeText={(value) => setRegisterBirthDate(value)} style={styles.textInput} placeholderTextColor={'#8c9393'} />
                 <DateTimePickerModal
                   isVisible={isDatePickerVisible}
                   mode="date"
@@ -224,14 +246,15 @@ function Login() {
                   onConfirm={handleConfirm}
                   onCancel={hideDatePicker}
                 />
-                <TextInput defaultValue={`${def}`} placeholder='phone number' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterPhone(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='preferred position' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterPosition(value)} style={styles.textInput} />
-                <TextInput defaultValue={`${def}`} placeholder='heigth' placeholderTextColor={'#2c2f2f'} onChangeText={(value) => setRegisterHeight(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='phone number' placeholderTextColor={'#8c9393'} onChangeText={(value) => setRegisterPhone(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='preferred position' placeholderTextColor={'#8c9393'} onChangeText={(value) => setRegisterPosition(value)} style={styles.textInput} />
+                <TextInput defaultValue={`${def}`} placeholder='heigth' placeholderTextColor={'#8c9393'} onChangeText={(value) => setRegisterHeight(value)} style={styles.textInput} />
                 <TouchableOpacity onPress={() => { handleSignUp() }} style={styles.signUpbutton}>
                   <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
               </SafeAreaView>
             </ScrollView>
+            </KeyboardAvoidingView>
           }
         </TabView.Item>
 
@@ -254,15 +277,15 @@ function Login() {
       >
         <Tab.Item
           title="Login"
-          titleStyle={{ fontSize: 12, color: '#fff' }}
-          icon={{ name: 'log-in-outline', type: 'ionicon', color: 'white' }}
+          titleStyle={{ fontSize: 15, color: '#fff', fontFamily: colors.font }}
+          icon={{ name: 'log-in-outline', type: 'ionicon', color: 'white', size: 35 }}
 
         />
         <Tab.Item
 
           title="Sign Up"
-          titleStyle={{ fontSize: 12, color: '#fff' }}
-          icon={{ name: 'basketball-outline', type: 'ionicon', color: 'white' }}
+          titleStyle={{ fontSize: 15, color: '#fff', fontFamily: colors.font }}
+          icon={{ name: 'basketball-outline', type: 'ionicon', color: 'white', size: 35 }}
         />
       </Tab>
 
@@ -281,13 +304,13 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? 20 : 0
   },
   textInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 15,
-    borderColor: '#3A98B9',
     padding: 10,
     width: '60%',
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    fontFamily: colors.font,
+    flex: 1,
+    marginLeft: 5,
+    borderRadius: 15
 
   },
   homePage: {
@@ -334,8 +357,21 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: '#fff',
-    fontSize: 30
+    fontSize: 40,
+    fontFamily: colors.font
   },
+
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    width: '60%',
+    borderRadius: 15,
+  }
 
 
 

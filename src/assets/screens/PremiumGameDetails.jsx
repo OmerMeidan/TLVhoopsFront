@@ -1,4 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+
+
+
+
+import React, { useState, useEffect, useContext } from 'react';
 import {
     StyleSheet,
     View,
@@ -14,15 +18,18 @@ import {
     Button,
     Card
 } from 'react-native';
+import { AuthContext } from '../../context/AuthContext';
+
 import { useNavigation } from '@react-navigation/native';
+import { Tab, TabView, Text } from '@rneui/themed';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios'
 import colors from '../../colors';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Marker } from 'react-native-maps'
-import { CheckBox, Text } from '@rneui/themed';
-import { AuthContext } from '../../context/AuthContext';
+import MapView from 'react-native-maps';
+import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
+import { CheckBox } from '@rneui/themed';
+
 
 function PremiumGameDetails({ route }) {
     const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails } = useContext(AuthContext);
@@ -34,13 +41,12 @@ function PremiumGameDetails({ route }) {
     const [GameEndTime, setGameEndTime] = useState(endTime)
     const [NumOfPlayers, setNumOfPlayers] = useState(numOfPlayers)
     const [GameLevel, setGameLevel] = useState('Pro')
-    const [GamePrice, setGamePrice] = useState('10₪')
-    const [latitude, setLatitude] = useState(32.0872801)
-    const [longitude, setLongitude] = useState(34.8040903)
     const [toggleTermsCheckBox, setToggleTermsCheckBox] = useState(false)
     const [toggleWaiverCheckBox, setToggleWaiverCheckBox] = useState(false)
+    const [toggleRules, setToggleRules] = useState(false)
     const navigation = useNavigation();
-
+    const [latitude, setLatitude] = useState(32.0872801)
+    const [longitude, setLongitude] = useState(34.8040903)
     useEffect(() => {
 
         const getCord = async () => {
@@ -63,15 +69,9 @@ function PremiumGameDetails({ route }) {
 
     }, [])
 
-  
-    
 
-    const handlePlayersList = (participants) => {
-        navigation.navigate("PlayersList"), {
-            participants: participants,
-        }
-    }
-    const handleRegisterForPremiumGame = async () => {
+
+    const handleRegisterForGame = async (participants) => {
         if (toggleTermsCheckBox && toggleWaiverCheckBox) {
 
             try {
@@ -89,7 +89,7 @@ function PremiumGameDetails({ route }) {
                                 text: 'OK',
                                 onPress: () => {
                                     console.log('OK')
-
+                                    navigation.navigate('AppStack')
                                 },
                             },
                         ],
@@ -98,7 +98,8 @@ function PremiumGameDetails({ route }) {
                     Alert.alert('Error', 'Failed to add player')
                 }
             } catch (error) {
-                Alert.alert('Error', 'Failed to add player')
+                console.log(error);
+                Alert.alert('Error!', 'Failed to add player')
             }
         } else {
             Alert.alert(
@@ -117,61 +118,44 @@ function PremiumGameDetails({ route }) {
     }
 
     return (
-
-        <SafeAreaView style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ width: '95%', height: 700, backgroundColor: "#3A98B9", borderRadius: '20%', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
-                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff' }}>{GameTitle}</Text>
-                <View style={{ width: '100%', flex: 1, alignItems: 'flex-start', marginTop: '5%', flexDirection: 'row' }}>
-                    <View style={{ flex: 1, width: '100%', height: '100%' }}>
+        <SafeAreaView style={{ width: '100%', height: '110%', alignItems: 'center', justifyContent: 'center', textAlign: 'center', backgroundColor: '#3A98B9' }}>
+            <View style={{ width: '100%', height: '100%', backgroundColor: "#3A98B9", justifyContent: 'center', textAlign: 'center', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
+                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff', fontWeight: '700', fontFamily: colors.font}}>Premium Game</Text>
+                <View style={{ width: '100%', flex: 1, marginTop: '5%', flexDirection: 'row', justifyContent: 'center', textAlign: 'center', alignItems: 'center' }}>
+                    <View style={{ flex: 1, width: '100%', height: '100%', justifyContent: 'center' }}>
                         <Text style={styles.Text}>{GameLocation}</Text>
-                        <Text style={styles.Text}>{GameDate}</Text>
-                        <Text style={styles.Text}>{GameStartTime}-{GameEndTime}</Text>
+                        <Text style={styles.Text}>{GameDate}, {GameStartTime}-{GameEndTime} </Text>
+
                         <Text style={styles.Text}>{GameLevel} Level</Text>
-                        <Text style={styles.Text}>{NumOfPlayers} players already in</Text>
+                        <Text style={styles.Text}>{NumOfPlayers} Players Already Joined</Text>
 
                     </View>
 
                 </View>
-                <View style={{ width: '70%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
-                    <MapView
-                        style={{ width: '120%', height: '80%', borderRadius: '15%' }}
-                        maxZoomLevel={20}
-                        region={{
-                            latitude: `${latitude}`,
-                            longitude: `${longitude}`,
-                            latitudeDelta: 0.00922,
-                            longitudeDelta: 0.00421,
-                        }}>
-                        <Marker
-                            coordinate={{ latitude: `${latitude}`, longitude: `${longitude}` }}
-                            image={require('../../040ca4b7d907fc901da64c5015740a13-removebg-preview-removebg-preview.png')}
-                        />
-                    </MapView>
-                    <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={styles.mapsButton}>
-                        <Text style={styles.mapbuttonText}>Open Maps</Text>
-                    </TouchableOpacity>
-                </View>
 
 
-                <View style={{ marginTop: '10%' }}>
-                    <Text style={styles.textstyle}>Please read carefully The Terms&Conditions and the Participation Waiver Before Registertation for a game! </Text>
-                    <View style={{ alignItems: 'flex-start', paddingTop: '10%' }}>
-                        <CheckBox
-                            center
-                            title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('TermsAndCo')}>Terms&Conditions</Text>}
-                            checked={toggleTermsCheckBox}
-                            checkedColor={'white'}
-                            containerStyle={{ backgroundColor: 'transparent' }}
-                            onPress={() => setToggleTermsCheckBox(!toggleTermsCheckBox)}
-                        />
-                        <CheckBox
-                            center
-                            title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', paddingLeft: 8 }} onPress={() => navigation.navigate('Waiver')}>Waiver</Text>}
-                            checked={toggleWaiverCheckBox}
-                            checkedColor={'white'}
-                            containerStyle={{ backgroundColor: 'transparent' }}
-                            onPress={() => setToggleWaiverCheckBox(!toggleWaiverCheckBox)}
-                        />
+
+
+                <CheckBox
+                    center
+                    title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline',fontFamily: colors.font }} onPress={() => navigation.navigate('TermsAndCo')}>Terms & Conditions</Text>}
+                    checked={toggleTermsCheckBox}
+                    checkedColor={'white'}
+                    containerStyle={{ backgroundColor: 'transparent' }}
+                    onPress={() => setToggleTermsCheckBox(!toggleTermsCheckBox)}
+                />
+                <CheckBox
+                    center
+                    title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline',fontFamily: colors.font }} onPress={() => navigation.navigate('Waiver')}>Waiver</Text>}
+                    checked={toggleRules}
+                    checkedColor={'white'}
+                    containerStyle={{ backgroundColor: 'transparent' }}
+                    onPress={() => setToggleRules(!toggleRules)}
+                />
+     
+                <View>
+                    <View style={{ alignItems: 'flex-start', paddingTop: '0%' }}>
+                        <Text style={styles.textstyle}>Please read The Terms & Conditions carefully and the Participation Waiver Before Registertation for a game! </Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around', margin: '2%' }}>
@@ -183,9 +167,32 @@ function PremiumGameDetails({ route }) {
                     </TouchableOpacity>
 
                 </View>
+                <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={{ width: '100%', height: '100%', flex: 2, justifyContent: 'center', alignItems: 'center', }}>
+                    <View style={{ width: '100%', height: '100%' }} >
+                        <MapView
+                            style={{ width: '100%', height: '90%', borderRadius: '15%', opacity: '0.9' }}
+                            maxZoomLevel={20}
+                            region={{
+                                latitude: `${latitude}`,
+                                longitude: `${longitude}`,
+                                latitudeDelta: 0.00922,
+                                longitudeDelta: 0.00421,
+                            }}>
+                            <Marker
+                                coordinate={{ latitude: `${latitude}`, longitude: `${longitude}` }}
+                                image={require('../../040ca4b7d907fc901da64c5015740a13-removebg-preview-removebg-preview.png')}
+                            />
+                        </MapView>
+                        {/* <Button title='Open Maps' titleStyle={{}}  onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} /> */}
+
+
+                        {/* <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={styles.mapsButton}>
+                        <Text style={styles.mapbuttonText}>Open Maps</Text>
+                    </TouchableOpacity> */}
+
+                    </View></TouchableOpacity>
             </View>
         </SafeAreaView>
-
     )
 
 }
@@ -195,29 +202,38 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontFamily: colors.font,
         marginBottom: '3%',
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '600',
-        textAlign:'center', 
-    },
-    button: {
-        backgroundColor: "#fff",
-        padding: 10,
-        width: "37%",
-        borderRadius: 15,
-        textAlign: 'center',
-        justifyContent: 'space-around'
-
+        textAlign: 'left',
+        paddingLeft:'6%'
+      
     },
     textstyle: {
         color: "#fff",
-        fontSize: 15,
+        fontSize: 10,
         fontWeight: '800',
         textAlign: 'center',
+        margin: '5%'
     },
     buttonText: {
         textAlign: 'center',
         color: "#3A98B9",
-        fontSize: 20
+        fontSize: 20,
+        
+    },
+    mapbuttonText: {
+        textAlign: 'center',
+        color: "#3A98B9",
+        fontSize: 13
+    },
+    button: {
+        backgroundColor: "#fff",
+        padding: 10,
+        width: "35%",
+        borderRadius: 15,
+        textAlign: 'center',
+        marginBottom: '2%'
+
     },
     mapsButton: {
         backgroundColor: "#fff",
@@ -232,12 +248,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: "#3A98B9",
         fontSize: 50
-    },
-    mapbuttonText: {
-        textAlign: 'center',
-        color: "#3A98B9",
-        fontSize: 13
-    },
+    }
 })
 
 export default PremiumGameDetails;

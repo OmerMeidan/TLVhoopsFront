@@ -36,15 +36,15 @@ function HomeScreenNavBar() {
                 </TabView.Item>
 
                 <TabView.Item style={{ backgroundColor: 'white', width: '100%', height: '100%' }}>
-                    <Text>hi</Text>
+                   
                 </TabView.Item>
 
                 <TabView.Item style={{ backgroundColor: 'white', width: '100%', height: '100%' }}>
-                    <Text>hi</Text>
+                   
                 </TabView.Item>
 
                 <TabView.Item style={{ backgroundColor: 'white', width: '100%', height: '100%' }}>
-                    <Text>hi</Text>
+                
                 </TabView.Item>
 
             </TabView>
@@ -73,12 +73,12 @@ function HomeScreenNavBar() {
                 <Tab.Item
                     style={{ height: '100%', }}
                     title="Post a Game"
-                    titleStyle={{ fontSize: 12 }}
+                    titleStyle={{ fontSize: 12,  }}
                     icon={{ name: "add-circle-outline", type: 'ionicon', color: 'white' }}
                 />
                 <Tab.Item
                     title="Log out"
-                    titleStyle={{ fontSize: 12 }}
+                    titleStyle={{ fontSize: 12, fontFamily: colors.font }}
                     icon={{ name: 'log-out-outline', type: 'ionicon', color: 'white' }}
                 />
             </Tab>

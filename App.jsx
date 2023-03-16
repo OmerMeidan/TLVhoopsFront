@@ -23,20 +23,20 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <AuthProvider style={{backgroundcolor:'#3A98B9'}} >
+    <AuthProvider style={{ backgroundcolor: '#3A98B9' }} >
       {/* <GoogleMapsApiProvider apiKey="AIzaSyA5xU-SY93_xtrSnJMqbi_RT3yf9obFy00"> */}
       <NavigationContainer>
         <Stack.Navigator >
-          <Stack.Screen component={OnBoarding} name="OnBoarding" options={{ headerShown: false  }} />
+          <Stack.Screen component={OnBoarding} name="OnBoarding" options={{ headerShown: false }} />
           <Stack.Screen component={Login} name="Login" options={{ headerShown: false }} />
           <Stack.Screen component={AppStack} name="AppStack" options={{ headerShown: false }} />
+
           <Stack.Screen component={About} name="About" options={{ headerShown: false }} />
-          <Stack.Screen component={PremiumGameDetails} name="PremiumGameDetails" options={{ title: '' }} />
-          <Stack.Screen component={CommunityGameDetails} name="CommunityGameDetails" options={{ title: '' }} />
-          <Stack.Screen component={TermsAndCo} name="TermsAndCo" options={{ title: '' }} />
-          <Stack.Screen component={Waiver} name="Waiver" options={{ title: '' }} />
-          <Stack.Screen component={Notifications} name="Notifications" options={{ title: '' }} />
-          <Stack.Screen component={PlayersList} name="PlayersList" options={{ title: '' }} />
+          <Stack.Screen component={PremiumGameDetails} name="PremiumGameDetails" options={{ title:'' ,   headerTintColor: '#fff', headerStyle: { backgroundColor: "#3A98B9" }}}   />
+          <Stack.Screen component={CommunityGameDetails} name="CommunityGameDetails" options={{ title:'' ,   headerTintColor: '#fff', headerStyle: { backgroundColor: "#3A98B9" }}}   />
+          <Stack.Screen component={TermsAndCo} name="TermsAndCo" options={{ title:'' ,   headerTintColor: '#fff', headerStyle: { backgroundColor: "#3A98B9" }}} />
+          <Stack.Screen component={Waiver} name="Waiver" options={{ title:'' ,   headerTintColor: '#fff', headerStyle: { backgroundColor: "#3A98B9" }}}/>
+          <Stack.Screen component={Notifications} name="Notifications" options={{ title:'' ,   headerTintColor: '#fff', headerStyle: { backgroundColor: "#3A98B9" }}}     />
         </Stack.Navigator>
       </NavigationContainer>
       {/* </GoogleMapsApiProvider> */}
@@ -48,3 +48,5 @@ const App = () => {
 };
 
 export default App;
+
+

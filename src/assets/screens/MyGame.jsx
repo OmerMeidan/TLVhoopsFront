@@ -1,3 +1,7 @@
+
+
+
+
 import React, { useState, useEffect, useContext } from 'react';
 import {
     StyleSheet,
@@ -26,7 +30,7 @@ import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { CheckBox } from '@rneui/themed';
 
 
-function CommunityGameDetails({ route }) {
+function PremiumGameDetails({ route }) {
     const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails } = useContext(AuthContext);
     const { location, date, startTime, endTime, numOfPlayers, gameID } = route.params
     const [GameTitle, setGameTitle] = useState('Community Game')
@@ -38,6 +42,7 @@ function CommunityGameDetails({ route }) {
     const [GameLevel, setGameLevel] = useState('Pro')
     const [toggleTermsCheckBox, setToggleTermsCheckBox] = useState(false)
     const [toggleWaiverCheckBox, setToggleWaiverCheckBox] = useState(false)
+    const [toggleRules, setToggleRules] = useState(false)
     const navigation = useNavigation();
     const [latitude, setLatitude] = useState(32.0872801)
     const [longitude, setLongitude] = useState(34.8040903)
@@ -114,7 +119,7 @@ function CommunityGameDetails({ route }) {
     return (
         <SafeAreaView style={{ width: '100%', height: '110%', alignItems: 'center', justifyContent: 'center', textAlign: 'center', backgroundColor: '#3A98B9' }}>
             <View style={{ width: '100%', height: '100%', backgroundColor: "#3A98B9", justifyContent: 'center', textAlign: 'center', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
-                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff', fontWeight: '700',fontFamily: colors.font }}>{GameTitle}</Text>
+                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff', fontWeight: '700', fontFamily: colors.font }}>{GameTitle}</Text>
                 <View style={{ width: '100%', flex: 1, marginTop: '5%', flexDirection: 'row', justifyContent: 'center', textAlign: 'center', alignItems: 'center' }}>
                     <View style={{ flex: 1, width: '100%', height: '100%', justifyContent: 'center' }}>
                         <Text style={styles.Text}>{GameLocation}</Text>
@@ -130,32 +135,10 @@ function CommunityGameDetails({ route }) {
 
 
 
-                <CheckBox
-                    center
-                    title={<Text style={{ color: 'white', fontSize: 20, textDecorationLine: 'underline', fontFamily: colors.font}} onPress={() => navigation.navigate('TermsAndCo')}>Terms & Conditions</Text>}
-                    checked={toggleTermsCheckBox}
-                    checkedColor={'white'}
-                    containerStyle={{ backgroundColor: 'transparent' }}
-                    onPress={() => setToggleTermsCheckBox(!toggleTermsCheckBox)}
-                />
-                <CheckBox
-                    center
-                    title={<Text style={{ color: 'white', fontFamily: colors.font,fontSize: 20, textDecorationLine: 'underline', }} onPress={() => navigation.navigate('Waiver')}>Waiver</Text>}
-                    checked={toggleWaiverCheckBox}
-                    checkedColor={'white'}
-                    containerStyle={{ backgroundColor: 'transparent' }}
-                    onPress={() => setToggleWaiverCheckBox(!toggleWaiverCheckBox)}
-                />
-                <View>
-                    <View style={{ alignItems: 'flex-start', paddingTop: '0%' }}>
-                        <Text style={styles.textstyle}>Please read The Terms & Conditions carefully and the Participation Waiver Before Registertation for a game! </Text>
-                    </View>
+                <View style={{ alignItems: 'flex-start', paddingTop: '0%' }}>
+                    <Text style={styles.textstyle}>Please read The Terms & Conditions carefully and the Participation Waiver Before Registertation for a game! </Text>
                 </View>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => { handleRegisterForGame() }} style={styles.button}>
-                        <Text style={styles.buttonText}>JOIN GAME!</Text>
-                    </TouchableOpacity>
-                </View>
+
                 <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={{ width: '100%', height: '100%', flex: 2, justifyContent: 'center', alignItems: 'center', }}>
                     <View style={{ width: '100%', height: '100%' }} >
                         <MapView
@@ -194,21 +177,21 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '600',
         textAlign: 'left',
-        marginLeft: 30
+        paddingLeft: '6%'
+
     },
     textstyle: {
         color: "#fff",
-        fontSize: 13,
-        fontWeight: '500',
+        fontSize: 10,
+        fontWeight: '800',
         textAlign: 'center',
-        margin: '5%',
-        fontFamily: colors.font
+        margin: '5%'
     },
     buttonText: {
         textAlign: 'center',
         color: "#3A98B9",
-        fontSize: 30,
-        fontFamily: colors.font
+        fontSize: 20,
+
     },
     mapbuttonText: {
         textAlign: 'center',
@@ -218,7 +201,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: "#fff",
         padding: 10,
-        width: "60%",
+        width: "35%",
         borderRadius: 15,
         textAlign: 'center',
         marginBottom: '2%'
@@ -240,4 +223,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CommunityGameDetails;
+export default PremiumGameDetails;

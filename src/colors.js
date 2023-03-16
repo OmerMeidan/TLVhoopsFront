@@ -1,5 +1,5 @@
 export default {
   primary: "#3A98B9",
   secondary: "",
-  font: "Gill Sans",
+  font: "Arial",
 };
