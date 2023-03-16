@@ -13,6 +13,7 @@ import {
   Platform,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Tab, TabView, Text } from '@rneui/themed';
@@ -325,7 +326,7 @@ function PostAGame() {
 
 
 
-            <TextInput defaultValue={MaximumPlayers} placeholder='Maximum palyers' placeholderTextColor={'#8c9393'} onChangeText={text => setMaximumPlayers(text)} style={styles.textInput} />
+            <TextInput defaultValue={MaximumPlayers} placeholder='Maximum palyers (between 4-20)' placeholderTextColor={'#8c9393'}  onChangeText={text => setMaximumPlayers(text)} style={styles.textInput} />
 
             <TextInput style={styles.textInput}
               placeholderTextColor={'#8c9393'}
@@ -340,10 +341,10 @@ function PostAGame() {
                 display: `${SHTZ}`,
                 borderWidth: 1,
                 borderColor: '#ccc',
-                borderRadius: 5,
-                width: '50%',
+                borderRadius: 3,
+                width: '60%',
                 marginBottom: '5%',
-                padding: 10,
+                padding: 5,
                 flexGrow: 0,
                 fontFamily: colors.font
               }}
@@ -351,7 +352,7 @@ function PostAGame() {
               renderItem={({ item }) => {
                 if (item.firstName.startsWith(inputText) || item.lastName.startsWith(inputText)) {
                   return (
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', backgroundColor: 'white' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'space-around', backgroundColor:'white'}}>
                       <Text>{item.firstName + " " + item.lastName}</Text>
                       <TouchableOpacity
                         onPress={() => handleAddPlayer(item.email)}

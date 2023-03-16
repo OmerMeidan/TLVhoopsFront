@@ -1,7 +1,3 @@
-
-
-
-
 import React, { useState, useEffect, useContext } from 'react';
 import {
     StyleSheet,
@@ -14,9 +10,8 @@ import {
     Alert,
     Platform,
     TouchableOpacity,
-    Linking, 
-    Button,
-    Card
+    Linking,
+
 } from 'react-native';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -33,8 +28,8 @@ import { CheckBox } from '@rneui/themed';
 
 function PremiumGameDetails({ route }) {
     const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails } = useContext(AuthContext);
-    const { location, date, startTime, endTime, numOfPlayers, gameID, participants } = route.params
-    const [GameTitle, setGameTitle] = useState('Premium Game')
+    const { location, date, startTime, endTime, numOfPlayers, gameID } = route.params
+    const [GameTitle, setGameTitle] = useState('Community Game')
     const [GameLocation, setGameLocation] = useState(location)
     const [GameDate, setGameDate] = useState(date)
     const [GameStartTime, setGameStartTime] = useState(startTime)
@@ -98,13 +93,18 @@ function PremiumGameDetails({ route }) {
                     Alert.alert('Error', 'Failed to add player')
                 }
             } catch (error) {
-                console.log(error);
-                Alert.alert('Error!', 'Failed to add player')
+                if(error.response.status === 409){
+                    Alert.alert('Error!', 'You already sign this game')
+                }
+                else{
+                    console.log(error);
+                    Alert.alert('Error!', 'Failed to add player')
+                }
             }
         } else {
             Alert.alert(
                 'ERROR!',
-                'Please confirm Terms&Conditions and Waiver ',
+                'Please confirm Terms & Conditions and Waiver ',
                 [
                     {
                         text: 'OK',
@@ -117,10 +117,14 @@ function PremiumGameDetails({ route }) {
         }
     }
 
+    const handlePlayersLIST = (gameID)=>{
+        navigation.navigate('PlayersList',{gameID:gameID})
+    }
+
     return (
         <SafeAreaView style={{ width: '100%', height: '110%', alignItems: 'center', justifyContent: 'center', textAlign: 'center', backgroundColor: '#3A98B9' }}>
             <View style={{ width: '100%', height: '100%', backgroundColor: "#3A98B9", justifyContent: 'center', textAlign: 'center', alignItems: 'center', borderColor: colors.primary, borderWidth: 3 }}>
-                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff', fontWeight: '700', fontFamily: colors.font}}>Premium Game</Text>
+                <Text h3 h3Style={{ paddingTop: '5%', color: '#fff', fontWeight: '700',fontFamily: colors.font }}>Premium Game</Text>
                 <View style={{ width: '100%', flex: 1, marginTop: '5%', flexDirection: 'row', justifyContent: 'center', textAlign: 'center', alignItems: 'center' }}>
                     <View style={{ flex: 1, width: '100%', height: '100%', justifyContent: 'center' }}>
                         <Text style={styles.Text}>{GameLocation}</Text>
@@ -159,11 +163,11 @@ function PremiumGameDetails({ route }) {
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around', margin: '2%' }}>
-                    <TouchableOpacity onPress={() => { handleRegisterForPremiumGame() }} style={styles.button}>
+                    <TouchableOpacity onPress={() => { handleRegisterForGame() }} style={styles.button}>
                         <Text style={styles.buttonText}>JOIN GAME!</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { handlePlayersList(participants) }} style={styles.button}>
-                        <Text style={styles.buttonText}>PLAYERS LIST</Text>
+                    <TouchableOpacity onPress={() => {  handlePlayersLIST(gameID)  }} style={styles.button}>
+                         <Text style={styles.buttonText}>PLAYERS LIST</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -183,12 +187,6 @@ function PremiumGameDetails({ route }) {
                                 image={require('../../040ca4b7d907fc901da64c5015740a13-removebg-preview-removebg-preview.png')}
                             />
                         </MapView>
-                        {/* <Button title='Open Maps' titleStyle={{}}  onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} /> */}
-
-
-                        {/* <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={styles.mapsButton}>
-                        <Text style={styles.mapbuttonText}>Open Maps</Text>
-                    </TouchableOpacity> */}
 
                     </View></TouchableOpacity>
             </View>
@@ -220,6 +218,20 @@ const styles = StyleSheet.create({
         color: "#3A98B9",
         fontSize: 20,
         
+    },
+    mapbuttonText: {
+        textAlign: 'center',
+        color: "#3A98B9",
+        fontSize: 13
+    },
+    button: {
+        backgroundColor: "#fff",
+        padding: 10,
+        width: "35%",
+        borderRadius: 15,
+        textAlign: 'center',
+        marginBottom: '2%'
+
     },
     mapbuttonText: {
         textAlign: 'center',

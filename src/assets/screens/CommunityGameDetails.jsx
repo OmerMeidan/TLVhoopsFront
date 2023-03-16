@@ -92,13 +92,18 @@ function CommunityGameDetails({ route }) {
                     Alert.alert('Error', 'Failed to add player')
                 }
             } catch (error) {
-                console.log(error);
-                Alert.alert('Error!', 'Failed to add player')
+                if(error.response.status === 409){
+                    Alert.alert('Error!', 'You already sign this game')
+                }
+                else{
+                    console.log(error);
+                    Alert.alert('Error!', 'Failed to add player')
+                }
             }
         } else {
             Alert.alert(
                 'ERROR!',
-                'Please confirm Terms&Conditions and Waiver ',
+                'Please confirm Terms & Conditions and Waiver ',
                 [
                     {
                         text: 'OK',
@@ -109,6 +114,9 @@ function CommunityGameDetails({ route }) {
                 ],
             )
         }
+    }
+    const handlePlayersLIST = (gameID)=>{
+        navigation.navigate('PlayersList',{gameID:gameID})
     }
 
     return (
@@ -151,10 +159,14 @@ function CommunityGameDetails({ route }) {
                         <Text style={styles.textstyle}>Please read The Terms & Conditions carefully and the Participation Waiver Before Registertation for a game! </Text>
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around', margin: '2%' }}>
                     <TouchableOpacity onPress={() => { handleRegisterForGame() }} style={styles.button}>
                         <Text style={styles.buttonText}>JOIN GAME!</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { handlePlayersLIST(gameID) }} style={styles.button}>
+                         <Text style={styles.buttonText}>PLAYERS LIST</Text>
+                    </TouchableOpacity>
+
                 </View>
                 <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={{ width: '100%', height: '100%', flex: 2, justifyContent: 'center', alignItems: 'center', }}>
                     <View style={{ width: '100%', height: '100%' }} >
@@ -172,13 +184,6 @@ function CommunityGameDetails({ route }) {
                                 image={require('../../040ca4b7d907fc901da64c5015740a13-removebg-preview-removebg-preview.png')}
                             />
                         </MapView>
-                        {/* <Button title='Open Maps' titleStyle={{}}  onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} /> */}
-
-
-                        {/* <TouchableOpacity onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}&`) }} style={styles.mapsButton}>
-                        <Text style={styles.mapbuttonText}>Open Maps</Text>
-                    </TouchableOpacity> */}
-
                     </View></TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -218,7 +223,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: "#fff",
         padding: 10,
-        width: "60%",
+        width: "35%",
         borderRadius: 15,
         textAlign: 'center',
         marginBottom: '2%'

@@ -1,6 +1,6 @@
 
 import React, { useState, useContext } from "react";
-import { Text, View, Image, TextInput, Button, StyleSheet, Alert ,TouchableOpacity } from 'react-native';
+import { Text, View, Image, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from '../../context/AuthContext';
 import axios from "axios";
@@ -13,45 +13,45 @@ const ViewProfile = () => {
 
 
 
-    const handleUpdateProfile = async () => {
-        try{
-        const res = await axios.post('https://tlv-hoops-server.onrender.com/editPlayer', {
-    firstName: editedUserDetails.firstName,
-    lastName: editedUserDetails.lastName,
-    email: editedUserDetails.email,
-    birthDate: editedUserDetails.birthDate,
-    phoneNumber: editedUserDetails.phoneNumber,
-    preferredPosition: editedUserDetails.preferredPosition,
-    height: editedUserDetails.height
-        })
-        if(res.data){
-          Alert.alert(
-            'User Details Updated',[
-    {
-      text:'OK',
-      onPress: () => {
-        console.log('OK')
-        navigation.navigate('AppStack')
-    },
-    },
-            ]
-          )
-        } else {
-          Alert.alert('Error')
-        }
-      } catch (error) {
-        console.log(error + 'fdsfsd')
-        Alert.alert('error')
+  const handleUpdateProfile = async () => {
+    try {
+      const res = await axios.post('https://tlv-hoops-server.onrender.com/editPlayer', {
+        firstName: editedUserDetails.firstName,
+        lastName: editedUserDetails.lastName,
+        email: editedUserDetails.email,
+        birthDate: editedUserDetails.birthDate,
+        phoneNumber: editedUserDetails.phoneNumber,
+        preferredPosition: editedUserDetails.preferredPosition,
+        height: editedUserDetails.height
+      })
+      if (res.data) {
+        Alert.alert(
+          'User Details Updated', [
+          {
+            text: 'OK',
+            onPress: () => {
+              console.log('OK')
+              navigation.navigate('AppStack')
+            },
+          },
+        ]
+        )
+      } else {
+        Alert.alert('Error')
       }
-    
+    } catch (error) {
+      console.log(error + 'fdsfsd')
+      Alert.alert('error')
+    }
 
-        setIsEditing(false);
-      };
+
+    setIsEditing(false);
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#3A98B9" }}>
       <Image source={require('../images/DemoLogo.jpeg')} style={{ height: '30%', width: '45%' }} />
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'left' }}>
         {isEditing ? (
           <>
             <View style={styles.row}>
@@ -152,11 +152,13 @@ const ViewProfile = () => {
             </View>
           </>
         )}
+      </View>
         {isEditing ? (
+          <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
           <TouchableOpacity onPress={handleUpdateProfile} style={styles.button}>
             <Text style={styles.buttonText}>Update</Text>
           </TouchableOpacity>
-
+        </View>
 
         ) : (
           <TouchableOpacity onPress={() => setIsEditing(true)} style={styles.button}>
@@ -164,27 +166,31 @@ const ViewProfile = () => {
           </TouchableOpacity>
 
         )}
-      </View>
     </SafeAreaView>
   )
 };
 
 const styles = StyleSheet.create({
   row: {
+    display:'flex',
+    justifyContent:'space-around',
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
   },
   header: {
-    marginRight: 10,
+    width:'25%',
     fontWeight: 'bold',
     fontSize: 16,
     color: '#fff',
     marginHorizontal: '5%',
-    fontFamily: colors.font
+    fontFamily: colors.font,
+    display:'flex',
+    flexDirection:'row',
+   
   },
   textInput: {
-    flex: 1,
+    flex:0.8,
     borderWidth: 1,
     borderRadius: 15,
     borderColor: '#fff',
@@ -208,8 +214,8 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: '#3A98B9',
-    fontSize: 30,
-    fontFamily: colors.font
+    fontSize: 20,
+    fontFamily: colors.font  
   },
 
   infoStyle: {
