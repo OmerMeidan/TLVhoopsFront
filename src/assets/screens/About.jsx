@@ -27,7 +27,7 @@ const About = () => {
           Join TLV-Hoops today and become a part of the vibrant basketball community in your area!</Text>
 
           <Image source={require('../images/DemoLogo.jpeg')}
-                    style={{ width: 200, height: 200 }} />
+                    style={{ width: 170, height: 170,marginBottom:'7%' }} />
       </View>
     </ScrollView>
   );

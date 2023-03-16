@@ -1,6 +1,6 @@
 
-import React, { useEffect, useContext } from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import React, { useEffect, useContext,useState } from "react";
+import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from "axios";
 import ViewProfile from "../assets/screens/ViewProfile";
@@ -15,13 +15,53 @@ import TabNavigator from "./TabNavigator";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from '@react-navigation/native';
 import colors from "../colors";
+import { Badge } from "@rneui/themed";
+import { AuthContext } from "../context/AuthContext";
 
 const Drawer = createDrawerNavigator();
 
-
 const AppStack = () => {
+  const [myGames, setMyGames] = useState([])
+  const [allGames, setAllGames] = useState([])
+  const {notificationCount,setNotificationCount,isRing,setIsRing,userDetails}=useContext(AuthContext)  
   const navigation = useNavigation()
 
+  useEffect(() => {
+    const getPlayerGames = async () => {
+        try {
+            setMyGames([]);
+            const response = await axios.post('https://tlv-hoops-server.onrender.com/gameList', {});
+            if (response.data) {
+                setAllGames(response.data)
+                const matchingGameIDs = response.data.filter(game => userDetails.requests.some(req => req.gameID === game.gameID)).map(game => game.gameID);
+                setMyGames(matchingGameIDs);
+
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+
+    getPlayerGames()
+    const intervalId = setInterval(getPlayerGames, 10000);
+    return () => clearInterval(intervalId);
+}, [])
+
+useEffect(() => {
+    if (myGames.length > 0) {
+        console.log("hi")
+        setIsRing(true)
+        setNotificationCount(myGames.length)
+    } else {
+        setIsRing(false)
+    }
+}, [myGames])
+
+
+console.log(isRing)
   return (
 
     <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} drawer screenOptions={{
@@ -29,17 +69,23 @@ const AppStack = () => {
       headerTitle: '', headerStyle: { backgroundColor: "#3A98B9" },
       drawerLabelStyle: { marginLeft: -25, fontSize: 15, fontFamily: colors.font },
       headerRight: () => (
-        <View style={{ flexDirection: "row", backgroundColor: "#3A98B9" }}>
-          <TouchableOpacity onPress={() => navigation.navigate("Notifications")}>
+        <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Notifications")}
+        >
+          <Badge
+            value={notificationCount}
+            containerStyle={{ position: "absolute", top: -5, left: 10,zIndex:'1' }}
+            badgeStyle={{ backgroundColor: "red",display:isRing?'block':'none' }}
+            />
             <Ionicons
               name="notifications-outline"
               size={22}
               color="#fff"
-
               style={{ marginRight: 15 }}
             />
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
+      </View>
       ),
     }}>
       <Drawer.Screen component={TabNavigator} name="Home Screen" options={{

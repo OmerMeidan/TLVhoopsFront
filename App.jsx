@@ -37,6 +37,8 @@ const App = () => {
           <Stack.Screen component={TermsAndCo} name="TermsAndCo" options={{ title:'' ,   headerTintColor: '#fff', headerStyle: { backgroundColor: "#3A98B9" }}} />
           <Stack.Screen component={Waiver} name="Waiver" options={{ title:'' ,   headerTintColor: '#fff', headerStyle: { backgroundColor: "#3A98B9" }}}/>
           <Stack.Screen component={Notifications} name="Notifications" options={{ title:'' ,   headerTintColor: '#fff', headerStyle: { backgroundColor: "#3A98B9" }}}     />
+          <Stack.Screen component={PlayersList} name="PlayersList" options={{ title: '', headerTintColor:'#fff',headerStyle:{backgroundColor:'#3A98B9'}}} />
+
         </Stack.Navigator>
       </NavigationContainer>
       {/* </GoogleMapsApiProvider> */}

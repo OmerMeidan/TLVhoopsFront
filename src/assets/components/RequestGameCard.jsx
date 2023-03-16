@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useContext} from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { windowWidth } from "../utilis/Dimensions";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -8,9 +8,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 // <ion-icon name="checkmark-circle-outline"></ion-icon>
 // <ion-icon name="close-circle-outline"></ion-icon>
 const RequestGameCard = ({ location, date, startTime, endTime, onPressA, gameID,onPressB }) => {
-
-    
   const navigation = useNavigation();
+    
   return (
     <View
       style={{

@@ -73,7 +73,6 @@ const HomeScreen = () => {
 
     GetUserDetail()
     GetAllGames()
-    setTimeout(GetAllGames, 3000)
   }, [])
 
 
@@ -132,26 +131,58 @@ const HomeScreen = () => {
         </View>
         <ScrollView style={{ color: 'white', backgroundColor: '#3A98B9' }}>
           {gamesTab == 1 &&
-            CommunityGamesArr.sort((a, b) => new Date(a.date.toString().slice(4) + "-" + a.date.toString().slice(2, 4) + "-" + a.date.toString().slice(0, 2)) - new Date(b.date.toString().slice(4) + "-" + b.date.toString().slice(2, 4) + "-" + b.date.toString().slice(0, 2))).map((game, i) => (
-              <GamesList
-                key={i}
-                location={game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
-                date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
-                startTime={game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1)}
-                endTime={game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1)}
-                gameID={game.gameID}
-                onPress={() => navigation.navigate('CommunityGameDetails', {
-                  location: game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
-                  date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
-                  startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
-                  endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
-                  numOfPlayers: game.participants.length,
-                  gameID: game.gameID
-                })}
-              />
-            ))}
+            CommunityGamesArr
+              .filter(game => {
+                const gameDate = new Date(
+                  game.date.toString().slice(4) + "-" + game.date.toString().slice(2, 4) + "-" + game.date.toString().slice(0, 2)
+                );
+                return gameDate >= new Date();
+              })
+              .sort((a, b) => {
+                const dateA = new Date(
+                  a.date.toString().slice(4) + "-" + a.date.toString().slice(2, 4) + "-" + a.date.toString().slice(0, 2)
+                );
+                const dateB = new Date(
+                  b.date.toString().slice(4) + "-" + b.date.toString().slice(2, 4) + "-" + b.date.toString().slice(0, 2)
+                );
+                return dateA - dateB;
+              })
+              .map((game, i) => (
+                <GamesList
+                  key={i}
+                  location={game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
+                  date={game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4)}
+                  startTime={game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1)}
+                  endTime={game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1)}
+                  gameID={game.gameID}
+                  onPress={() => navigation.navigate('CommunityGameDetails', {
+                    location: game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2'),
+                    date: game.date.toString().substr(0, 2) + '/' + game.date.toString().substr(2, 2) + '/' + game.date.toString().substr(4, 4),
+                    startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
+                    endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
+                    numOfPlayers: game.participants.length,
+                    gameID: game.gameID
+                  })}
+                />
+              ))
+          }
           {gamesTab == 2 &&
-            PremiumGamesArr.sort((a, b) => new Date(a.date.toString().slice(4) + "-" + a.date.toString().slice(2, 4) + "-" + a.date.toString().slice(0, 2)) - new Date(b.date.toString().slice(4) + "-" + b.date.toString().slice(2, 4) + "-" + b.date.toString().slice(0, 2))).map((game, i) => (
+            PremiumGamesArr.filter(game => {
+              const gameDate = new Date(
+                game.date.toString().slice(4) + "-" + game.date.toString().slice(2, 4) + "-" + game.date.toString().slice(0, 2)
+              );
+              return gameDate >= new Date();
+            })
+            .sort((a, b) => {
+              const dateA = new Date(
+                a.date.toString().slice(4) + "-" + a.date.toString().slice(2, 4) + "-" + a.date.toString().slice(0, 2)
+              );
+              const dateB = new Date(
+                b.date.toString().slice(4) + "-" + b.date.toString().slice(2, 4) + "-" + b.date.toString().slice(0, 2)
+              );
+              return dateA - dateB;
+            })
+            .map((game, i) => (
               <GamesList
                 key={i}
                 location={game.address.replace(/([a-zA-Z])(\d+)/, '$1 $2')}
@@ -165,12 +196,11 @@ const HomeScreen = () => {
                   startTime: game.startTime.toString().length > 3 ? game.startTime.toString().slice(0, 2) + ":" + game.startTime.toString().slice(2) : game.startTime.toString().slice(0, 1) + ":" + game.startTime.toString().slice(1),
                   endTime: game.endTime.toString().length > 3 ? game.endTime.toString().slice(0, 2) + ":" + game.endTime.toString().slice(2) : game.endTime.toString().slice(0, 1) + ":" + game.endTime.toString().slice(1),
                   numOfPlayers: game.participants.length,
-                  gameID: game.gameID,
-                  participants: game.participants
-                }
-                )}
+                  gameID: game.gameID
+                })}
               />
-            ))}
+            ))
+        }
         </ScrollView>
       </ScrollView>
     </SafeAreaView>
