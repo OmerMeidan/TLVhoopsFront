@@ -23,10 +23,11 @@ const Drawer = createDrawerNavigator();
 const AppStack = () => {
   const [myGames, setMyGames] = useState([])
   const [allGames, setAllGames] = useState([])
-  const {notificationCount,setNotificationCount,isRing,setIsRing,userDetails}=useContext(AuthContext)  
+  const {notificationCount,setNotificationCount,isRing,setIsRing,userDetails,setR,r}=useContext(AuthContext)  
   const navigation = useNavigation()
 
   useEffect(() => {
+    setR(!r)
     const getPlayerGames = async () => {
         try {
             setMyGames([]);
@@ -46,9 +47,9 @@ const AppStack = () => {
 
 
     getPlayerGames()
-    const intervalId = setInterval(getPlayerGames, 10000);
+    const intervalId = setInterval(getPlayerGames, 3000);
     return () => clearInterval(intervalId);
-}, [])
+}, [],[r])
 
 useEffect(() => {
     if (myGames.length > 0) {

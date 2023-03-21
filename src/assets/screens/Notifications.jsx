@@ -8,7 +8,7 @@ import axios from 'axios'
 import { Tab, TabView, Text } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 const Notifications = () => {
-    const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails, notificationCount, setNotificationCount, isRing, setIsRing } = useContext(AuthContext);
+    const { setToken, token, PremiumGamesArr, setPremiumGamesArr, CommunityGamesArr, setCommunityGamesArr, emailToken, userDetails, setUserDetails, notificationCount, setNotificationCount, isRing, setIsRing,r,setR } = useContext(AuthContext);
     const [myGames, setMyGames] = useState([])
     const navigation = useNavigation()
     const [allGames, setAllGames] = useState([])
@@ -63,7 +63,7 @@ const Notifications = () => {
                         },
                         {
                             text: 'Take me to home page',
-                            onPress: () => navigation.navigate("Home")
+                            onPress: () => getPlayerGames()
                         }
                     ])
             }
@@ -99,10 +99,11 @@ const Notifications = () => {
         }
 
 
+
         getPlayerGames()
-        const intervalId = setInterval(getPlayerGames, 10000);
-        return () => clearInterval(intervalId);
-    }, [])
+       setInterval(getPlayerGames, 5000);
+       
+    }, [],[r])
 
     useEffect(() => {
         if (myGames.length > 0) {
@@ -114,8 +115,25 @@ const Notifications = () => {
         }
     }, [myGames])
 
+const getPlayerGames = async () => {
+            try {
+                setMyGames([]);
+                const response = await axios.post('https://tlv-hoops-server.onrender.com/gameList', {});
+                if (response.data) {
+                    setAllGames(response.data)
+                    const matchingGameIDs = response.data.filter(game => userDetails.requests.some(req => req.gameID === game.gameID)).map(game => game.gameID);
+                    setMyGames(matchingGameIDs);
 
-    // console.log(x)
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+
+            navigation.navigate("Home")
+
+        }
+
 
     console.log(myGames)
 

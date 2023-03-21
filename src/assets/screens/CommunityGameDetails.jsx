@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: "#3A98B9",
-        fontSize: 30,
+        fontSize: 20,
         fontFamily: colors.font
     },
     mapbuttonText: {
@@ -222,12 +222,11 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: "#fff",
-        padding: 10,
+        padding: 4.5,
         width: "35%",
         borderRadius: 15,
         textAlign: 'center',
         marginBottom: '2%'
-
     },
     mapsButton: {
         backgroundColor: "#fff",

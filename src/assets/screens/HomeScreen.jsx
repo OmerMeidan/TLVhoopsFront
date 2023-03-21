@@ -79,7 +79,7 @@ const HomeScreen = () => {
 
 
 
-  const sliderData = [require('../images/slideroption1.jpeg'), require('../images/slideroption2.jpg'), require('../images/PremiumGameRules2.jpg'), require('../images/slideroption3.jpeg'), require('../images/slider4.jpg'),]
+  const sliderData = [require('../images/slideroption1.jpeg'), require('../images/slideroption2.jpg'), require('../images/slideroption3.jpeg'), require('../images/slider4.jpg'),]
 
 
   // console.log(userDetails);

@@ -11,8 +11,9 @@ export const AuthProvider = ({ children }) => {
   const [myGames,setMyGames] = useState([])
   const [notificationCount,setNotificationCount]=useState(0)
   const [isRing,setIsRing]=useState(false)
+  const [r,setR]=useState(false)
   return (
-    <AuthContext.Provider value={{ token, setToken,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,setCommunityGamesArr,emailToken,setEmailToken,userDetails,setUserDetails,myGames,setMyGames,notificationCount,setNotificationCount,isRing,setIsRing }}>
+    <AuthContext.Provider value={{ token, setToken,PremiumGamesArr,setPremiumGamesArr,CommunityGamesArr,setCommunityGamesArr,emailToken,setEmailToken,userDetails,setUserDetails,myGames,setMyGames,notificationCount,setNotificationCount,isRing,setIsRing,r,setR }}>
       {children}
     </AuthContext.Provider>
   )
