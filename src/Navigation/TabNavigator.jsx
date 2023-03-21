@@ -37,7 +37,7 @@ const TabNavigator = () => {
 
                 )
             }} />
-            < Tab.Screen name="Post A Game" component={PostAGame} options={{
+            < Tab.Screen name="Post Community Game" component={PostAGame} options={{
                 tabBarIcon: ({ color, size }) => (
                     <Ionicons name="add" color={color} size={size} />
                 )
